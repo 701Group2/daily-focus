@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.css";
+import ToDoItem from "./ToDoItem";
 
 const { useState } = React;
 
@@ -42,19 +43,13 @@ function ToDoList() {
             <div className="list-container">
                 {
                     todoList.map((object, index) => (
-                        <div className="list-tile" key={index}>
-                            <label>
-                                <input type="checkbox" checked={object.checked} onClick={() => toggleCheck(index)}></input>
-                                {
-                                    object.checked 
-                                        ? 
-                                        <s>{object.text}</s>
-                                        :
-                                        object.text
-                                }
-                                <button onClick={() => deleteItem(index)}>Delete</button>
-                            </label>
-                        </div>
+                        <ToDoItem 
+                            key={index}
+                            checked={object.checked}
+                            text={object.text}
+                            onCheckboxClicked={() => toggleCheck(index)}
+                            onDelete={() => deleteItem(index)}
+                        />
                     ))
                 }
             </div>
