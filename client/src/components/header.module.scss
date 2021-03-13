@@ -8,4 +8,30 @@
     -webkit-box-shadow: 0px 7px 20px 0px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0px 7px 20px 0px rgba(0, 0, 0, 0.1);
     box-shadow: 0px 7px 20px 0px rgba(0, 0, 0, 0.1);
+
+    .focusLogo {
+        width: 20%;
+        text-align: center;
+    }
+    
+    .dateTime {
+        width: 20%;
+        color: #7D7D7D;
+    }
+    .searchBar {
+        border: 2px solid #7D7D7D;
+        color: #7D7D7D;
+        border-radius: 20px;
+        padding: 4px 0px 4px 20px;
+        width: 35%;
+    }
+
+    .addWidget {
+        text-align: center;
+        width: 15%;
+    }
+
+    .userIcon {
+        width: 10%;
+    }
 }
