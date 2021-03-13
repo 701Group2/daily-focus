@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core";
+import { IconButton, makeStyles } from "@material-ui/core";
+import PersonIcon from "@material-ui/icons/Person";
 
 import styles from "./Header.module.scss";
 import FocusLogo from "../images/focus-logo.svg";
@@ -14,6 +15,17 @@ const useStyles = makeStyles({
     label: {
         textTransform: "capitalize",
         fontSize: "1.25rem",
+    },
+    icon: {
+        "background": "#30A0F5",
+        "padding": 10,
+        "&:hover": {
+            backgroundColor: "#303f9f",
+        },
+    },
+    iconLabel: {
+        fill: "white",
+        fontSize: "2rem",
     },
 });
 
@@ -40,7 +52,11 @@ export default function Header() {
                 </Button>
             </div>
 
-            <div className={styles.userIcon}>:D</div>
+            <div className={styles.userIcon}>
+                <IconButton aria-label="user menu" classes={{ root: classes.icon }}>
+                    <PersonIcon classes={{ root: classes.iconLabel }} />
+                </IconButton>
+            </div>
         </header>
     );
 }
