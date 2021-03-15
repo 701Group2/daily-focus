@@ -1,3 +1,4 @@
+const database = require("./firebase").database;
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -39,3 +40,17 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+// Example of writing to database
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!');
+  database.ref("/").set("new test", function(error) {
+    if (error) {
+      // The write failed...
+      console.log("Failed with error: " + error)
+    } else {
+      // The write was successful...
+      console.log("success")
+    }
+})
+});
