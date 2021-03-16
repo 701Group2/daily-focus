@@ -2,9 +2,8 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import { IconButton, makeStyles } from "@material-ui/core";
 import PersonIcon from "@material-ui/icons/Person";
-
 import styles from "./Header.module.scss";
-import FocusLogo from "../images/focus-logo.svg";
+import FocusLogo from "../../images/focus-logo.svg";
 
 const useStyles = makeStyles({
     root: {
