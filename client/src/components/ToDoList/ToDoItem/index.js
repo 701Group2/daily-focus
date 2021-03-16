@@ -1,29 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { Collapse, Checkbox, List, ListItem, ListItemIcon, ListItemText, ListItemSecondaryAction, IconButton } from "@material-ui/core";
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import "./style.css"
 
-function ToDoItem({ checked, text, onDelete, onCheckboxClicked }) {
+function ToDoItem({ checked, title, time, details, onDelete, onCheckboxClicked }) {
+    const [openDetails, setOpenDetails] = useState(false);
+
     return (
-        <div className="list-tile">
-            <label>
-                <input type="checkbox" checked={checked} onClick={onCheckboxClicked}></input>
-                {
-                    checked 
-                        ? 
-                        <s>{text}</s>
-                        :
-                        text
+        <div>
+            <ListItem button onClick={() => setOpenDetails(!openDetails)}>
+                <ListItemIcon>
+                    <Checkbox 
+                        checked={checked}
+                        onChange={onCheckboxClicked}
+                        color="primary"
+                    />
+                </ListItemIcon>
+                <ListItemText 
+                    primary={title} 
+                    style={{
+                        textDecoration: checked ? "line-through" : "none",
+                        color: checked ? "grey" : "black"
+                    }}  
+                />
+                {(checked || openDetails) && 
+                    <ListItemSecondaryAction>
+                        <IconButton edge="end" onClick={onDelete}>
+                            <RemoveCircleIcon />
+                        </IconButton>
+                    </ListItemSecondaryAction>
                 }
-                <button onClick={onDelete}>Delete</button>
-            </label>
+            </ListItem>
+            <Collapse in={openDetails} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                    <ListItem className="sub-item">
+                        <ListItemIcon />
+                        <ListItemText primary={time} style={{ color: "grey" }} />
+                    </ListItem>
+                    <ListItem className="sub-item">
+                        <ListItemIcon />
+                        <ListItemText primary={details} style={{ color: "grey" }} />
+                    </ListItem>
+                </List>
+            </Collapse>
         </div>
     );
 }
 
 ToDoItem.propTypes = {
-    checked: PropTypes.bool,
-    text: PropTypes.string,
-    onDelete: PropTypes.func,
-    onCheckboxClicked: PropTypes.func
+    checked: PropTypes.bool.isRequired,
+    title: PropTypes.string.isRequired,
+    time: PropTypes.string.isRequired,
+    details: PropTypes.string.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onCheckboxClicked: PropTypes.func.isRequired
 };
 
 export default ToDoItem;

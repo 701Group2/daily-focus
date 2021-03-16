@@ -1,8 +1,31 @@
 .container {
     margin: 10px;
+    width: 25%;
 }
 
 .list-container {
     display: flex;
     flex-direction: column;
+}
+
+.todo-list-title {
+    text-align: center;
+    background-color: #30A0F5;
+    margin-bottom: 1.5vh;
+}
+
+.todo-list-title-select {
+    color: white !important;
+}
+
+.MuiSelect-icon {
+    color: white !important;
+}
+
+.MuiFab-primary {
+    background-color: #30A0F5 !important;
+}
+
+.MuiCardActions-root {
+    justify-content: flex-end;
 }

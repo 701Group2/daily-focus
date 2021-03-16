@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { Card, CardActions, CardHeader, Fab, List, MenuItem, Select } from "@material-ui/core";
+import AddIcon from '@material-ui/icons/Add';
 import "./style.css";
 import ToDoItem from "./ToDoItem";
+import AddToDo from "./AddToDo";
+import UpcomingToDo from "./UpcomingToDo";
 
 const saveListToStorage = (list) => {
     const listJson = JSON.stringify(list);
     localStorage.setItem("todoList", listJson);
 };
 
+const today = new Date().toISOString().split("T")[0];
+
 function ToDoList() {
-    const [currentValue, setCurrentValue] = useState("");
-    const [todoList, setTodoList] = useState([]);
+    const [isAddingTask, setIsAddingTask] = useState(false);
+    const [selectedTimeline, setSelectedTimeline] = useState("today");
+    const [todoList, setTodoList] = useState({ [today]: [] });
 
     useEffect(() => {
         const savedTodoListJson = localStorage.getItem("todoList");
@@ -19,55 +26,91 @@ function ToDoList() {
         }
     }, []);
 
-    const addNewItem = e => {
-        e.preventDefault();
-        const newItemObject = {
+    const addTask = (date, time, title, details) => {
+        const newTaskObject = {
             checked: false,
-            text: currentValue
-        };
-        const newList = [...todoList, newItemObject];
+            time,
+            title,
+            details
+        }
+        const currentListOnThatDate = todoList[date] || [];
+        const newList = [...currentListOnThatDate, newTaskObject];
+        const todoListCopy = {...todoList};
+        todoListCopy[date] = newList;
+        setTodoList(todoListCopy);
+        console.log(todoListCopy);
+        setIsAddingTask(false);
+        saveListToStorage(todoListCopy);
+    };
+
+    const deleteItem = (index, date) => {
+        const newListOnThatDay = [...todoList[date]];
+        newListOnThatDay.splice(index, 1);
+        const newList = {...todoList};
+        newList[date] = newListOnThatDay;
         setTodoList(newList);
-        setCurrentValue("");
         saveListToStorage(newList);
     };
 
-    const deleteItem = index => {
-        const newList = [...todoList];
-        newList.splice(index, 1);
-        setTodoList(newList);
-        saveListToStorage(newList);
-    };
-
-    const toggleCheck = index => {
-        const newList = [...todoList];
-        newList[index].checked = !newList[index].checked;
+    const toggleCheck = (index, date) => {
+        const newListOnThatDay = [...todoList[date]];
+        newListOnThatDay[index].checked = !newListOnThatDay[index].checked;
+        const newList = {...todoList};
+        newList[date] = newListOnThatDay;
         setTodoList(newList);
         saveListToStorage(newList);
     };
 
     return (
-        <div className="container">
-            <h2>My Todo for the Day</h2>
+        <Card className="container">
+            {isAddingTask ?
+            <AddToDo 
+                cancelClicked={() => setIsAddingTask(false)}
+                addClicked={addTask}
+            /> : 
             <div>
-                <label>Enter your task: </label>
-                <input type="text" onChange={e => setCurrentValue(e.target.value)} value={currentValue}></input>
-                <button type="submit" onClick={addNewItem}>Add Task</button>
-            </div>
-
-            <div className="list-container">
-                {
-                    todoList.map((object, index) => (
-                        <ToDoItem 
-                            key={index}
-                            checked={object.checked}
-                            text={object.text}
-                            onCheckboxClicked={() => toggleCheck(index)}
-                            onDelete={() => deleteItem(index)}
-                        />
-                    ))
+                <CardHeader 
+                    title={
+                        <Select
+                            defaultValue="today" 
+                            className="todo-list-title-select" 
+                            disableUnderline
+                            onChange={(e) => setSelectedTimeline(e.target.value)}
+                        >
+                            <MenuItem value="today">Today</MenuItem>
+                            <MenuItem value="upcoming">Upcoming</MenuItem>
+                        </Select>
+                    }
+                    className="todo-list-title"
+                />
+                {selectedTimeline === "upcoming" ?
+                    <UpcomingToDo />
+                    :
+                    <div>
+                        <List>
+                            {
+                                todoList[today].map((object, index) => (
+                                    <ToDoItem 
+                                        key={index}
+                                        checked={object.checked}
+                                        title={object.title}
+                                        time={object.time}
+                                        details={object.details}
+                                        onCheckboxClicked={() => toggleCheck(index, today)}
+                                        onDelete={() => deleteItem(index, today)}
+                                    />
+                                ))
+                            }
+                        </List>
+                        <CardActions>
+                            <Fab color="primary" size="medium" onClick={() => setIsAddingTask(true)}>
+                                <AddIcon />
+                            </Fab>
+                        </CardActions>
+                    </div>
                 }
-            </div>
-        </div>
+            </div>}
+        </Card>
     );
 }
 
