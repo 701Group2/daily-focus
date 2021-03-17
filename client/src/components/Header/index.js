@@ -2,8 +2,9 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import { IconButton, makeStyles } from "@material-ui/core";
 import PersonIcon from "@material-ui/icons/Person";
-import styles from "./Header.module.scss";
+import styles from "./style.module.scss";
 import FocusLogo from "../../images/focus-logo.svg";
+import SearchBar from "../SearchBar";
 
 const useStyles = makeStyles({
     root: {
@@ -39,7 +40,9 @@ export default function Header() {
 
             <div className={styles.dateTime}>10:09 AM | Monday 8 March</div>
 
-            <div className={styles.searchBar}>Google Search</div>
+            <div className={styles.searchBar}>
+                <SearchBar />
+            </div>
 
             <div className={styles.addWidget}>
                 <Button
