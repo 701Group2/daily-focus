@@ -1,6 +1,6 @@
 var express = require("express");
 var usersRouter = express.Router();
-const emptyLogin = require("./../validators");
+const { emptyLogin } = require("./../validators");
 const firebase = require("firebase");
 const database = require("./../firebase").database;
 
@@ -34,29 +34,42 @@ function login(req, res) {
         });
 }
 
-function signup (req, res) {
+function signup(req, res) {
     const newUser = {
         email: req.body.email,
-		password: req.body.password,
+        password: req.body.password,
     };
 
-    const { valid, errors } = validateSignUpData(newUser);
+    let token, userId;
 
-	if (!valid) return res.status(400).json(errors);
+    firebase
+        .auth()
+        .createUserWithEmailAndPassword(
+            newUser.email,
+            newUser.password
+        )
+        .then((data) => {
+            userId = data.user.uid;
+            return data.user.getIdToken();
+        })
+        .then((idtoken) => {
+            token = idtoken;
+            const user = {
+                email: newUser.email,
+            };
 
-    database.ref('/').once('value').then((snapshot) => {
-        var existingEmail = (snapshot.val() && snapshot.val()[newUser.email]) 
-        if (existingEmail != null ) {
-            return res.status(400).json({ Message: 'this email address is already in use' }); 
-        } else {
-            return firebase
-            .auth()
-            .createUserWithEmailAndPassword(
-                newUser.email, 
-                newUser.password
-            );
-        }
-    })
+            return database
+                .ref('/')
+                .update({
+                    [userId]: user
+                })
+        })
+        .then(() => {
+            return res.status(201).json({ token });
+        })
+        .catch((err) => {
+            return res.status(400).json({ message: err.message });
+        });
 }
 
 module.exports = {
