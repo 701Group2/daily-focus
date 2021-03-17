@@ -1,17 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardActions, CardHeader, Fab, List, MenuItem, Select } from "@material-ui/core";
-import AddIcon from '@material-ui/icons/Add';
+import moment from "moment";
+import { Card, CardHeader, MenuItem, Select } from "@material-ui/core";
 import "./style.css";
-import ToDoItem from "./ToDoItem";
 import AddToDo from "./AddToDo";
 import UpcomingToDo from "./UpcomingToDo";
+import TodaysToDo from "./TodaysToDo";
 
 const saveListToStorage = (list) => {
     const listJson = JSON.stringify(list);
     localStorage.setItem("todoList", listJson);
 };
 
-const getUpcomingToDoItems = (currentToDoList) => {
+const sortOverallTodosByDate = (overallTodos) => {
+    let sorted = {};
+    Object.keys(overallTodos).sort().forEach(date => {
+        sorted[date] = overallTodos[date];
+    });
+    return sorted;
+};
+
+const sortSpecificTodoListByTime = (todos) => todos.sort((thisTodo, otherTodo) => thisTodo.time.localeCompare(otherTodo.time));
+
+const getUpcomingToDoItems = (currentToDoList, today) => {
     let upcomingToDoItems = {...currentToDoList};
     if (upcomingToDoItems[today]) {
         delete upcomingToDoItems[today];
@@ -19,17 +29,24 @@ const getUpcomingToDoItems = (currentToDoList) => {
     return upcomingToDoItems;
 };
 
-const today = new Date().toISOString().split("T")[0];
-
 function ToDoList() {
+    const [todaysDate, setTodaysDate] = useState(moment().format("YYYY-MM-D"));
     const [isAddingTask, setIsAddingTask] = useState(false);
     const [selectedTimeline, setSelectedTimeline] = useState("today");
-    const [todoList, setTodoList] = useState({ [today]: [] });
+    const [todoList, setTodoList] = useState({ [todaysDate]: [] });
 
     useEffect(() => {
+        const newTodaysDate = moment().format("YYYY-MM-D");
+        setTodaysDate(newTodaysDate);
         const savedTodoListJson = localStorage.getItem("todoList");
+        let savedTodoList;
         if (savedTodoListJson) {
-            const savedTodoList = JSON.parse(savedTodoListJson);
+            savedTodoList = JSON.parse(savedTodoListJson);
+            setTodoList(savedTodoList);
+        }
+        if (!savedTodoListJson || !savedTodoList[newTodaysDate]) {
+            savedTodoList = {};
+            savedTodoList[newTodaysDate] = [];
             setTodoList(savedTodoList);
         }
     }, []);
@@ -40,11 +57,15 @@ function ToDoList() {
             time,
             title,
             details
-        }
+        };
         const currentListOnThatDate = todoList[date] || [];
         const newList = [...currentListOnThatDate, newTaskObject];
-        const todoListCopy = {...todoList};
+        sortSpecificTodoListByTime(newList);
+
+        let todoListCopy = {...todoList};
         todoListCopy[date] = newList;
+        todoListCopy = sortOverallTodosByDate(todoListCopy);
+
         setTodoList(todoListCopy);
         setIsAddingTask(false);
         saveListToStorage(todoListCopy);
@@ -92,34 +113,19 @@ function ToDoList() {
                 />
                 {selectedTimeline === "upcoming" ?
                     <UpcomingToDo 
-                        upcomingToDoList={getUpcomingToDoItems(todoList)}
+                        upcomingToDoList={getUpcomingToDoItems(todoList, todaysDate)}
                         switchToAdd={() => setIsAddingTask(true)}
                         toggleCheck={toggleCheck}
                         deleteItem={deleteItem}
                     />
                     :
-                    <div>
-                        <List disablePadding>
-                            {
-                                todoList[today].map((object, index) => (
-                                    <ToDoItem 
-                                        key={index}
-                                        checked={object.checked}
-                                        title={object.title}
-                                        time={object.time}
-                                        details={object.details}
-                                        onCheckboxClicked={() => toggleCheck(index, today)}
-                                        onDelete={() => deleteItem(index, today)}
-                                    />
-                                ))
-                            }
-                        </List>
-                        <CardActions>
-                            <Fab color="primary" size="medium" onClick={() => setIsAddingTask(true)}>
-                                <AddIcon />
-                            </Fab>
-                        </CardActions>
-                    </div>
+                    <TodaysToDo 
+                        todoList={todoList[todaysDate]}
+                        switchToAdd={() => setIsAddingTask(true)}
+                        todaysDate={todaysDate}
+                        toggleCheck={toggleCheck}
+                        deleteItem={deleteItem}
+                    />
                 }
             </div>}
         </Card>

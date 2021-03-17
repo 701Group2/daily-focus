@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { CardActions, Fab, List, ListSubheader } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import ToDoItem from "../ToDoItem";
+import moment from "moment";
 
 function UpcomingToDo({ upcomingToDoList, switchToAdd, toggleCheck, deleteItem }) {
     return (
@@ -14,7 +15,7 @@ function UpcomingToDo({ upcomingToDoList, switchToAdd, toggleCheck, deleteItem }
                         subheader={
                             upcomingToDoList[date].length > 0 ?
                                 <ListSubheader>
-                                    {date}
+                                    {moment(date).format("ddd MMMM Do, YYYY")}
                                 </ListSubheader>
                             :
                                 null

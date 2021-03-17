@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import moment from "moment";
 import { Button, CardActions, CardHeader, TextField } from "@material-ui/core";
 import "./styles.css";
 
-const currentDateTime = new Date().toISOString();
-const currentDate = currentDateTime.split("T")[0];
-const currentTime = currentDateTime.split("T")[1].slice(0, -8);
+const currentDate = moment().format("YYYY-MM-D");
+const currentTime = moment().format("HH:mm");
 
 function AddToDo({ cancelClicked, addClicked }) {
     const [selectedDate, setSelectedDate] = useState(currentDate);
@@ -18,6 +18,7 @@ function AddToDo({ cancelClicked, addClicked }) {
             <CardHeader 
                 title="Add Task"
                 className="todo-list-title"
+                disableTypography
             />
             <form>
                 <div className="todo-add-field">
@@ -56,12 +57,12 @@ function AddToDo({ cancelClicked, addClicked }) {
         
             </form>
             <CardActions>
-            <Button onClick={() => addClicked(selectedDate, selectedTime, currentTitle, currentDetails)}>
-                Add Task
-            </Button>
-            <Button onClick={cancelClicked}>
-                Cancel
-            </Button>
+                <Button onClick={() => addClicked(selectedDate, selectedTime, currentTitle, currentDetails)}>
+                    Add Task
+                </Button>
+                <Button onClick={cancelClicked}>
+                    Cancel
+                </Button>
             </CardActions>
         </div>
     );

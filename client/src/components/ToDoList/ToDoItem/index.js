@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Collapse, Checkbox, List, ListItem, ListItemIcon, ListItemText, ListItemSecondaryAction, IconButton } from "@material-ui/core";
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import "./style.css"
+import moment from "moment";
 
 function ToDoItem({ checked, title, time, details, onDelete, onCheckboxClicked }) {
     const [openDetails, setOpenDetails] = useState(false);
@@ -36,7 +37,7 @@ function ToDoItem({ checked, title, time, details, onDelete, onCheckboxClicked }
                 <List component="div" disablePadding>
                     <ListItem className="sub-item">
                         <ListItemIcon />
-                        <ListItemText primary={time} style={{ color: "grey" }} />
+                        <ListItemText primary={moment(time, "HH:mm").format("h:mma")} style={{ color: "grey" }} />
                     </ListItem>
                     <ListItem className="sub-item">
                         <ListItemIcon />
