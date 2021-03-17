@@ -1,6 +1,6 @@
 var express = require("express");
 var usersRouter = express.Router();
-const { emptyLogin } = require("./../validators");
+const emptyLogin  = require("./../validators");
 const firebase = require("firebase");
 const database = require("./../firebase").database;
 
