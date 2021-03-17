@@ -1,5 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import createPersistedState from "use-persisted-state";
 import LandingPage from "./components/LandingPage";
@@ -9,11 +8,6 @@ import Body from "./components/Body";
 import "./App.css";
 
 const useWidgetState = createPersistedState("selectedWidgets");
-=======
-import CalendarWidget from "./components/CalendarWidget";
-// import logo from "./logo.svg";
-import "./style.css";
->>>>>>> changed file names to match our team's conventions
 
 function App() {
     const [selectedWidgets, setSelectedWidgets] = useWidgetState([]);
