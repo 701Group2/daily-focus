@@ -2,6 +2,7 @@ var express = require("express");
 var usersRouter = express.Router();
 const emptyLogin = require("./../validators");
 const firebase = require("firebase");
+const database = require("./../firebase").database;
 
 /* GET users listing. */
 usersRouter.get("/", function (req, res, next) {
@@ -33,7 +34,33 @@ function login(req, res) {
         });
 }
 
+function signup (req, res) {
+    const newUser = {
+        email: req.body.email,
+		password: req.body.password,
+    };
+
+    const { valid, errors } = validateSignUpData(newUser);
+
+	if (!valid) return res.status(400).json(errors);
+
+    database.ref('/').once('value').then((snapshot) => {
+        var existingEmail = (snapshot.val() && snapshot.val()[newUser.email]) 
+        if (existingEmail != null ) {
+            return res.status(400).json({ Message: 'this email address is already in use' }); 
+        } else {
+            return firebase
+            .auth()
+            .createUserWithEmailAndPassword(
+                newUser.email, 
+                newUser.password
+            );
+        }
+    })
+}
+
 module.exports = {
     usersRouter,
     login,
+    signup
 };
