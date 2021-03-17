@@ -30,7 +30,7 @@ function login(req, res) {
         })
         .catch((err) => {
             console.err(err);
-            return res.status(403).json({ Message: "Either your email or password is incorrect" });
+            return res.status(403).json({ message: "Either your email or password is incorrect" });
         });
 }
 
@@ -54,8 +54,10 @@ function signup(req, res) {
         })
         .then((idtoken) => {
             token = idtoken;
+
+            //add user's email to real time database
             const user = {
-                email: newUser.email,
+                email: newUser.email
             };
 
             return database
@@ -68,6 +70,7 @@ function signup(req, res) {
             return res.status(201).json({ token });
         })
         .catch((err) => {
+            //send error response with message thrown by firebase
             return res.status(400).json({ message: err.message });
         });
 }
