@@ -16,28 +16,4 @@ function emptyLogin(data) {
     };
 }
 
-function validateSignUpData(data) {
-	let err = {};
-
-    //checks email address contains @
-    const emailRegEx = /\S+@\S+\.\S+/;
-	if (isEmpty(data.email)) {
-		err.email = 'Must not be empty';
-	} else if (!data.email.match(emailRegEx)) {
-		err.email = 'Must be valid email address';
-	}
-
-	if (isEmpty(data.password)) {
-        err.password = 'Must not be empty';
-    } 
-
-	return {
-		err,
-		valid: Object.keys(err).length === 0 ? true : false
-	};
-};
-
-module.exports = {
-    emptyLogin,
-    validateSignUpData
-};
+module.exports = emptyLogin;
