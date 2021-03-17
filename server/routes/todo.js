@@ -19,9 +19,45 @@ router.post('/', function(req, res, next) {
 
 /* PUT entry update */
 router.put('/', function(req, res, next) {
-    // TODO implementation for updating entry in database
+    // TODO Authenticate user then obtain user id
 
-    res.send('put entry update into database'); // TODO change response after
+    let userId = "test_user";
+    let entryArray = [];
+
+    // Retrieve array of entries for user from firebase DB
+    await database
+        .ref()
+        .child(userId)
+        .child("todolist")
+        .get()
+        .then((snapshot) => {
+            // Only accept if array exists and contains entries
+            if (snapshot.exists() && snapshot.val().length != 0) {
+                entryArray = snapshot.val();
+            } else {
+                res.status(400).send("No entries for user");
+                return;
+            }
+        })
+        .catch((error) => {
+            res.send(error);
+            return;
+        });
+
+    
+    // Go through current array to find and update the entry that was changed
+    entryArray.forEach((element) => {
+        if (element.entry_id == req.body.entry_id) {
+            for (var propt in req.body) {
+                element[propt] = req.body[propt];
+            }
+        }
+    });
+
+    // Write this updated list back to the 
+    await database.ref().child(userId).child("todolist").set(entryArray);
+
+    res.status(200).send("Successful Update");
 });
 
 
