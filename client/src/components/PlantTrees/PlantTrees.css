@@ -1,0 +1,48 @@
+.App {
+    text-align: center;
+}
+.CloseButton {
+    height: 50px;
+    width: 50px;
+}
+
+.App-header {
+    background-color: #30a0f5;
+    height: 20px;
+    padding: 20px;
+    color: white;
+}
+
+.Plant-container {
+    width: 150px;
+    height: 150px;
+    margin: 30px auto;
+    border: solid black 1px;
+}
+
+.Plant-image {
+    height: 100%;
+    max-width: 200px;
+}
+
+.ControlButton-button {
+    background-color: transparent;
+    height: 50px;
+    width: 50px;
+    border: solid black 2px;
+    border-radius: 4px;
+    margin: 0 10px;
+}
+
+.ControlButton-image {
+    width: 100%;
+}
+
+.UserFeedback {
+    margin: 10px;
+}
+
+progress {
+    height: 50px;
+    width: 300px;
+}
