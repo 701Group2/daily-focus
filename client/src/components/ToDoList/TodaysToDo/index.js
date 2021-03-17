@@ -4,7 +4,7 @@ import { CardActions, Fab, List } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import ToDoItem from "../ToDoItem";
 
-function TodaysToDo({ todaysDate, todoList, switchToAdd, toggleCheck, deleteItem }) {
+function TodaysToDo({ todaysDate, todoList, switchToAdd, toggleCheck, deleteItem, editItem }) {
     return (
         <div>
             <List disablePadding>
@@ -18,6 +18,7 @@ function TodaysToDo({ todaysDate, todoList, switchToAdd, toggleCheck, deleteItem
                             details={object.details}
                             onCheckboxClicked={() => toggleCheck(index, todaysDate)}
                             onDelete={() => deleteItem(index, todaysDate)}
+                            onEdit={(field, newValue) => editItem(index, todaysDate, field, newValue)}
                         />
                     ))
                 }
@@ -35,7 +36,8 @@ TodaysToDo.propTypes = {
     upcomingToDoList: PropTypes.object.isRequired,
     switchToAdd: PropTypes.func.isRequired,
     toggleCheck: PropTypes.func.isRequired,
-    deleteItem: PropTypes.func.isRequired
+    deleteItem: PropTypes.func.isRequired,
+    editItem: PropTypes.func.isRequired
 };
 
 export default TodaysToDo;

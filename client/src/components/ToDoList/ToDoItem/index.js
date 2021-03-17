@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Collapse, Checkbox, List, ListItem, ListItemIcon, ListItemText, ListItemSecondaryAction, IconButton } from "@material-ui/core";
+import { Collapse, Checkbox, List, ListItem, ListItemIcon, ListItemText, ListItemSecondaryAction, IconButton, TextField } from "@material-ui/core";
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import "./style.css"
+import "./style.css";
 import moment from "moment";
 
-function ToDoItem({ checked, title, time, details, onDelete, onCheckboxClicked }) {
+function ToDoItem({ checked, title, time, details, onDelete, onCheckboxClicked, onEdit }) {
     const [openDetails, setOpenDetails] = useState(false);
+    const [isTimeEditing, setIsTimeEditing] = useState(false);
+    const [isDetailsEditing, setIsDetailsEditing] = useState(false);
+    const [editedTime, setEditedTime] = useState(time);
+    const [editedDetails, setEditedDetails] = useState(details);
 
     return (
         <div>
@@ -37,11 +41,43 @@ function ToDoItem({ checked, title, time, details, onDelete, onCheckboxClicked }
                 <List component="div" disablePadding>
                     <ListItem className="sub-item">
                         <ListItemIcon />
-                        <ListItemText primary={moment(time, "HH:mm").format("h:mma")} style={{ color: "grey" }} />
+                        {
+                            isTimeEditing ?
+                                <TextField
+                                    type="time" 
+                                    defaultValue={time} 
+                                    onBlur={() => {
+                                        onEdit("time", editedTime);
+                                        setIsTimeEditing(false);
+                                    }} 
+                                    onChange={(e) => setEditedTime(e.target.value)}
+                                    autoFocus 
+                                />
+                            :
+                                <ListItemText 
+                                    primary={moment(time, "HH:mm").format("h:mma")} 
+                                    style={{ color: "grey" }} 
+                                    onClick={() => setIsTimeEditing(true)}
+                                />
+                        }
                     </ListItem>
                     <ListItem className="sub-item">
                         <ListItemIcon />
-                        <ListItemText primary={details} style={{ color: "grey" }} />
+                        {
+                            isDetailsEditing ?
+                                <TextField 
+                                    defaultValue={details} 
+                                    onBlur={() => {
+                                        onEdit("details", editedDetails);
+                                        setIsDetailsEditing(false);
+                                    }}
+                                    onChange={(e) => setEditedDetails(e.target.value)} 
+                                    autoFocus 
+                                    multiline 
+                                />
+                            :
+                                <ListItemText primary={details} style={{ color: "grey" }} onClick={() => setIsDetailsEditing(true)} />
+                        }
                     </ListItem>
                 </List>
             </Collapse>
@@ -55,7 +91,8 @@ ToDoItem.propTypes = {
     time: PropTypes.string.isRequired,
     details: PropTypes.string.isRequired,
     onDelete: PropTypes.func.isRequired,
-    onCheckboxClicked: PropTypes.func.isRequired
+    onCheckboxClicked: PropTypes.func.isRequired,
+    onEdit: PropTypes.func.isRequired
 };
 
 export default ToDoItem;

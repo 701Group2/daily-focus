@@ -89,6 +89,18 @@ function ToDoList() {
         saveListToStorage(newList);
     };
 
+    const editItem = (index, date, field, updatedValue) => {
+        const newListOnThatDay = [...todoList[date]];
+        newListOnThatDay[index][field] = updatedValue;
+        if (field === "time") {
+            sortSpecificTodoListByTime(newListOnThatDay);
+        }
+        const newList = {...todoList};
+        newList[date] = newListOnThatDay;
+        setTodoList(newList);
+        saveListToStorage(newList);
+    };
+
     return (
         <Card className="container">
             {isAddingTask ?
@@ -117,6 +129,7 @@ function ToDoList() {
                         switchToAdd={() => setIsAddingTask(true)}
                         toggleCheck={toggleCheck}
                         deleteItem={deleteItem}
+                        editItem={editItem}
                     />
                     :
                     <TodaysToDo 
@@ -125,6 +138,7 @@ function ToDoList() {
                         todaysDate={todaysDate}
                         toggleCheck={toggleCheck}
                         deleteItem={deleteItem}
+                        editItem={editItem}
                     />
                 }
             </div>}

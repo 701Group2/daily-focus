@@ -5,7 +5,7 @@ import AddIcon from '@material-ui/icons/Add';
 import ToDoItem from "../ToDoItem";
 import moment from "moment";
 
-function UpcomingToDo({ upcomingToDoList, switchToAdd, toggleCheck, deleteItem }) {
+function UpcomingToDo({ upcomingToDoList, switchToAdd, toggleCheck, deleteItem, editItem }) {
     return (
         <div>
             {
@@ -31,6 +31,7 @@ function UpcomingToDo({ upcomingToDoList, switchToAdd, toggleCheck, deleteItem }
                                     details={object.details}
                                     onCheckboxClicked={() => toggleCheck(index, date)}
                                     onDelete={() => deleteItem(index, date)}
+                                    onEdit={(field, newValue) => editItem(index, date, field, newValue)}
                                 />
                             ))
                         }
@@ -50,7 +51,8 @@ UpcomingToDo.propTypes = {
     upcomingToDoList: PropTypes.object.isRequired,
     switchToAdd: PropTypes.func.isRequired,
     toggleCheck: PropTypes.func.isRequired,
-    deleteItem: PropTypes.func.isRequired
+    deleteItem: PropTypes.func.isRequired,
+    editItem: PropTypes.func.isRequired
 };
 
 export default UpcomingToDo;
