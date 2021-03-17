@@ -11,6 +11,14 @@ const saveListToStorage = (list) => {
     localStorage.setItem("todoList", listJson);
 };
 
+const getUpcomingToDoItems = (currentToDoList) => {
+    let upcomingToDoItems = {...currentToDoList};
+    if (upcomingToDoItems[today]) {
+        delete upcomingToDoItems[today];
+    }
+    return upcomingToDoItems;
+};
+
 const today = new Date().toISOString().split("T")[0];
 
 function ToDoList() {
@@ -38,7 +46,6 @@ function ToDoList() {
         const todoListCopy = {...todoList};
         todoListCopy[date] = newList;
         setTodoList(todoListCopy);
-        console.log(todoListCopy);
         setIsAddingTask(false);
         saveListToStorage(todoListCopy);
     };
@@ -72,7 +79,7 @@ function ToDoList() {
                 <CardHeader 
                     title={
                         <Select
-                            defaultValue="today" 
+                            defaultValue={selectedTimeline} 
                             className="todo-list-title-select" 
                             disableUnderline
                             onChange={(e) => setSelectedTimeline(e.target.value)}
@@ -84,10 +91,15 @@ function ToDoList() {
                     className="todo-list-title"
                 />
                 {selectedTimeline === "upcoming" ?
-                    <UpcomingToDo />
+                    <UpcomingToDo 
+                        upcomingToDoList={getUpcomingToDoItems(todoList)}
+                        switchToAdd={() => setIsAddingTask(true)}
+                        toggleCheck={toggleCheck}
+                        deleteItem={deleteItem}
+                    />
                     :
                     <div>
-                        <List>
+                        <List disablePadding>
                             {
                                 todoList[today].map((object, index) => (
                                     <ToDoItem 

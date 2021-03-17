@@ -20,30 +20,34 @@ function AddToDo({ cancelClicked, addClicked }) {
                 className="todo-list-title"
             />
             <form>
-                <div>
-                    <TextField 
+                <div className="todo-add-field">
+                    <TextField
+                        fullWidth 
                         type="date"
                         label="Date"
                         defaultValue={currentDate}
                         onChange={(e) => setSelectedDate(e.target.value)}
                     />
                 </div>
-                <div>
+                <div className="todo-add-field">
                     <TextField 
+                        fullWidth
                         type="time"
                         label="Time"
                         defaultValue={currentTime}
                         onChange={(e) => setSelectedTime(e.target.value)}
                     />
                 </div>
-                <div>
+                <div className="todo-add-field">
                     <TextField 
+                        fullWidth
                         label="Title" 
                         onChange={(e) => setCurrentTitle(e.target.value)}
                     />
                 </div>
-                <div>
+                <div className="todo-add-field">
                     <TextField
+                        fullWidth
                         label="Details"
                         onChange={(e) => setCurrentDetails(e.target.value)} 
                         multiline 
