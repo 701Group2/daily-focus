@@ -23,7 +23,7 @@ function validateSignUpData(data) {
     const emailRegEx = /\S+@\S+\.\S+/;
 	if (isEmpty(data.email)) {
 		err.email = 'Must not be empty';
-	} else if (!email.match(emailRegEx)) {
+	} else if (!data.email.match(emailRegEx)) {
 		err.email = 'Must be valid email address';
 	}
 
@@ -33,7 +33,7 @@ function validateSignUpData(data) {
 
 	return {
 		err,
-		valid: Object.keys(errors).length === 0 ? true : false
+		valid: Object.keys(err).length === 0 ? true : false
 	};
 };
 
