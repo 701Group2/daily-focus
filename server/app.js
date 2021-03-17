@@ -41,17 +41,7 @@ app.use(function (err, req, res, next) {
 //endpoint for login
 app.post("/login", login);
 
-// Example of writing to database
 app.listen(3000, function () {
     console.log("Example app listening on port 3000!");
-    database.ref("/").set("new test", function (error) {
-        if (error) {
-            // The write failed...
-            console.log("Failed with error: " + error);
-        } else {
-            // The write was successful...
-            console.log("success");
-        }
-    });
 });
 module.exports = app;
