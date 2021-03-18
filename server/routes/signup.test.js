@@ -31,7 +31,6 @@ const invalidEmailInput = {
     password: '123456' 
 }
 
-
 describe("signup user endpoint  ", () => {
 
     afterEach(() => {

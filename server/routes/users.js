@@ -54,7 +54,6 @@ function signup(req, res) {
         })
         .then((idtoken) => {
             token = idtoken;
-
             //add user's email to real time database
             const user = {
                 email: newUser.email
