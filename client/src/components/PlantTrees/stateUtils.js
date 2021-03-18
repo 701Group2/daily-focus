@@ -9,7 +9,7 @@ module.exports = {
         "https://i.ibb.co/5r5tqWY/Tree4.png",
     ],
     buttonImageUrls: {
-        water: "https://i.ibb.co/XxcGqVP/water.jpg",
+        water: "https://i.ibb.co/C04zg8V/Watering-Can.png",
     },
     feedback: {
         start:
