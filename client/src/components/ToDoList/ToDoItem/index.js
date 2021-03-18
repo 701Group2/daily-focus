@@ -4,18 +4,8 @@ import { Collapse, Checkbox, List, ListItem, ListItemIcon, ListItemText, ListIte
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
-import { makeStyles } from "@material-ui/core";
 import moment from "moment";
-
-const useStyles = makeStyles({
-    todoCheckBox: {
-        color: "#30A0F5"
-    },
-    subItem: {
-        paddingTop: 0,
-        paddingBottom: 0
-    },
-});
+import useStyles from "./styles";
 
 function ToDoItem({ checked, title, time, details, onDelete, onCheckboxClicked, onEdit }) {
     const [openDetails, setOpenDetails] = useState(false);

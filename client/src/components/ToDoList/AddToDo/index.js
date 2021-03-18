@@ -1,38 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
-import { Button, CardActions, CardHeader, makeStyles, TextField } from "@material-ui/core";
+import { Button, CardActions, CardHeader, TextField } from "@material-ui/core";
 import styles from "./style.module.scss";
-
-const useStyles = makeStyles({
-    todoListTitle: {
-        textAlign: "center",
-        backgroundColor: "#30A0F5",
-        color: "white",
-        marginBottom: "1.5vh",
-        paddingTop: "2.3vh",
-        paddingBottom: "2.3vh"
-    },
-    todoInputTextField: {
-        [`& fieldset`]: {
-            borderRadius: "40px"
-        }
-    },
-    primaryButton: {
-        backgroundColor: "#30A0F5",
-        color: "white",
-        borderRadius: "20px" 
-    },
-    cardActions: {
-        justifyContent: "flex-end"
-    },
-    cancelButton: {
-        backgroundColor: "white",
-        color: "black",
-        borderColor: "#30A0F5",
-        borderRadius: "20px"
-    }
-});
+import useStyles from "./styles";
 
 function AddToDo({ cancelClicked, addClicked }) {
     const currentDate = moment().format("YYYY-MM-D");

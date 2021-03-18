@@ -1,24 +1,11 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { Card, CardHeader, makeStyles, MenuItem, Select } from "@material-ui/core";
+import { Card, CardHeader, MenuItem, Select } from "@material-ui/core";
 import AddToDo from "./AddToDo";
 import UpcomingToDo from "./UpcomingToDo";
 import TodaysToDo from "./TodaysToDo";
-
-const saveListToStorage = (list) => {
-    const listJson = JSON.stringify(list);
-    localStorage.setItem("todoList", listJson);
-};
-
-const sortOverallTodosByDate = (overallTodos) => {
-    let sorted = {};
-    Object.keys(overallTodos).sort().forEach(date => {
-        sorted[date] = overallTodos[date];
-    });
-    return sorted;
-};
-
-const sortSpecificTodoListByTime = (todos) => todos.sort((thisTodo, otherTodo) => thisTodo.time.localeCompare(otherTodo.time));
+import useStyles from "./styles";
+import useTodosState from "./useTodosState";
 
 const getUpcomingToDoItems = (currentToDoList, today) => {
     let upcomingToDoItems = {...currentToDoList};
@@ -30,106 +17,27 @@ const getUpcomingToDoItems = (currentToDoList, today) => {
     return upcomingToDoItems;
 };
 
-const useStyles = makeStyles({
-    container: {
-        margin: "10px",
-        width: "25%"
-    },
-    listContainer: {
-        display: "flex",
-        flexDirection: "column"
-    },
-    todoListTitle: {
-        textAlign: "center",
-        backgroundColor: "#30A0F5",
-        marginBottom: "1.5vh"
-    },
-    todoListTitleSelect: {
-        color: "white"
-    },
-});
-
 function ToDoList() {
     const [todaysDate, setTodaysDate] = useState(moment().format("YYYY-MM-D"));
-    const [isAddingTask, setIsAddingTask] = useState(false);
+    const [isAddingItem, setIsAddingItem] = useState(false);
     const [selectedTimeline, setSelectedTimeline] = useState("today");
-    const [todoList, setTodoList] = useState({ [todaysDate]: [] });
+
+    const { todoList, addTodoItem, deleteTodoItem, editTodoItem, toggleCheck } = useTodosState({ [todaysDate]: [] }, setIsAddingItem);
 
     const classes = useStyles();
 
     useEffect(() => {
         const newTodaysDate = moment().format("YYYY-MM-D");
         setTodaysDate(newTodaysDate);
-        const savedTodoListJson = localStorage.getItem("todoList");
-        let savedTodoList;
-        if (savedTodoListJson) {
-            savedTodoList = JSON.parse(savedTodoListJson);
-            setTodoList(savedTodoList);
-        }
-        if (!savedTodoListJson || !savedTodoList[newTodaysDate]) {
-            savedTodoList = {};
-            savedTodoList[newTodaysDate] = [];
-            setTodoList(savedTodoList);
-        }
     }, []);
-
-    const addTask = (date, time, title, details) => {
-        const newTaskObject = {
-            checked: false,
-            time,
-            title,
-            details
-        };
-        const currentListOnThatDate = todoList[date] || [];
-        const newList = [...currentListOnThatDate, newTaskObject];
-        sortSpecificTodoListByTime(newList);
-
-        let todoListCopy = {...todoList};
-        todoListCopy[date] = newList;
-        todoListCopy = sortOverallTodosByDate(todoListCopy);
-
-        setTodoList(todoListCopy);
-        setIsAddingTask(false);
-        saveListToStorage(todoListCopy);
-    };
-
-    const deleteItem = (index, date) => {
-        const newListOnThatDay = [...todoList[date]];
-        newListOnThatDay.splice(index, 1);
-        const newList = {...todoList};
-        newList[date] = newListOnThatDay;
-        setTodoList(newList);
-        saveListToStorage(newList);
-    };
-
-    const toggleCheck = (index, date) => {
-        const newListOnThatDay = [...todoList[date]];
-        newListOnThatDay[index].checked = !newListOnThatDay[index].checked;
-        const newList = {...todoList};
-        newList[date] = newListOnThatDay;
-        setTodoList(newList);
-        saveListToStorage(newList);
-    };
-
-    const editItem = (index, date, field, updatedValue) => {
-        const newListOnThatDay = [...todoList[date]];
-        newListOnThatDay[index][field] = updatedValue;
-        if (field === "time") {
-            sortSpecificTodoListByTime(newListOnThatDay);
-        }
-        const newList = {...todoList};
-        newList[date] = newListOnThatDay;
-        setTodoList(newList);
-        saveListToStorage(newList);
-    };
 
     return (
         <Card className={classes.container}>
             {
-                isAddingTask ?
+                isAddingItem ?
                     <AddToDo 
-                        cancelClicked={() => setIsAddingTask(false)}
-                        addClicked={addTask}
+                        cancelClicked={() => setIsAddingItem(false)}
+                        addClicked={addTodoItem}
                     /> : 
                     <div>
                         <CardHeader 
@@ -150,18 +58,18 @@ function ToDoList() {
                             selectedTimeline === "upcoming" ?
                                 <UpcomingToDo 
                                     upcomingToDoList={getUpcomingToDoItems(todoList, todaysDate)}
-                                    switchToAdd={() => setIsAddingTask(true)}
+                                    switchToAdd={() => setIsAddingItem(true)}
                                     toggleCheck={toggleCheck}
-                                    deleteItem={deleteItem}
-                                    editItem={editItem}
+                                    deleteItem={deleteTodoItem}
+                                    editItem={editTodoItem}
                                 /> :
                                 <TodaysToDo 
                                     todoList={todoList[todaysDate]}
-                                    switchToAdd={() => setIsAddingTask(true)}
+                                    switchToAdd={() => setIsAddingItem(true)}
                                     todaysDate={todaysDate}
                                     toggleCheck={toggleCheck}
-                                    deleteItem={deleteItem}
-                                    editItem={editItem}
+                                    deleteItem={deleteTodoItem}
+                                    editItem={editTodoItem}
                                 />
                         }
                     </div>
