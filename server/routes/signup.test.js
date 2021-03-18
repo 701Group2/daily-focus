@@ -2,7 +2,7 @@ const request = require('supertest')
 const app = require('../app')
 const firebase = require("firebase");
 const database = require("./../firebase").database;
-const {shortPasswordErrorMessage, mockToken, mockUid} = require("../test_utils/mocks/mockFirebase")
+const {shortPasswordErrorMessage,  mockToken, mockUid, invalidEmailErrorMessage} = require("../test_utils/mocks/mockFirebase")
 
 jest.mock('firebase', () => {
     const {mockFirebase} = require("../test_utils/mocks/mockFirebase")
@@ -16,15 +16,19 @@ jest.mock("./../firebase", () => {
     }
 });
 
-
 const validPasswordAndEmailInput = { 
-    email: 'hello@gmail.com',
+    email: 'test@gmail.com',
     password: '123456' 
 }
 
 const invalidPasswordInput = { 
-    email: 'hello@gmail.com',
+    email: 'test@gmail.com',
     password: '12345' 
+}
+
+const invalidEmailInput = { 
+    email: '',
+    password: '123456' 
 }
 
 
@@ -69,6 +73,23 @@ describe("signup user endpoint  ", () => {
         expect(firebase.auth).toHaveBeenCalled();
         expect(firebase.auth().createUserWithEmailAndPassword)
         .toHaveBeenCalledWith(invalidPasswordInput.email, invalidPasswordInput.password);
+
+        //tests no database calls have been made 
+        expect(database.ref).toHaveBeenCalledTimes(0)
+    });
+
+    it("when a invalid email is given, it returns 400 and does not add user to database", async () => {
+        const response = await request(app).post('/signup')
+        .set("Accept", "application/json")
+        .send(invalidEmailInput)
+
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual(invalidEmailErrorMessage);
+
+        //tests firebase method calls for creating a user
+        expect(firebase.auth).toHaveBeenCalled();
+        expect(firebase.auth().createUserWithEmailAndPassword)
+        .toHaveBeenCalledWith(invalidEmailInput.email, invalidEmailInput.password);
 
         //tests no database calls have been made 
         expect(database.ref).toHaveBeenCalledTimes(0)
