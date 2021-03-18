@@ -1,19 +1,23 @@
-const mockToken = "mockToken";
+const mockToken = {
+  token: "mockToken"
+};
 const mockUid = "mockUid";
-
+const shortPasswordErrorMessage  = {
+  message: "Password should be at least 6 characters"
+}; 
 
 const mockCreateUserWithEmailAndPassword = jest.fn((inputEmail, inputPassword) => {
   if (inputPassword.length > 5) {
     return Promise.resolve(mockUserData) 
   } else {
-    throw new Error("error");
+    return Promise.reject(new Error(shortPasswordErrorMessage.message))
   }
 })
 
 const mockUserData = {
   user: {
     uid: mockUid,
-    getIdToken: jest.fn(() => Promise.resolve( mockToken))
+    getIdToken: jest.fn(() => Promise.resolve( mockToken.token))
   } 
 }
 
@@ -27,8 +31,4 @@ const mockFirebase = {
 
 }
 
-module.exports = mockFirebase;
-
-
-
-
+module.exports = {mockFirebase, mockToken, mockUid, shortPasswordErrorMessage};
