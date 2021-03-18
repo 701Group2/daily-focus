@@ -22,19 +22,8 @@ const validPasswordAndEmailInput = {
 }
 
 
-
-describe("signup user with valid email and password ", () => {
-    
-    it("return 201", async () => {
-
-    //   await request(app)
-    //     .post("/signup")
-    //     .set("Accept", "application/json")
-    //     .send(validPasswordAndEmailInput)
-    //     .expect("Content-Type", "application/json; charset=utf-8")
-    //     .expect(201)
-    //     // console.log(firebase);
-
+describe("signup user endpoint  ", () => {
+    it("returns 201 and makes calls to firebase", async () => {
         const response = await request(app).post('/signup')
         .set("Accept", "application/json")
         .send(validPasswordAndEmailInput)
@@ -42,10 +31,12 @@ describe("signup user with valid email and password ", () => {
         expect(response.status).toBe(201);
         expect(response.body).toEqual({"token": "mockToken"});
 
+        //tests firebase method calls for creating a user
         expect(firebase.auth).toHaveBeenCalled();
         expect(firebase.auth().createUserWithEmailAndPassword)
         .toHaveBeenCalledWith(validPasswordAndEmailInput.email, validPasswordAndEmailInput.password);
 
+        //tests database calls
         expect(database.ref).toHaveBeenCalledWith('/');
         expect(database.ref().update).toHaveBeenCalledWith({
             "mockUid" : {
