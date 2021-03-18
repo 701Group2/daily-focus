@@ -1,9 +1,9 @@
-
 const mockDatabaseLocation = {
-    update: jest.fn(() => ({}) )
-}
+    update: jest.fn(() => ({})),
+};
+
 const mockDatabase = {
-    ref: jest.fn(() => (mockDatabaseLocation) )
-}
+    ref: jest.fn(() => mockDatabaseLocation),
+};
 
 module.exports = mockDatabase;

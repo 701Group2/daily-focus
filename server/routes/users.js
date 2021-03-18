@@ -1,6 +1,6 @@
 var express = require("express");
 var usersRouter = express.Router();
-const emptyLogin  = require("./../validators");
+const emptyLogin = require("./../validators");
 const firebase = require("firebase");
 const database = require("./../firebase").database;
 
@@ -44,10 +44,7 @@ function signup(req, res) {
 
     firebase
         .auth()
-        .createUserWithEmailAndPassword(
-            newUser.email,
-            newUser.password
-        )
+        .createUserWithEmailAndPassword(newUser.email, newUser.password)
         .then((data) => {
             userId = data.user.uid;
             return data.user.getIdToken();
@@ -56,14 +53,12 @@ function signup(req, res) {
             token = idtoken;
             //add user's email to real time database
             const user = {
-                email: newUser.email
+                email: newUser.email,
             };
 
-            return database
-                .ref('/')
-                .update({
-                    [userId]: user
-                })
+            return database.ref("/").update({
+                [userId]: user,
+            });
         })
         .then(() => {
             return res.status(201).json({ token });
@@ -77,5 +72,5 @@ function signup(req, res) {
 module.exports = {
     usersRouter,
     login,
-    signup
+    signup,
 };
