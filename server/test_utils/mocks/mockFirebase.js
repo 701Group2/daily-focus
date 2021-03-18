@@ -1,4 +1,4 @@
-const mockToken = "token";
+const mockToken = "mockToken";
 const mockUid = "uid";
 
 
@@ -13,7 +13,7 @@ const mockCreateUserWithEmailAndPassword = jest.fn((inputEmail, inputPassword) =
 const mockUserData = {
   user: {
     uid: mockUid,
-    getIdToken: jest.fn(() => Promise.resolve(mockToken))
+    getIdToken: jest.fn(() => Promise.resolve( mockToken))
   } 
 }
 
