@@ -84,19 +84,11 @@ export default function CalendarWidget() {
         <Grid className={gridStyles.root}>
             <Grid>
                 <Calendar onClickDay={(value) => setSelected(value)} tileContent={tileContent} />
-<<<<<<< HEAD
             </Grid>
             <Grid>
                 <EventView selected={selected} events={events} onRemoveEvent={onRemoveEvent} />
                 <NewEvent onAddNewEvent={onAddNewEvent} />
             </Grid>
         </Grid>
-=======
-            </div>
-            <div>
-                <EventView selected={selected} events={events} />
-            </div>
-        </div>
->>>>>>> added event display functionality to the EventView component
     );
 }
