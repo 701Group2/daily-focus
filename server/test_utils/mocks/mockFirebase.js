@@ -1,5 +1,5 @@
 const mockToken = "mockToken";
-const mockUid = "uid";
+const mockUid = "mockUid";
 
 
 const mockCreateUserWithEmailAndPassword = jest.fn((inputEmail, inputPassword) => {

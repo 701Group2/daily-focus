@@ -2,19 +2,18 @@ const request = require('supertest')
 const app = require('../app')
 const firebase = require("firebase");
 const database = require("./../firebase").database;
-// const {mockUid, mockToken} = require("../test_utils/mocks/mockFirebase")
 
-    jest.mock('firebase', () => {
-        const mockFirebase = require("../test_utils/mocks/mockFirebase")
-        return mockFirebase
-    });
+jest.mock('firebase', () => {
+    const mockFirebase = require("../test_utils/mocks/mockFirebase")
+    return mockFirebase
+});
 
-    jest.mock("./../firebase", () => {
-        const mockDatabase = require("../test_utils/mocks/mockDatabase")
-        return {
-            database: mockDatabase
-        }
-    });
+jest.mock("./../firebase", () => {
+    const mockDatabase = require("../test_utils/mocks/mockDatabase")
+    return {
+        database: mockDatabase
+    }
+});
 
 
 const validPasswordAndEmailInput = { 
@@ -48,13 +47,10 @@ describe("signup user with valid email and password ", () => {
         .toHaveBeenCalledWith(validPasswordAndEmailInput.email, validPasswordAndEmailInput.password);
 
         expect(database.ref).toHaveBeenCalledWith('/');
-        // expect(database.ref().update).toHaveBeenCalledWith({
-        //     "mockUid" : {
-        //         email: validPasswordAndEmailInput.email
-        //     }
-        // });
-
-
-
+        expect(database.ref().update).toHaveBeenCalledWith({
+            "mockUid" : {
+                email: validPasswordAndEmailInput.email
+            }
+        });
     });    
 });
