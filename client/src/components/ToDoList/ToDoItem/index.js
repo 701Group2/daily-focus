@@ -2,8 +2,20 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Collapse, Checkbox, List, ListItem, ListItemIcon, ListItemText, ListItemSecondaryAction, IconButton, TextField } from "@material-ui/core";
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import "./style.css";
+import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
+import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
+import { makeStyles } from "@material-ui/core";
 import moment from "moment";
+
+const useStyles = makeStyles({
+    todoCheckBox: {
+        color: "#30A0F5"
+    },
+    subItem: {
+        paddingTop: 0,
+        paddingBottom: 0
+    },
+});
 
 function ToDoItem({ checked, title, time, details, onDelete, onCheckboxClicked, onEdit }) {
     const [openDetails, setOpenDetails] = useState(false);
@@ -12,14 +24,19 @@ function ToDoItem({ checked, title, time, details, onDelete, onCheckboxClicked, 
     const [editedTime, setEditedTime] = useState(time);
     const [editedDetails, setEditedDetails] = useState(details);
 
+    const classes = useStyles();
+
     return (
         <div>
             <ListItem button onClick={() => setOpenDetails(!openDetails)}>
                 <ListItemIcon>
                     <Checkbox 
+                        icon={<CircleUnchecked />}
+                        checkedIcon={<CircleCheckedFilled className={classes.todoCheckBox} />}
                         checked={checked}
                         onChange={onCheckboxClicked}
                         color="primary"
+                        className={classes.todoCheckBox}
                     />
                 </ListItemIcon>
                 <ListItemText 
@@ -29,17 +46,18 @@ function ToDoItem({ checked, title, time, details, onDelete, onCheckboxClicked, 
                         color: checked ? "grey" : "black"
                     }}  
                 />
-                {(checked || openDetails) && 
-                    <ListItemSecondaryAction>
-                        <IconButton edge="end" onClick={onDelete}>
-                            <RemoveCircleIcon />
-                        </IconButton>
-                    </ListItemSecondaryAction>
+                {
+                    (checked || openDetails) && 
+                        <ListItemSecondaryAction>
+                            <IconButton edge="end" onClick={onDelete}>
+                                <RemoveCircleIcon />
+                            </IconButton>
+                        </ListItemSecondaryAction>
                 }
             </ListItem>
             <Collapse in={openDetails} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                    <ListItem className="sub-item">
+                    <ListItem classes={{ root: classes.subItem }}>
                         <ListItemIcon />
                         {
                             isTimeEditing ?
@@ -52,8 +70,7 @@ function ToDoItem({ checked, title, time, details, onDelete, onCheckboxClicked, 
                                     }} 
                                     onChange={(e) => setEditedTime(e.target.value)}
                                     autoFocus 
-                                />
-                            :
+                                /> :
                                 <ListItemText 
                                     primary={moment(time, "HH:mm").format("h:mma")} 
                                     style={{ color: "grey" }} 
@@ -61,7 +78,7 @@ function ToDoItem({ checked, title, time, details, onDelete, onCheckboxClicked, 
                                 />
                         }
                     </ListItem>
-                    <ListItem className="sub-item">
+                    <ListItem classes={{ root: classes.subItem }}>
                         <ListItemIcon />
                         {
                             isDetailsEditing ?
@@ -74,8 +91,7 @@ function ToDoItem({ checked, title, time, details, onDelete, onCheckboxClicked, 
                                     onChange={(e) => setEditedDetails(e.target.value)} 
                                     autoFocus 
                                     multiline 
-                                />
-                            :
+                                /> :
                                 <ListItemText primary={details} style={{ color: "grey" }} onClick={() => setIsDetailsEditing(true)} />
                         }
                     </ListItem>

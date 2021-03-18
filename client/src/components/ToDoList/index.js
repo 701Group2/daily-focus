@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { Card, CardHeader, MenuItem, Select } from "@material-ui/core";
-import "./style.css";
+import { Card, CardHeader, makeStyles, MenuItem, Select } from "@material-ui/core";
 import AddToDo from "./AddToDo";
 import UpcomingToDo from "./UpcomingToDo";
 import TodaysToDo from "./TodaysToDo";
@@ -23,17 +22,40 @@ const sortSpecificTodoListByTime = (todos) => todos.sort((thisTodo, otherTodo) =
 
 const getUpcomingToDoItems = (currentToDoList, today) => {
     let upcomingToDoItems = {...currentToDoList};
-    if (upcomingToDoItems[today]) {
-        delete upcomingToDoItems[today];
-    }
+    Object.keys(upcomingToDoItems).forEach(date => {
+        if (!moment(date).isAfter(moment(today))) {
+            delete upcomingToDoItems[date];
+        }
+    })
     return upcomingToDoItems;
 };
+
+const useStyles = makeStyles({
+    container: {
+        margin: "10px",
+        width: "25%"
+    },
+    listContainer: {
+        display: "flex",
+        flexDirection: "column"
+    },
+    todoListTitle: {
+        textAlign: "center",
+        backgroundColor: "#30A0F5",
+        marginBottom: "1.5vh"
+    },
+    todoListTitleSelect: {
+        color: "white"
+    },
+});
 
 function ToDoList() {
     const [todaysDate, setTodaysDate] = useState(moment().format("YYYY-MM-D"));
     const [isAddingTask, setIsAddingTask] = useState(false);
     const [selectedTimeline, setSelectedTimeline] = useState("today");
     const [todoList, setTodoList] = useState({ [todaysDate]: [] });
+
+    const classes = useStyles();
 
     useEffect(() => {
         const newTodaysDate = moment().format("YYYY-MM-D");
@@ -102,46 +124,48 @@ function ToDoList() {
     };
 
     return (
-        <Card className="container">
-            {isAddingTask ?
-            <AddToDo 
-                cancelClicked={() => setIsAddingTask(false)}
-                addClicked={addTask}
-            /> : 
-            <div>
-                <CardHeader 
-                    title={
-                        <Select
-                            defaultValue={selectedTimeline} 
-                            className="todo-list-title-select" 
-                            disableUnderline
-                            onChange={(e) => setSelectedTimeline(e.target.value)}
-                        >
-                            <MenuItem value="today">Today</MenuItem>
-                            <MenuItem value="upcoming">Upcoming</MenuItem>
-                        </Select>
-                    }
-                    className="todo-list-title"
-                />
-                {selectedTimeline === "upcoming" ?
-                    <UpcomingToDo 
-                        upcomingToDoList={getUpcomingToDoItems(todoList, todaysDate)}
-                        switchToAdd={() => setIsAddingTask(true)}
-                        toggleCheck={toggleCheck}
-                        deleteItem={deleteItem}
-                        editItem={editItem}
-                    />
-                    :
-                    <TodaysToDo 
-                        todoList={todoList[todaysDate]}
-                        switchToAdd={() => setIsAddingTask(true)}
-                        todaysDate={todaysDate}
-                        toggleCheck={toggleCheck}
-                        deleteItem={deleteItem}
-                        editItem={editItem}
-                    />
-                }
-            </div>}
+        <Card className={classes.container}>
+            {
+                isAddingTask ?
+                    <AddToDo 
+                        cancelClicked={() => setIsAddingTask(false)}
+                        addClicked={addTask}
+                    /> : 
+                    <div>
+                        <CardHeader 
+                            title={
+                                <Select
+                                    defaultValue={selectedTimeline} 
+                                    classes={{ root: classes.todoListTitleSelect, icon: classes.todoListTitleSelect }}
+                                    disableUnderline
+                                    onChange={(e) => setSelectedTimeline(e.target.value)}
+                                >
+                                    <MenuItem value="today">Today</MenuItem>
+                                    <MenuItem value="upcoming">Upcoming</MenuItem>
+                                </Select>
+                            }
+                            className={classes.todoListTitle}
+                        />
+                        {
+                            selectedTimeline === "upcoming" ?
+                                <UpcomingToDo 
+                                    upcomingToDoList={getUpcomingToDoItems(todoList, todaysDate)}
+                                    switchToAdd={() => setIsAddingTask(true)}
+                                    toggleCheck={toggleCheck}
+                                    deleteItem={deleteItem}
+                                    editItem={editItem}
+                                /> :
+                                <TodaysToDo 
+                                    todoList={todoList[todaysDate]}
+                                    switchToAdd={() => setIsAddingTask(true)}
+                                    todaysDate={todaysDate}
+                                    toggleCheck={toggleCheck}
+                                    deleteItem={deleteItem}
+                                    editItem={editItem}
+                                />
+                        }
+                    </div>
+            }
         </Card>
     );
 }

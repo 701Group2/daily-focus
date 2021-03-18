@@ -1,10 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { CardActions, Fab, List } from "@material-ui/core";
+import { CardActions, Fab, List, makeStyles } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import ToDoItem from "../ToDoItem";
 
+const useStyles = makeStyles({
+    fab: {
+        backgroundColor: "#30A0F5"
+    },
+    cardActions: {
+        justifyContent: "flex-end"
+    }
+});
+
 function TodaysToDo({ todaysDate, todoList, switchToAdd, toggleCheck, deleteItem, editItem }) {
+    const classes = useStyles();
+
     return (
         <div>
             <List disablePadding>
@@ -23,8 +34,8 @@ function TodaysToDo({ todaysDate, todoList, switchToAdd, toggleCheck, deleteItem
                     ))
                 }
             </List>
-            <CardActions>
-                <Fab color="primary" size="medium" onClick={() => switchToAdd()}>
+            <CardActions className={classes.cardActions}>
+                <Fab className={classes.fab} color="primary" size="medium" onClick={() => switchToAdd()}>
                     <AddIcon />
                 </Fab>
             </CardActions>
@@ -33,7 +44,8 @@ function TodaysToDo({ todaysDate, todoList, switchToAdd, toggleCheck, deleteItem
 }
 
 TodaysToDo.propTypes = {
-    upcomingToDoList: PropTypes.object.isRequired,
+    todaysDate: PropTypes.string.isRequired,
+    todoList: PropTypes.array.isRequired,
     switchToAdd: PropTypes.func.isRequired,
     toggleCheck: PropTypes.func.isRequired,
     deleteItem: PropTypes.func.isRequired,

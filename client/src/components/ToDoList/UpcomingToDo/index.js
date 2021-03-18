@@ -1,11 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { CardActions, Fab, List, ListSubheader } from "@material-ui/core";
+import { CardActions, Fab, List, ListSubheader, makeStyles } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import ToDoItem from "../ToDoItem";
 import moment from "moment";
 
+const useStyles = makeStyles({
+    fab: {
+        backgroundColor: "#30A0F5"
+    },
+    cardActions: {
+        justifyContent: "flex-end"
+    }
+});
+
 function UpcomingToDo({ upcomingToDoList, switchToAdd, toggleCheck, deleteItem, editItem }) {
+    const classes = useStyles();
+
     return (
         <div>
             {
@@ -16,8 +27,7 @@ function UpcomingToDo({ upcomingToDoList, switchToAdd, toggleCheck, deleteItem, 
                             upcomingToDoList[date].length > 0 ?
                                 <ListSubheader>
                                     {moment(date).format("ddd MMMM Do, YYYY")}
-                                </ListSubheader>
-                            :
+                                </ListSubheader> :
                                 null
                         }
                     >
@@ -38,8 +48,8 @@ function UpcomingToDo({ upcomingToDoList, switchToAdd, toggleCheck, deleteItem, 
                     </List>
                 ))
             }
-            <CardActions>
-                <Fab color="primary" size="medium" onClick={switchToAdd}>
+            <CardActions className={classes.cardActions}>
+                <Fab className={classes.fab} color="primary" size="medium" onClick={switchToAdd}>
                     <AddIcon />
                 </Fab>
             </CardActions>
