@@ -5,17 +5,18 @@ function DateTime() {
     const [dateObject, setDateObject] = useState(new Date());
 
     useEffect(() => {
-        let interval = setTimeout(() => setDateObject(new Date(), 1000 * 60));
+        const interval = setTimeout(() => setDateObject(new Date(), 1000 * 60));
+        return () => clearTimeout(interval);
     }, [dateObject]);
 
-    let time = dateObject.toLocaleString("en-US", {
+    const time = dateObject.toLocaleString("en-US", {
         hour: "numeric",
         minute: "numeric",
         hour12: true,
     });
 
-    let dayArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    let monthArray = [
+    const dayArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const monthArray = [
         "January",
         "February",
         "March",
