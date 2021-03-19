@@ -8,7 +8,11 @@
     "moment": "^2.29.1",
     "node-sass": "^5.0.0",
     "prop-types": "^15.7.2",
+<<<<<<< HEAD
     "react": "^16.14.0",
+=======
+    "react": "^17.0.1",
+>>>>>>> - added npm prop-types. calendar can add and remove events.
     "react-calendar": "^3.3.1",
     "react-dom": "^16.14.0",
     "react-modal": "^3.12.1",
