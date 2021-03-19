@@ -8,10 +8,12 @@ export default function PlantButton() {
 
     return (
         <div className="App">
-            <button onClick={() => setShowModal(true)}>Plant</button>
+            <button onClick={() => setShowModal(true)} className="plantButton">
+                Plant
+            </button>
             <ReactModal isOpen={showModal} contentLabel="model" ariaHideApp={false}>
                 <PlantTrees></PlantTrees>
-                <button onClick={() => setShowModal(false)} className="CloseButton">
+                <button onClick={() => setShowModal(false)} className="plantButton">
                     Close
                 </button>
             </ReactModal>

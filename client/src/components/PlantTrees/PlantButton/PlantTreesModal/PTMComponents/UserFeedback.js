@@ -9,5 +9,4 @@ const UserFeedback = ({ feedbackText, progress }) => {
         </div>
     );
 };
-
 export default UserFeedback;
