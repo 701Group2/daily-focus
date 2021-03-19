@@ -14,7 +14,7 @@ function DateTime() {
         hour12: true,
     });
 
-    let dayArray = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    let dayArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     let monthArray = [
         "January",
         "February",
