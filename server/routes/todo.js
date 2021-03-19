@@ -1,13 +1,79 @@
+const { database } = require("../firebase");
 var express = require("express");
 var router = express.Router();
 
-/* GET all todo list entries */
-router.get("/", function (req, res, next) {
-    // TODO implementation for getting entries
+function sortByDateTime(a, b) {
+    let dateA = new Date(a.date);
+    let dateB = new Date(b.date);
+    if (dateA - dateB === 0) {
+        let timeA = a.time.split(":");
+        let timeB = b.time.split(":");
+        dateA.setHours(timeA[0]);
+        dateA.setMinutes(timeA[1]);
+        dateB.setHours(timeB[0]);
+        dateB.setMinutes(timeB[1]);
+    }
+    return dateB - dateA;
+}
 
-    res.send("get all todo entries"); // TODO change response after
+/* GET all to do list entries */
+router.get("/", async function (req, res, next) {
+    let userId = "test_user";
+    let entryArray = [];
+    let NZGmt = 13;
+    let todaysDate = new Date();
+
+    await database
+        .ref()
+        .child(userId)
+        .child("todolist")
+        .get()
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                entryArray = snapshot.val();
+            } else {
+                // for empty list
+            }
+        })
+        .catch((error) => {
+            res.send(error);
+        });
+
+    entryArray.sort((a, b) => {
+        return sortByDateTime(a, b);
+    });
+
+    todaysDate.setHours(todaysDate.getHours() + NZGmt);
+    todaysDate = todaysDate.toISOString().slice(0, 10);
+
+    if (req.query.timeline === "today") {
+        let todaysItems = entryArray.filter((item) => {
+            return item.date === todaysDate;
+        });
+
+        res.send(todaysItems);
+    } else if (req.query.timeline === "upcoming") {
+        let toDoItemsStructured = {};
+        let upcomingItems = entryArray.filter((item) => {
+            return item.date > todaysDate;
+        });
+
+        upcomingItems.forEach((toDoItem) => {
+            if (toDoItem.date in toDoItemsStructured) {
+                toDoItemsStructured[toDoItem.date].push(toDoItem);
+            } else {
+                toDoItemsStructured[toDoItem.date] = [];
+                toDoItemsStructured[toDoItem.date].push(toDoItem);
+            }
+        });
+
+        res.send(toDoItemsStructured);
+    } else {
+        res.send(entryArray);
+    }
 });
 
+Implemented GET endpoint for User's To Do List
 /* POST new todo entry */
 router.post("/", function (req, res, next) {
     // TODO implementation for adding new entry to database
