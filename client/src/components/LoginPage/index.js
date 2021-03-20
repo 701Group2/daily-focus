@@ -40,10 +40,34 @@ const LoginPage = () => {
 
     const classes = useStyles();
 
+    const fetchLogin = (username, password) => {
+        fetch("http://localhost:9000/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: username,
+                password: password,
+            }),
+            referrerPolicy: "no-referrer",
+        }).then((response) => {
+            if (!response.ok) {
+                // show user error message for incorrect user/password
+            } else {
+                const data = response.json();
+                console.log(data.token);
+                // retrieve user token
+                // persist user token with use-persisted state
+            }
+        });
+    };
+
     const submitLogin = (e) => {
         e.preventDefault();
         console.log(email);
         console.log(password);
+        fetchLogin(email, password);
     };
 
     return (
