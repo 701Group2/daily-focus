@@ -3,7 +3,11 @@ const { database } = require("../firebase");
 const authorise = require("../auth");
 =======
 const database = require("../firebase").database;
+<<<<<<< HEAD
 >>>>>>> 9763e23... Added POST API handler
+=======
+const authorise = require("../auth");
+>>>>>>> fff377e... Added authorisation to POST handler
 var express = require('express');
 var router = express.Router();
 var uuid = require('uuid');
@@ -96,6 +100,7 @@ router.get('/', function(req, res, next) {
 /* POST new todo entry */
 router.post('/', async function(req, res, next) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     let entryArray = [];
     let newEntry = req.body;
@@ -108,11 +113,20 @@ router.post('/', async function(req, res, next) {
     }
 =======
     // TODO implementation for adding new entry to database
+=======
+>>>>>>> fff377e... Added authorisation to POST handler
 
-    let userId = "test_user";
     let entryArray = [];
     let newEntry = req.body;
+<<<<<<< HEAD
 >>>>>>> 9763e23... Added POST API handler
+=======
+    const userId = await authorise(req);
+
+    if (userId === "") {
+        res.status(401).send("Unauthorised user.");
+    }
+>>>>>>> fff377e... Added authorisation to POST handler
 
     // Retrieve array of entries for user from firebase DB
     await database
