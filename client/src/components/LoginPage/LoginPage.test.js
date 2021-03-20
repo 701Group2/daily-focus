@@ -18,7 +18,7 @@ test("it renders correctly", () => {
     expect(snapshotComponent).toMatchSnapshot();
 });
 
-test("Route changes to '/path' when sign up clicked", () => {
+test("Route changes to '/' when sign up clicked", () => {
     const history = createMemoryHistory();
     const wrapper = mount(
         <Router history={history}>
