@@ -83,11 +83,14 @@ router.get("/", async function (req, res, next) {
 
 /* POST new todo entry */
 router.post('/', async function(req, res, next) {
-    // TODO implementation for adding new entry to database
 
-    let userId = "test_user";
     let entryArray = [];
     let newEntry = req.body;
+    const userId = await authorise(req);
+
+    if (userId === "") {
+        res.status(401).send("Unauthorised user.");
+    }
 
     // Retrieve array of entries for user from firebase DB
     await database
