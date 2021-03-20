@@ -1,16 +1,18 @@
 import React from "react";
-const ControlButton = ({ control, points, handlePlantGrowth, image }) => {
+import styles from "./style.module.scss";
+
+function ControlButton({ control, points, handlePlantGrowth, image }) {
     return (
-        <button className="ControlButton-button">
+        <button className={styles.button}>
             <img
                 src={image}
                 alt={control}
                 points={points}
                 onClick={handlePlantGrowth}
-                className="ControlButton-image"
+                className={styles.image}
             />
         </button>
     );
-};
+}
 
 export default ControlButton;

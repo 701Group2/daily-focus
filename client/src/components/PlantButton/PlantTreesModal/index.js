@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import Plant from "./PTMComponents/Plant";
-import ControlButton from "./PTMComponents/ContolButton";
-import UserFeedback from "./PTMComponents/UserFeedback";
-import stateUtils from "../../stateUtils";
-import "./PlantTrees.css";
+import Plant from "./Plant";
+import ControlButton from "./ControlButton";
+import UserFeedback from "./UserFeedback";
+import stateUtils from "../stateUtils";
 
-export default function PlantTrees() {
+import styles from "./style.module.scss";
+
+function PlantTreesModal() {
     const [config, setConfig] = useState({
         plantSize: 0, //This var shows different trees pictures
         points: 0, //This var control the progressbar
@@ -49,10 +50,12 @@ export default function PlantTrees() {
     };
 
     return (
-        <div className="App">
-            <div className="App-header">Grow your plant</div>
+        <div className={styles.app}>
+            <div className={styles.appHeader}>Grow your plant</div>
 
-            <div className="App-body">
+            <div className={styles.appBody}>
+                {" "}
+                {/* NO STYLING FOR APP BODY*/}
                 {/* plant display */}
                 <Plant plantImage={stateUtils.plantImageUrls[config.plantSize]}></Plant>
                 {/* control buttons */}
@@ -62,11 +65,11 @@ export default function PlantTrees() {
                     handlePlantGrowth={handlePlantGrowth}
                     image={stateUtils.buttonImageUrls.water}
                 />
-
                 <UserFeedback feedbackText={config.feedback} progress={getProgress()} />
-
                 <div></div>
             </div>
         </div>
     );
 }
+
+export default PlantTreesModal;
