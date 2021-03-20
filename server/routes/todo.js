@@ -3,6 +3,7 @@ const authorise = require("../auth");
 var express = require("express");
 var router = express.Router();
 
+// Helper method: Used to sort entryArray by GET API.
 function sortByDateTime(a, b) {
     let dateA = new Date(a.date);
     let dateB = new Date(b.date);
@@ -20,7 +21,7 @@ function sortByDateTime(a, b) {
 /* GET all to do list entries */
 router.get("/", async function (req, res, next) {
     let entryArray = [];
-    let NZGmt = 13;
+    const NZGmt = 13;
     let todaysDate = new Date();
     let userId = await authorise(req);
 
@@ -34,6 +35,7 @@ router.get("/", async function (req, res, next) {
         .child("todolist")
         .get()
         .then((snapshot) => {
+            // when to-do list data is found
             if (snapshot.exists()) {
                 entryArray = snapshot.val();
             }
@@ -61,6 +63,7 @@ router.get("/", async function (req, res, next) {
             return item.date > todaysDate;
         });
 
+        // Stores upcoming to-do items by date.
         upcomingItems.forEach((toDoItem) => {
             if (toDoItem.date in toDoItemsStructured) {
                 toDoItemsStructured[toDoItem.date].push(toDoItem);
