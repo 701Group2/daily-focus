@@ -1,3 +1,4 @@
+const database = require("../firebase").database;
 var express = require('express');
 var router = express.Router();
 
@@ -18,7 +19,7 @@ router.post('/', function(req, res, next) {
 
 
 /* PUT entry update */
-router.put('/', function(req, res, next) {
+router.put('/', async function(req, res, next) {
     // TODO Authenticate user then obtain user id
 
     let userId = "test_user";
