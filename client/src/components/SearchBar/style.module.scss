@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    padding: 2px 4px;
+    height: 40px;
+
+    .googleLogo {
+        margin-left: 10px;
+        max-width: 20px;
+        // Change logo from multi-coloured to b&w
+        filter: brightness(0) saturate(100%) invert(54%) sepia(0%) saturate(6%) hue-rotate(198deg)
+            brightness(90%) contrast(69%);
+    }
+}
