@@ -1,4 +1,5 @@
 const database = require("../firebase").database;
+const authorise = require("../auth");
 var express = require('express');
 var router = express.Router();
 var uuid = require('uuid');
@@ -13,11 +14,14 @@ router.get('/', function(req, res, next) {
 
 /* POST new todo entry */
 router.post('/', async function(req, res, next) {
-    // TODO implementation for adding new entry to database
 
-    let userId = "test_user";
     let entryArray = [];
     let newEntry = req.body;
+    const userId = await authorise(req);
+
+    if (userId === "") {
+        res.status(401).send("Unauthorised user.");
+    }
 
     // Retrieve array of entries for user from firebase DB
     await database
