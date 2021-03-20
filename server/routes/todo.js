@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 const { database } = require("../firebase");
 const authorise = require("../auth");
+=======
+const database = require("../firebase").database;
+>>>>>>> 9763e23... Added POST API handler
 var express = require('express');
 var router = express.Router();
 var uuid = require('uuid');
 
+<<<<<<< HEAD
 // Helper method: Used to sort entryArray by GET API.
 function sortByDateTime(a, b) {
     let dateA = new Date(a.date);
@@ -78,11 +83,19 @@ router.get("/", async function (req, res, next) {
     } else {
         res.send(entryArray);
     }
+=======
+/* GET all todo list entries */
+router.get('/', function(req, res, next) {
+    // TODO implementation for getting entries
+
+    res.send('get all todo entries'); // TODO change response after
+>>>>>>> 9763e23... Added POST API handler
 });
 
 
 /* POST new todo entry */
 router.post('/', async function(req, res, next) {
+<<<<<<< HEAD
 
     let entryArray = [];
     let newEntry = req.body;
@@ -93,6 +106,13 @@ router.post('/', async function(req, res, next) {
     if (userId === "") {
         res.status(401).send("Unauthorised user.");
     }
+=======
+    // TODO implementation for adding new entry to database
+
+    let userId = "test_user";
+    let entryArray = [];
+    let newEntry = req.body;
+>>>>>>> 9763e23... Added POST API handler
 
     // Retrieve array of entries for user from firebase DB
     await database
