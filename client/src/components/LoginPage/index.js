@@ -1,6 +1,9 @@
 import { Button, Grid, Link, makeStyles, Paper, Snackbar, TextField } from "@material-ui/core";
 import { useState, Fragment } from "react";
+import createPersistedState from "use-persisted-state";
 import { ReactComponent as FocusLogo } from "./logo.svg";
+
+const useTokenState = createPersistedState("token");
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -38,6 +41,7 @@ const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loginErrorOpen, setloginErrorOpen] = useState(false);
+    const [token, setToken] = useTokenState();
 
     const classes = useStyles();
 
@@ -52,22 +56,25 @@ const LoginPage = () => {
                 password: password,
             }),
             referrerPolicy: "no-referrer",
-        }).then((response) => {
-            if (!response.ok) {
-                setloginErrorOpen(true);
-            } else {
-                const data = response.json();
-                console.log(data.token);
-                // retrieve user token
-                // persist user token with use-persisted state
-            }
-        });
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    setloginErrorOpen(true);
+                    return Promise.reject("Server returned non-200 response");
+                } else {
+                    return response.json();
+                }
+            })
+            .then((data) => {
+                setToken(data.token);
+            })
+            .catch((e) => {
+                console.log(e);
+            });
     };
 
     const submitLogin = (e) => {
         e.preventDefault();
-        console.log(email);
-        console.log(password);
         fetchLogin(email, password);
     };
 
