@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, CardHeader, MenuItem, Select } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { IconButton, makeStyles } from "@material-ui/core";
-import styles from "./styles.module.scss";
+import style from "./style.module.scss";
 
 const useStyles = makeStyles({
     root: {
@@ -39,8 +39,8 @@ export default function Timer() {
 
     return (
         <div className={styles.timer}>
-            <div className={styles.timer_title}>
-                <div className={styles.timer_title_text}>Timer</div>
+            <div className={styles.timerTitle}>
+                <div className={styles.timerTitleText}>Timer</div>
             </div>
 
             <p className={styles.seconds}>
