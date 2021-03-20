@@ -41,9 +41,9 @@ export default function LandingPage() {
                 <div className={styles.focusIntro}>
                     <img className={styles.focusLogo} src={FocusLogo} alt="FOCUS" />
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc blandit in
-                        mauris eget aliquam. Proin dictum orci a diam tincidunt. Donec sed magna
-                        neque.
+                        Daily Focus is a dashboard web app that surfaces vital at-a-glance
+                        information to enable you to know what you need to know and get on with your
+                        day.
                     </p>
                 </div>
                 <div className={styles.signUpContainer}>
