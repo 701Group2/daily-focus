@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardHeader, MenuItem, Select } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import { IconButton, makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import style from "./style.module.scss";
 
 const useStyles = makeStyles({
@@ -38,17 +37,17 @@ export default function Timer() {
     }, [miliSeconds, seconds, minute, isActive]);
 
     return (
-        <div className={styles.timer}>
-            <div className={styles.timerTitle}>
-                <div className={styles.timerTitleText}>Timer</div>
+        <div className={style.timer}>
+            <div className={style.timerTitle}>
+                <div className={style.timerTitleText}>Timer</div>
             </div>
 
-            <p className={styles.seconds}>
+            <p className={style.seconds}>
                 {minute.toString().padStart(2, 0)} : {seconds.toString().padStart(2, 0)} :{" "}
                 {(miliSeconds % 100).toString().padStart(2, 0)}
             </p>
 
-            <div className={styles.buttonContainer}>
+            <div className={style.buttonContainer}>
                 <Button
                     disabled={isActive}
                     onClick={() => setActive(true)}
