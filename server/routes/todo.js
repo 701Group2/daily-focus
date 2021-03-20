@@ -73,7 +73,6 @@ router.get("/", async function (req, res, next) {
     }
 });
 
-Implemented GET endpoint for User's To Do List
 /* POST new todo entry */
 router.post("/", function (req, res, next) {
     // TODO implementation for adding new entry to database
