@@ -1,4 +1,5 @@
 const { database } = require("../firebase");
+const authorise = require("../auth");
 var express = require("express");
 var router = express.Router();
 
@@ -18,10 +19,16 @@ function sortByDateTime(a, b) {
 
 /* GET all to do list entries */
 router.get("/", async function (req, res, next) {
-    let userId = "test_user";
     let entryArray = [];
     let NZGmt = 13;
     let todaysDate = new Date();
+    let userId = await authorise(req);
+
+    console.log(userId);
+
+    if (userId === "") {
+        res.status(401).send("Unauthorised user.");
+    }
 
     await database
         .ref()
@@ -31,8 +38,6 @@ router.get("/", async function (req, res, next) {
         .then((snapshot) => {
             if (snapshot.exists()) {
                 entryArray = snapshot.val();
-            } else {
-                // for empty list
             }
         })
         .catch((error) => {
