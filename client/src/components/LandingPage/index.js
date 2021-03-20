@@ -1,10 +1,11 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core";
+import { useHistory, Link } from "react-router-dom";
 
 import FocusLogo from "../../images/focus-logo.svg";
 import styles from "./style.module.scss";
-import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
     root: {
@@ -32,46 +33,53 @@ const useStyles = makeStyles({
 
 export default function LandingPage() {
     const classes = useStyles();
+    const history = useHistory();
 
     return (
-        <div className={styles.container}>
-            <div className={styles.focusIntro}>
-                <img className={styles.focusLogo} src={FocusLogo} alt="FOCUS" />
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc blandit in mauris
-                    eget aliquam. Proin dictum orci a diam tincidunt. Donec sed magna neque.
-                </p>
-            </div>
-            <div className={styles.signUpContainer}>
-                <h1>Create new account!</h1>
+        <div className={styles.page}>
+            <div className={styles.container}>
+                <div className={styles.focusIntro}>
+                    <img className={styles.focusLogo} src={FocusLogo} alt="FOCUS" />
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc blandit in
+                        mauris eget aliquam. Proin dictum orci a diam tincidunt. Donec sed magna
+                        neque.
+                    </p>
+                </div>
+                <div className={styles.signUpContainer}>
+                    <h1>Create new account!</h1>
 
-                <TextField
-                    style={{ paddingBottom: 20 }}
-                    classes={{ root: classes.root }}
-                    fullWidth
-                    id="outlined-basic"
-                    variant="outlined"
-                    label="Email address"
-                />
+                    <TextField
+                        style={{ paddingBottom: 20 }}
+                        classes={{ root: classes.root }}
+                        fullWidth
+                        id="outlined-basic"
+                        variant="outlined"
+                        label="Email address"
+                    />
 
-                <TextField
-                    style={{ paddingBottom: 20 }}
-                    classes={{ root: classes.root }}
-                    fullWidth
-                    id="outlined-basic"
-                    variant="outlined"
-                    label="Password"
-                />
+                    <TextField
+                        style={{ paddingBottom: 20 }}
+                        classes={{ root: classes.root }}
+                        fullWidth
+                        id="outlined-basic"
+                        variant="outlined"
+                        label="Password"
+                    />
 
-                <Button
-                    variant="contained"
-                    color="primary"
-                    classes={{ root: classes.buttonRoot, label: classes.label }}
-                >
-                    Sign Up
-                </Button>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        classes={{ root: classes.buttonRoot, label: classes.label }}
+                        onClick={() => history.push("/home")}
+                    >
+                        Sign Up
+                    </Button>
 
-                <p>Already have an account? Sign in</p>
+                    <Link className="loginLink" to="/login">
+                        Already have an account? Sign in
+                    </Link>
+                </div>
             </div>
         </div>
     );

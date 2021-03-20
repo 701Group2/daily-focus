@@ -1,4 +1,4 @@
-body {
+.page {
     background: linear-gradient(248.66deg, rgba(0, 240, 255, 0.78) 0%, rgba(2, 164, 255, 0) 100%),
         #606bea;
 }
@@ -44,7 +44,7 @@ body {
             color: #7d7d7d;
         }
 
-        p {
+        a {
             font-size: 1.25rem;
             color: #30a0f5;
             margin: 40px 0;
