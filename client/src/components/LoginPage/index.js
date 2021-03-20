@@ -1,5 +1,5 @@
-import { Button, Grid, Link, makeStyles, Paper, TextField } from "@material-ui/core";
-import { useState } from "react";
+import { Button, Grid, Link, makeStyles, Paper, Snackbar, TextField } from "@material-ui/core";
+import { useState, Fragment } from "react";
 import { ReactComponent as FocusLogo } from "./logo.svg";
 
 const useStyles = makeStyles((theme) => ({
@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loginErrorOpen, setloginErrorOpen] = useState(false);
 
     const classes = useStyles();
 
@@ -53,7 +54,7 @@ const LoginPage = () => {
             referrerPolicy: "no-referrer",
         }).then((response) => {
             if (!response.ok) {
-                // show user error message for incorrect user/password
+                setloginErrorOpen(true);
             } else {
                 const data = response.json();
                 console.log(data.token);
@@ -68,6 +69,13 @@ const LoginPage = () => {
         console.log(email);
         console.log(password);
         fetchLogin(email, password);
+    };
+
+    const handleLoginErrorClose = (event, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }
+        setloginErrorOpen(false);
     };
 
     return (
@@ -110,6 +118,20 @@ const LoginPage = () => {
                     </Grid>
                 </Grid>
             </Paper>
+            <Snackbar
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                open={loginErrorOpen}
+                autoHideDuration={5000}
+                message="Username and/or password is incorrect"
+                onClose={handleLoginErrorClose}
+                action={
+                    <Fragment>
+                        <Button color="white" size="small" onClick={handleLoginErrorClose}>
+                            CLOSE
+                        </Button>
+                    </Fragment>
+                }
+            />
         </div>
     );
 };
