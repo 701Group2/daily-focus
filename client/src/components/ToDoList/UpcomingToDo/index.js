@@ -1,10 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { CardActions, Fab, List, ListSubheader } from "@material-ui/core";
+import { CardActions, Fab, List, ListSubheader, makeStyles } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import ToDoItem from "../ToDoItem";
 import moment from "moment";
-import useStyles from "./styles";
+
+const useStyles = makeStyles({
+    fab: {
+        backgroundColor: "#30A0F5"
+    },
+    cardActions: {
+        justifyContent: "flex-end"
+    }
+});
 
 function UpcomingToDo({ upcomingToDoList, switchToAdd, toggleCheck, deleteItem, editItem }) {
     const classes = useStyles();

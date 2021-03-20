@@ -16,11 +16,12 @@ const sortOverallTodosByDate = (overallTodos) => {
 
 const sortSpecificTodoListByTime = (todos) => todos.sort((thisTodo, otherTodo) => thisTodo.time.localeCompare(otherTodo.time));
 
+const newTodaysDate = moment().format("YYYY-MM-D");
+
 function useTodosState(initialTodos, setIsAddingItem) {
     const [todoList, setTodoList] = useState(initialTodos);
 
     useEffect(() => {
-        const newTodaysDate = moment().format("YYYY-MM-D");
         const savedTodoListJson = localStorage.getItem("todoList");
         let savedTodoList;
         if (savedTodoListJson) {

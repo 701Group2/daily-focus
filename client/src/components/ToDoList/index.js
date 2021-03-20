@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import moment from "moment";
-import { Card, CardHeader, MenuItem, Select } from "@material-ui/core";
+import { Card, CardHeader, MenuItem, Select, makeStyles } from "@material-ui/core";
 import AddToDo from "./AddToDo";
 import UpcomingToDo from "./UpcomingToDo";
 import TodaysToDo from "./TodaysToDo";
-import useStyles from "./styles";
 import useTodosState from "./useTodosState";
 
 const getUpcomingToDoItems = (currentToDoList, today) => {
@@ -17,19 +16,34 @@ const getUpcomingToDoItems = (currentToDoList, today) => {
     return upcomingToDoItems;
 };
 
+const useStyles = makeStyles({
+    container: {
+        margin: "10px",
+        width: "25%"
+    },
+    listContainer: {
+        display: "flex",
+        flexDirection: "column"
+    },
+    todoListTitle: {
+        textAlign: "center",
+        backgroundColor: "#30A0F5",
+        marginBottom: "1.5vh"
+    },
+    todoListTitleSelect: {
+        color: "white"
+    },
+});
+
+const todaysDate = moment().format("YYYY-MM-D");
+
 function ToDoList() {
-    const [todaysDate, setTodaysDate] = useState(moment().format("YYYY-MM-D"));
     const [isAddingItem, setIsAddingItem] = useState(false);
     const [selectedTimeline, setSelectedTimeline] = useState("today");
 
     const { todoList, addTodoItem, deleteTodoItem, editTodoItem, toggleCheck } = useTodosState({ [todaysDate]: [] }, setIsAddingItem);
 
     const classes = useStyles();
-
-    useEffect(() => {
-        const newTodaysDate = moment().format("YYYY-MM-D");
-        setTodaysDate(newTodaysDate);
-    }, []);
 
     return (
         <Card className={classes.container}>
