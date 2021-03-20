@@ -6,6 +6,7 @@ import styles from "./styles.module.scss";
 
 const useStyles = makeStyles({
     root: {
+        margin: "0px 10px 0px 10px",
         background: "#30A0F5",
         borderRadius: 50,
         padding: "4px 25px",
@@ -33,15 +34,15 @@ export default function Timer() {
             setMinutes(Math.trunc(miliSeconds / 6000));
         }
 
-        //setMinutes(minute.toString().padEnd(2, 0));
-        //setSeconds(seconds.toString().padEnd(2, 0));
-        //setMiliSeconds(miliSeconds.toString().padEnd(2, 0));
-
         return () => clearTimeout(interval);
     }, [miliSeconds, seconds, minute, isActive]);
 
     return (
         <div className={styles.timer}>
+            <div className={styles.timer_title}>
+                <div className={styles.timer_title_text}>Timer</div>
+            </div>
+
             <p className={styles.seconds}>
                 {minute.toString().padStart(2, 0)} : {seconds.toString().padStart(2, 0)} :{" "}
                 {(miliSeconds % 100).toString().padStart(2, 0)}

@@ -1,5 +1,7 @@
 .timer {
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
     width: 300px;
     height: auto;
@@ -9,11 +11,28 @@
 }
 
 .buttonContainer {
+    display: inline-flex;
+    margin-bottom: 25px;
+}
+
+.timer_title {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #30a0f5;
+    height: 48px;
+    width: 100%;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+.timer_title_text {
+    color: white;
+    font-size: 24px;
+    font-family: "Ropa Sans";
 }
 
 .seconds {
     font-size: 24px;
-    font-family: "Ropa Sans";
-    text-transform: full-width;
+    font-family: Verdana, sans-serif;
 }
