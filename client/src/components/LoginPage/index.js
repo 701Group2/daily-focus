@@ -1,6 +1,7 @@
-import { Button, Grid, Link, makeStyles, Paper, Snackbar, TextField } from "@material-ui/core";
+import { Button, Grid, makeStyles, Paper, Snackbar, TextField } from "@material-ui/core";
 import { useState, Fragment } from "react";
 import createPersistedState from "use-persisted-state";
+import { useHistory, Link } from "react-router-dom";
 import { ReactComponent as FocusLogo } from "./logo.svg";
 
 const useTokenState = createPersistedState("token");
@@ -44,6 +45,7 @@ const LoginPage = () => {
     const [token, setToken] = useTokenState();
 
     const classes = useStyles();
+    const history = useHistory();
 
     const fetchLogin = (username, password) => {
         fetch("http://localhost:9000/login", {
@@ -67,6 +69,7 @@ const LoginPage = () => {
             })
             .then((data) => {
                 setToken(data.token);
+                history.push("/home");
             })
             .catch((e) => {
                 console.log(e);
@@ -121,7 +124,7 @@ const LoginPage = () => {
                         </Grid>
                     </form>
                     <Grid item className={classes.signUpRedirect}>
-                        <Link href="#">Don't have an account? Sign up</Link>
+                        <Link to="/">Don't have an account? Sign up</Link>
                     </Grid>
                 </Grid>
             </Paper>
