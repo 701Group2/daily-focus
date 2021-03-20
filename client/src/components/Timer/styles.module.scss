@@ -1,7 +1,6 @@
-.card {
+.timer {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     width: 300px;
     height: auto;
     background-color: #ffffff;
@@ -9,10 +8,12 @@
     box-shadow: 2px 4px 31px 13px rgba(0, 0, 0, 0.1);
 }
 
-.timeCount {
-    font-family: Ropa sans;
-    font-style: normal;
+.buttonContainer {
+    display: flex;
+}
+
+.seconds {
     font-size: 24px;
-    text-align: center;
-    padding: 15px;
+    font-family: "Ropa Sans";
+    text-transform: full-width;
 }
