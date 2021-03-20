@@ -1,6 +1,8 @@
+const authorise = require("../auth");
 const database = require("../firebase").database;
 var express = require("express");
 var router = express.Router();
+
 
 /* GET all todo list entries */
 router.get("/", function (req, res, next) {
@@ -18,10 +20,13 @@ router.post("/", function (req, res, next) {
 
 /* PUT entry update */
 router.put('/', async function(req, res, next) {
-    // TODO Authenticate user then obtain user id
 
-    let userId = "test_user";
+    let userId = await authorise(req);
     let entryArray = [];
+
+    if (userId === "") {
+        return res.status(401).send("Unauthorised user.");
+    }
 
     // Retrieve array of entries for user from firebase DB
     await database
@@ -54,7 +59,7 @@ router.put('/', async function(req, res, next) {
     });
 
     // Write this updated list back to the 
-    await database.ref().child(userId).child("todolist").set(entryArray);
+    await newFunction(userId).child("todolist").set(entryArray);
 
     res.status(200).send("Successful Update");
 });
@@ -67,3 +72,7 @@ router.delete("/", function (req, res, next) {
 });
 
 module.exports = router;
+function newFunction(userId) {
+    return database.ref().child(userId);
+}
+
