@@ -25,7 +25,7 @@ router.get("/", async function (req, res, next) {
     let userId = await authorise(req);
 
     if (userId === "") {
-        res.status(401).send("Unauthorised user.");
+        return res.status(401).send("Unauthorised user.");
     }
 
     await database
