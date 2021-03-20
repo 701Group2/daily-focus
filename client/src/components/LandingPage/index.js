@@ -76,9 +76,7 @@ export default function LandingPage() {
                         Sign Up
                     </Button>
 
-                    <Link className="loginLink" to="/login">
-                        Already have an account? Sign in
-                    </Link>
+                    <Link to="/login">Already have an account? Sign in</Link>
                 </div>
             </div>
         </div>
