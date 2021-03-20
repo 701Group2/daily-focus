@@ -24,8 +24,6 @@ router.get("/", async function (req, res, next) {
     let todaysDate = new Date();
     let userId = await authorise(req);
 
-    console.log(userId);
-
     if (userId === "") {
         res.status(401).send("Unauthorised user.");
     }
