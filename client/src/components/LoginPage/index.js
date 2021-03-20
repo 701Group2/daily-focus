@@ -1,42 +1,44 @@
-import { Button, Grid, makeStyles, Paper, Snackbar, TextField } from "@material-ui/core";
+import { Button, makeStyles, Paper, Snackbar, TextField } from "@material-ui/core";
 import { useState, Fragment } from "react";
 import createPersistedState from "use-persisted-state";
 import { useHistory, Link } from "react-router-dom";
-import { ReactComponent as FocusLogo } from "./logo.svg";
+
+import { ReactComponent as FocusLogo } from "../../images/focus-logo-w-accent.svg";
+import styles from "./style.module.scss";
 
 const useTokenState = createPersistedState("token");
 
-const useStyles = makeStyles((theme) => ({
-    container: {
-        display: "flex",
-        flexDirection: "column",
-        height: "100vh",
-        justifyContent: "center",
+const useStyles = makeStyles({
+    root: {
+        "& .MuiOutlinedInput-root": {
+            borderRadius: 15,
+        },
+        "& .MuiInputLabel-root": {
+            fontSize: "1.25rem",
+            color: "#7d7d7d",
+            fontFamily: "'Ropa Sans', sans-serif",
+        },
     },
-    login: {
+
+    paper: {
+        borderRadius: "20px",
+        boxShadow: "0px 0px 31px 13px rgba(0, 0, 0, 0.1)",
         margin: "auto",
-        padding: theme.spacing(3),
-        width: 440,
+        padding: "32px 32px 0 32px",
+        width: "480px",
     },
-    signInForm: {
-        width: "100%",
-    },
-    signInTextField: {
-        margin: "8px 0px",
-        width: "100%",
-    },
-    signInBtn: {
-        backgroundColor: "#30a0f5",
-        borderRadius: "28px",
+
+    button: {
+        background: "#30a0f5",
+        borderRadius: 50,
         color: "#ffffff",
-        height: "56px",
-        margin: "8px 0 16px 0",
+        textTransform: "none",
+        fontFamily: "'Ropa Sans', sans-serif",
+        fontSize: "1.75rem",
+        marginTop: "10px",
         width: "100%",
     },
-    signUpRedirect: {
-        margin: "16px 0",
-    },
-}));
+});
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
@@ -89,44 +91,43 @@ const LoginPage = () => {
     };
 
     return (
-        <div className={classes.container}>
-            <Paper className={classes.login}>
-                <Grid container direction="column" justify="center" alignItems="center" spacing={0}>
-                    <Grid item>
-                        <div>
-                            <FocusLogo width={380} fill="#454545" />
-                        </div>
-                    </Grid>
-                    <form className={classes.signInForm} onSubmit={submitLogin}>
-                        <Grid item>
-                            <TextField
-                                className={classes.signInTextField}
-                                label="Email address"
-                                variant="outlined"
-                                value={email}
-                                onInput={(e) => setEmail(e.target.value)}
-                            />
-                        </Grid>
-                        <Grid item>
-                            <TextField
-                                className={classes.signInTextField}
-                                label="Password"
-                                type="password"
-                                variant="outlined"
-                                value={password}
-                                onInput={(e) => setPassword(e.target.value)}
-                            />
-                        </Grid>
-                        <Grid item>
-                            <Button className={classes.signInBtn} type="submit" variant="contained">
-                                Sign In
-                            </Button>
-                        </Grid>
+        <div className={styles.container}>
+            <Paper className={classes.paper}>
+                <div className={styles.logInContainer}>
+                    <div style={{ marginBottom: "24px" }}>
+                        <FocusLogo width={380} fill="#454545" />
+                    </div>
+                    <form onSubmit={submitLogin}>
+                        <TextField
+                            style={{ margin: "10px 0px", width: "100%" }}
+                            classes={{ root: classes.root }}
+                            label="Email address"
+                            variant="outlined"
+                            value={email}
+                            onInput={(e) => setEmail(e.target.value)}
+                        />
+                        <TextField
+                            style={{ margin: "10px 0px", width: "100%" }}
+                            classes={{ root: classes.root }}
+                            label="Password"
+                            type="password"
+                            variant="outlined"
+                            value={password}
+                            onInput={(e) => setPassword(e.target.value)}
+                        />
+                        <Button
+                            color="primary"
+                            className={classes.button}
+                            type="submit"
+                            variant="contained"
+                        >
+                            Sign In
+                        </Button>
                     </form>
-                    <Grid item className={classes.signUpRedirect}>
+                    <div style={{ padding: "32px" }}>
                         <Link to="/">Don't have an account? Sign up</Link>
-                    </Grid>
-                </Grid>
+                    </div>
+                </div>
             </Paper>
             <Snackbar
                 anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
@@ -136,7 +137,7 @@ const LoginPage = () => {
                 onClose={handleLoginErrorClose}
                 action={
                     <Fragment>
-                        <Button color="white" size="small" onClick={handleLoginErrorClose}>
+                        <Button color="inherit" size="small" onClick={handleLoginErrorClose}>
                             CLOSE
                         </Button>
                     </Fragment>
