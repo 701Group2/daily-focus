@@ -85,6 +85,7 @@ export default function CalendarWidget() {
             <Grid>
                 <Calendar onClickDay={(value) => setSelected(value)} tileContent={tileContent} />
 <<<<<<< HEAD
+<<<<<<< HEAD
             </Grid>
             <Grid>
                 <EventView selected={selected} events={events} onRemoveEvent={onRemoveEvent} />
@@ -95,6 +96,11 @@ export default function CalendarWidget() {
             </div>
             <div>
 >>>>>>> - added npm prop-types. calendar can add and remove events.
+=======
+            </Grid>
+            <Grid>
+                <EventView selected={selected} events={events} onRemoveEvent={onRemoveEvent} />
+>>>>>>> Styling calendar (in progress)
                 <NewEvent onAddNewEvent={onAddNewEvent} />
             </Grid>
         </Grid>
