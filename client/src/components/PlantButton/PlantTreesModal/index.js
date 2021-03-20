@@ -53,9 +53,8 @@ function PlantTreesModal() {
         <div className={styles.app}>
             <div className={styles.appHeader}>Grow your plant</div>
 
-            <div className={styles.appBody}>
+            <div>
                 {" "}
-                {/* NO STYLING FOR APP BODY*/}
                 {/* plant display */}
                 <Plant plantImage={stateUtils.plantImageUrls[config.plantSize]}></Plant>
                 {/* control buttons */}
