@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
-// import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -70,7 +69,7 @@ const gridStyle = makeStyles((theme) => ({
     },
 }));
 
-export default function EventView({ selected, events, onRemoveEvent }) {
+function EventView({ selected, events, onRemoveEvent }) {
     const gridStyles = gridStyle();
 
     return (
@@ -110,3 +109,5 @@ EventView.propTypes = {
     events: PropTypes.array,
     onRemoveEvent: PropTypes.func,
 };
+
+export default EventView;

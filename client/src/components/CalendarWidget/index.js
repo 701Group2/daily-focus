@@ -37,7 +37,7 @@ const gridStyle = makeStyles((theme) => ({
     },
 }));
 
-export default function CalendarWidget() {
+function CalendarWidget() {
     const [selected, setSelected] = useState(new Date());
     const [events, setEvents] = useState(initialEvents);
 
@@ -92,3 +92,5 @@ export default function CalendarWidget() {
         </Grid>
     );
 }
+
+export default CalendarWidget;

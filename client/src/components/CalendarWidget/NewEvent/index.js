@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import AddIcon from "@material-ui/icons/Add";
 
-export default function NewEvent({ onAddNewEvent }) {
+function NewEvent({ onAddNewEvent }) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 
@@ -72,3 +72,5 @@ export default function NewEvent({ onAddNewEvent }) {
 NewEvent.propTypes = {
     onAddNewEvent: PropTypes.func,
 };
+
+export default NewEvent;
