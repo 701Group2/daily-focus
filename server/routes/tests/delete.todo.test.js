@@ -2,7 +2,7 @@ const request = require("supertest");
 const app = require("../../app");
 
 const expectedAllTodo = [
-    0: {
+    {
         date: "21/03/2021",
         description: "sleep",
         entry_id: 1,
@@ -10,7 +10,7 @@ const expectedAllTodo = [
         time: "10:00",
         title: "Shopping",
     },
-    1: {
+    {
         date: "21/03/2021",
         description: "Go shopping with bob",
         entry_id: 2,
@@ -21,7 +21,7 @@ const expectedAllTodo = [
 ];
 
 const expectedAfterDeleteTodo = [
-    0: {
+    {
         date: "21/03/2021",
         description: "sleep",
         entry_id: 1,
