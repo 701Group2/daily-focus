@@ -1,6 +1,11 @@
 const request = require("supertest");
-const app = require("../app");
-const database = require("./../firebase").database;
+const app = require("../../app");
+const database = require("./../../firebase").database;
+
+let NZGmt = 13;
+let todaysDate = new Date();
+todaysDate.setHours(todaysDate.getHours() + NZGmt);
+todaysDate = todaysDate.toISOString().slice(0, 10);
 
 const expectedToDoListData = [
     {
@@ -12,40 +17,48 @@ const expectedToDoListData = [
         title: "do something",
     },
     {
-        date: "2021-03-20",
+        date: todaysDate,
         description: "Go shopping with bob",
-        entry_id: 3,
+        entry_id: 1,
         ticked: false,
         time: "08:00",
         title: "Shopping",
     },
     {
-        date: "2021-03-20",
+        date: todaysDate,
         description: "sleep",
-        entry_id: 2,
+        entry_id: 1,
         ticked: false,
         time: "10:00",
         title: "Shopping",
     },
     {
-        date: "2030-03-20",
+        date: "2099-03-20",
         description: "Eat",
-        entry_id: "1234",
+        entry_id: 1,
         ticked: false,
         time: "08:00",
         title: "Shopping",
     },
+    {
+        date: "2077-06-20",
+        description: "Add to todolist",
+        entry_id: "1234",
+        ticked: false,
+        time: "09:00",
+        title: "Update agenda",
+    },
 ];
 
-jest.mock("./../firebase", () => {
-    const mockDatabase = require("../test_utils/mocks/mockDatabase");
+jest.mock("./../../firebase", () => {
+    const mockDatabase = require("../../test_utils/mocks/mockDatabase");
     return {
         database: mockDatabase,
     };
 });
 
 
-jest.mock("../auth", () => {
+jest.mock("../../auth", () => {
     return jest.fn(() => Promise.resolve("mockValidToken"));
 });
 
@@ -59,12 +72,12 @@ describe("POST todolist endpoint", () => {
     });
 
 
-    it("Test POST", async () => {
+    it("todolist item added with uuid generated and :ticked set to false", async () => {
         const todolistItemInput = {
-            date: "2030-03-20",
-            description: "Eat",
-            time: "08:00",
-            title: "Shopping",
+            date: "2077-06-20",
+            description: "Add to todolist",
+            time: "09:00",
+            title: "Update agenda",
         };
 
         const response = await request(app)
