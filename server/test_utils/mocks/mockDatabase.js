@@ -1,5 +1,7 @@
-// let todaysDate = new Date().setHours(todaysDate.getHours() + NZGmt);
-// todaysDate = todaysDate.toISOString().slice(0, 10);
+let NZGmt = 13;
+let todaysDate = new Date();
+todaysDate.setHours(todaysDate.getHours() + NZGmt);
+todaysDate = todaysDate.toISOString().slice(0, 10);
 
 const mockToDoListData = [
     {
@@ -11,15 +13,15 @@ const mockToDoListData = [
         title: "do something",
     },
     {
-        date: "2021-03-20",
+        date: todaysDate,
         description: "Go shopping with bob",
-        entry_id: 3,
+        entry_id: 1,
         ticked: false,
         time: "08:00",
         title: "Shopping",
     },
     {
-        date: "2021-03-20",
+        date: todaysDate,
         description: "sleep",
         entry_id: 2,
         ticked: false,
@@ -27,9 +29,9 @@ const mockToDoListData = [
         title: "Shopping",
     },
     {
-        date: "2030-03-20",
+        date: "2099-03-20",
         description: "Eat",
-        entry_id: 1,
+        entry_id: 3,
         ticked: false,
         time: "08:00",
         title: "Shopping",
@@ -45,7 +47,6 @@ const mockDatabaseLocation = {
     update: jest.fn(() => ({})),
     child: jest.fn(() => mockDatabaseLocation),
     get: jest.fn(() => Promise.resolve(mockSnapshot)),
-    set: jest.fn(() => {}),
 };
 
 const mockDatabase = {
