@@ -53,4 +53,4 @@ const mockDatabase = {
     ref: jest.fn(() => mockDatabaseLocation),
 };
 
-module.exports = mockDatabase;//{mockDatabase: mockDatabase, mockToDoListData: mockToDoListData};
+module.exports = mockDatabase;
