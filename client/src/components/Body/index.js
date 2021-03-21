@@ -1,4 +1,3 @@
-import { Grid, makeStyles } from "@material-ui/core";
 import SelectedWidgetsModal from "../SelectWidgetsModal";
 import styles from "./style.module.scss";
 
