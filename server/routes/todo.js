@@ -119,8 +119,13 @@ router.post('/', async function(req, res, next) {
     let entryArray = [];
     let newEntry = req.body;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 9763e23... Added POST API handler
 =======
+=======
+
+    // Authorisation for user
+>>>>>>> cee8098... Added testing for POST endpoint
     const userId = await authorise(req);
 
     if (userId === "") {
