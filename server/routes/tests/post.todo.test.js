@@ -7,48 +7,16 @@ let todaysDate = new Date();
 todaysDate.setHours(todaysDate.getHours() + NZGmt);
 todaysDate = todaysDate.toISOString().slice(0, 10);
 
-const expectedToDoListData = [
-    {
-        date: "2000-03-20",
-        description: "do something desc",
-        entry_id: "a6722588-4f1c-4de1-aba0-ed597930871e",
-        ticked: false,
-        time: "12:00",
-        title: "do something",
-    },
-    {
-        date: todaysDate,
-        description: "Go shopping with bob",
-        entry_id: 1,
-        ticked: false,
-        time: "08:00",
-        title: "Shopping",
-    },
-    {
-        date: todaysDate,
-        description: "sleep",
-        entry_id: 1,
-        ticked: false,
-        time: "10:00",
-        title: "Shopping",
-    },
-    {
-        date: "2099-03-20",
-        description: "Eat",
-        entry_id: 1,
-        ticked: false,
-        time: "08:00",
-        title: "Shopping",
-    },
-    {
-        date: "2077-06-20",
-        description: "Add to todolist",
-        entry_id: "1234",
-        ticked: false,
-        time: "09:00",
-        title: "Update agenda",
-    },
-];
+const expectedToDoListData = 
+            {
+                date: "2077-06-20",
+                description: "Add to todolist",
+                entry_id: "1234",
+                ticked: false,
+                time: "09:00",
+                title: "Update agenda",
+            };
+
 
 jest.mock("./../../firebase", () => {
     const mockDatabase = require("../../test_utils/mocks/mockDatabase");
@@ -80,12 +48,16 @@ describe("POST todolist endpoint", () => {
             title: "Update agenda",
         };
 
+        var mockDatabaseData = database.ref().getMockData().val();
+
+        mockDatabaseData.pop(expectedToDoListData);
+
         const response = await request(app)
             .post("/todo")
             .set("Accept", "application/json")
             .send(todolistItemInput)
 
         expect(response.status).toBe(200);
-        expect(database.ref().child().child("to").set).toHaveBeenCalledWith(expectedToDoListData);
+        expect(database.ref().child().child("to").set).toHaveBeenCalledWith(mockDatabaseData);
     });
 });
