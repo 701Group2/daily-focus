@@ -12,15 +12,15 @@ const expectedToDoListData = [
         title: "do something",
     },
     {
-        date: "2021-03-20",
-        description: "Go shopping with bob",
-        entry_id: 3,
+        date: "2030-03-20",
+        description: "Changed Entry...",
+        entry_id: 1,
         ticked: false,
-        time: "08:00",
-        title: "Shopping",
+        time: "04:20",
+        title: "Swimming",
     },
     {
-        date: "2021-03-20",
+        date: todaysDate,
         description: "sleep",
         entry_id: 2,
         ticked: false,
@@ -28,9 +28,9 @@ const expectedToDoListData = [
         title: "Shopping",
     },
     {
-        date: "2030-03-20",
-        description: "Changing description",
-        entry_id: 1,
+        date: "2099-03-20",
+        description: "Eat",
+        entry_id: 3,
         ticked: false,
         time: "08:00",
         title: "Shopping",
@@ -59,11 +59,11 @@ describe("PUT todolist endpoint", () => {
     it("Test PUT", async () => {
         const todolistItemInput = {
             date: "2030-03-20",
-            description: "Changing description",
+            description: "Changed Entry...",
             entry_id: 1,
             ticked: false,
-            time: "08:00",
-            title: "Shopping",
+            time: "04:20",
+            title: "Swimming",
         };
 
         const response = await request(app)
