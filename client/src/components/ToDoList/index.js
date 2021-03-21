@@ -21,7 +21,7 @@ const getUpcomingToDoItems = (currentToDoList, today) => {
 const useStyles = makeStyles({
     container: {
         margin: "10px",
-        width: "25%",
+        width: "100%",
     },
     listContainer: {
         display: "flex",
