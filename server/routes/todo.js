@@ -86,6 +86,8 @@ router.post('/', async function(req, res, next) {
 
     let entryArray = [];
     let newEntry = req.body;
+
+    // Authorisation for user
     const userId = await authorise(req);
 
     if (userId === "") {
