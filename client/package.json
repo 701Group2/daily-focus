@@ -7,6 +7,7 @@
     "@material-ui/icons": "^4.11.2",
     "node-sass": "^5.0.0",
     "react": "^16.14.0",
+    "react-calendar": "^3.3.1",
     "react-dom": "^16.14.0",
     "react-scripts": "4.0.3",
     "react-window": "^1.8.6",
