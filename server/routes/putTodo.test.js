@@ -2,35 +2,40 @@ const request = require("supertest");
 const app = require("../app");
 const database = require("./../firebase").database;
 
+let NZGmt = 13;
+let todaysDate = new Date();
+todaysDate.setHours(todaysDate.getHours() + NZGmt);
+todaysDate = todaysDate.toISOString().slice(0, 10);
+
 const expectedToDoListData = [
     {
-        date: "2000-03-20",
-        description: "do something desc",
-        entry_id: "a6722588-4f1c-4de1-aba0-ed597930871e",
-        ticked: false,
-        time: "12:00",
-        title: "do something",
-    },
-    {
-        date: "2021-03-20",
-        description: "Go shopping with bob",
-        entry_id: 3,
+        date: "2099-03-20",
+        description: "Eat",
+        entry_id: 1,
         ticked: false,
         time: "08:00",
         title: "Shopping",
     },
     {
-        date: "2021-03-20",
+        date: todaysDate,
         description: "sleep",
-        entry_id: 2,
+        entry_id: 1,
         ticked: false,
         time: "10:00",
         title: "Shopping",
     },
     {
+        date: todaysDate,
+        description: "Go shopping with bob",
+        entry_id: 1,
+        ticked: false,
+        time: "08:00",
+        title: "Shopping",
+    },
+    {
         date: "2030-03-20",
         description: "Changing description",
-        entry_id: 1,
+        entry_id: "a6722588-4f1c-4de1-aba0-ed597930871e",
         ticked: false,
         time: "08:00",
         title: "Shopping",
@@ -60,7 +65,7 @@ describe("PUT todolist endpoint", () => {
         const todolistItemInput = {
             date: "2030-03-20",
             description: "Changing description",
-            entry_id: 1,
+            entry_id: "a6722588-4f1c-4de1-aba0-ed597930871e",
             ticked: false,
             time: "08:00",
             title: "Shopping",
@@ -75,5 +80,3 @@ describe("PUT todolist endpoint", () => {
         expect(database.ref().child().child("to").set).toHaveBeenCalledWith(expectedToDoListData);
     });
 });
-
-
