@@ -2,6 +2,7 @@ const request = require("supertest");
 const app = require("../app");
 const database = require("./../firebase").database;
 
+// Getting today's date
 let NZGmt = 13;
 let todaysDate = new Date();
 todaysDate.setHours(todaysDate.getHours() + NZGmt);
@@ -42,6 +43,7 @@ const expectedToDoListData = [
     },
 ];
 
+// Jest to test on mockDatabase
 jest.mock("./../firebase", () => {
     const mockDatabase = require("../test_utils/mocks/mockDatabase");
     return {
@@ -49,7 +51,7 @@ jest.mock("./../firebase", () => {
     };
 });
 
-
+// Jest to mock authroised update.
 jest.mock("../auth", () => {
     return jest.fn(() => Promise.resolve("mockValidToken"));
 });
@@ -60,8 +62,7 @@ describe("PUT todolist endpoint", () => {
         jest.clearAllMocks();
     });
     
-
-    it("Test PUT", async () => {
+    it("Mock database should successfully update on a PUT request.", async () => {
         const todolistItemInput = {
             date: "2030-03-20",
             description: "Changing description",
@@ -76,7 +77,8 @@ describe("PUT todolist endpoint", () => {
             .set("Accept", "application/json")
             .send(todolistItemInput)
 
-        expect(response.status).toBe(200);
+        // Test passes if successful update on mock data.
+        expect(response.status).toBe(200); 
         expect(database.ref().child().child("to").set).toHaveBeenCalledWith(expectedToDoListData);
     });
 });
