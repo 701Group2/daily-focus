@@ -48,6 +48,7 @@ const mockDatabaseLocation = {
     child: jest.fn(() => mockDatabaseLocation),
     get: jest.fn(() => Promise.resolve(mockSnapshot)),
     set: jest.fn(() => {}),
+    getMockData: jest.fn(() => mockSnapshot)
 };
 
 const mockDatabase = {
