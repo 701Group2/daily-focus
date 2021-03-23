@@ -1,9 +1,12 @@
 # Daily Focus Server
 An API server containing endpoints for logging in and signing up a user, as well as CRUD endpoints required for the To-Do List widget in the client.
+
+This server runs on http://localhost:9000/
 ## Installation
 
 Install node.js from https://nodejs.org/en/.
 
+Run the following commands:
 ```bash
 npm install
 npm install -g firebase-tools.
@@ -22,11 +25,34 @@ To request access to the firebase console you must first open a Github issue as 
 npm start
 ```
 
+### Endpoints:
+***
+* Logging in a user:  
+http://localhost:9000/login
+
+* Signing up a user:  
+http://localhost:9000/signup
+
+* CRUD endpoints for To-Do List items:  
+http://localhost:9000/todo
+
+***
+
+For more information regarding endpoints, please see:  
+https://github.com/SE701Group2/daily-focus/wiki/Back-End#api-endpoints
+
+
+## Testing
+For unit testing, Jest and Supertest are being used and firebase instances are being mocked.
+
+For more information regarding testing, please see:
+https://github.com/SE701Group2/daily-focus/wiki/Back-End-Testing
+
+
 ## Contributing
 Pull requests are welcome. Please open an issue first as per the guidelines in the [wiki](https://github.com/SE701Group2/daily-focus/wiki).
 
 Please make sure to update unit tests as appropriate.  
-For unit testing Jest and Supertest are being used and firebase instances are being mocked. 
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
