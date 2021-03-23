@@ -6,7 +6,7 @@
 -   Install npm version 6 `npm install -g npm@6.14.11`
 -   Follow the workflow for this project (Fork, run `npm install` in client folder and finally `npm start`)
 
-Please refer to the `Enviroment Set up` Link in table of content for more information
+Please refer to the [Environment Setup](https://github.com/SE701Group2/daily-focus/wiki/Environment-setup) Link in table of content for more information
 
 ## High-level architecture
 
@@ -46,6 +46,21 @@ src
 
 ## Components
 
+### Component Structure
+
+```
+MyComponent/
+--- SubComponent/
+--- --- __snapshots__
+--- --- index.js
+--- --- style.module.scss
+--- --- SubComponent.test.js
+--- ...
+--- index.js
+--- style.module.scss
+--- MyComponent.test.js
+```
+
 ### Structural Components
 
 For this project, the components we have so far are:
@@ -63,7 +78,7 @@ For this project, the components we have so far are:
     -   Search Bar
     -   SelectWidgetModal
 
-Please refer to the `Frontend` link under Architecture heading in the table of content for more information about each individual components and how each of them are set up.
+Please refer to the [Front End](https://github.com/SE701Group2/daily-focus/wiki/Front-End) under Architecture heading in the Wiki for more information about each individual components and how each of them are set up.
 
 ## Testing
 
@@ -86,10 +101,10 @@ Test files must be named like: `MyComponent.test.js`
 Snapshot testing is used for React Components. [See here](https://jestjs.io/docs/snapshot-testing) for info on how and why to use snapshot testing.  
 `react-test-renderer` library is used. (_Note, Enzyme is not used due to a version incompatibility with Jest causing the generated snapshots to be broken. [See here.](https://stackoverflow.com/questions/54419342/jest-enzyme-shallowwrapper-is-empty-when-creating-snapshot)_)
 
-See the `Frontend Testing` Link under Testing for example test code
+See the [Frontend Testing](https://github.com/SE701Group2/daily-focus/wiki/Front-End-Testing) Link under Testing for example test code
 
 ## Unit Testing
 
 `enzyme` is used for other unit tests to verify intended functionality:
 
-See the `Frontend Testing` Link under Testing for example test code
+See the [Frontend Testing](https://github.com/SE701Group2/daily-focus/wiki/Front-End-Testing) Link under Testing for example test code
