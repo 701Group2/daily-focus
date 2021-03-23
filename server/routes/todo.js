@@ -1,7 +1,8 @@
 const { database } = require("../firebase");
 const authorise = require("../auth");
-var express = require("express");
+var express = require('express');
 var router = express.Router();
+
 var uuid = require("uuid");
 
 // Helper method: Used to sort entryArray by GET API.
@@ -178,7 +179,7 @@ router.put("/", async function(req, res, next) {
 router.delete("/", function(req, res, next) {
     // TODO implementation deleting entry from our database
 
-    res.send("delete todo list entry"); // TODO change response after
+    res.send('delete todo list entry'); // TODO change response after
 });
 
 module.exports = router;
@@ -186,4 +187,3 @@ module.exports = router;
 function newFunction(userId) {
     return database.ref().child(userId);
 }
-
