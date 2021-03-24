@@ -61,7 +61,7 @@ router.get("/", async function (req, res, next) {
     } else if (req.query.timeline === "upcoming") {
         let toDoItemsStructured = {};
         let upcomingItems = entryArray.filter((item) => {
-            return item.date > todaysDate;
+            return item.date < todaysDate;
         });
 
         // Stores upcoming to-do items by date.
