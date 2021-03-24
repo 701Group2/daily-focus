@@ -177,7 +177,6 @@ router.put("/", async function(req, res, next) {
 
 /* DELETE todo list entry*/
 router.delete("/", async function (req, res, next) {
-    console.log('xxx');
     let userId = await authorise(req);
 
     if (userId === "") {
