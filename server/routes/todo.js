@@ -29,7 +29,7 @@ router.put('/', function(req, res, next) {
 
 
 /* DELETE todo list entry*/
-router.delete('/userId/:userId/entryId/:entryId', function(req, res, next) {
+router.delete('/:entryId', function(req, res, next) {
     let userId = authorise(req);
 
     if (userId === "") {
@@ -38,16 +38,16 @@ router.delete('/userId/:userId/entryId/:entryId', function(req, res, next) {
 
     var originData, updatedArray = [];
     
-    database.ref(req.params.userId + '/todolist/').get().then(function(snapshot) {
+    database.ref('/todolist/').get().then(function(snapshot) {
         if (snapshot.exists()) {
             originData = snapshot.val();
             updatedArray = originData.filter(entry => entry.entry_id != req.params.entryId);
-            database.ref(req.params.userId + '/todolist').set(updatedArray);
+            database.ref('/todolist').set(updatedArray);
 
             res.status(200).send(updatedArray);
         }
         else {
-          console.log("No data available");
+            res.status(200).send("No data available");
         }
     }).catch(function(error) {
         console.error(error);
