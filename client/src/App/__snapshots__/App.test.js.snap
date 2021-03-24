@@ -19,9 +19,15 @@ exports[`it renders correctly 1`] = `
     </Route>
     <Route
       exact={true}
+      path="/login"
+    >
+      <LoginPage />
+    </Route>
+    <Route
+      exact={true}
       path="/home"
     >
-      <Header />
+      <HomePage />
     </Route>
   </Switch>
 </BrowserRouter>

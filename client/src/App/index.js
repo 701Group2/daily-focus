@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-
-import LandingPage from "./components/LandingPage";
-import Header from "./components/Header";
-import "./App.css";
+import LandingPage from "../pages/LandingPage";
+import LoginPage from "../pages/LoginPage";
+import HomePage from "../pages/HomePage";
+import "./style.css";
 
 function App() {
     return (
@@ -17,9 +17,12 @@ function App() {
                     <LandingPage />
                 </Route>
 
+                <Route exact path="/login">
+                    <LoginPage />
+                </Route>
+
                 <Route exact path="/home">
-                    {/* Replace following component with actual Home component when created */}
-                    <Header />
+                    <HomePage />
                 </Route>
             </Switch>
         </BrowserRouter>
