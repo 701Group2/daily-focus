@@ -16,7 +16,7 @@ firebase login
 You will need to login with an email that has access to this 
 [firebase console](https://console.firebase.google.com/u/2/project/daily-focus-a7423/overview).
 
-To request access to the firebase console you must first open a Github issue as per the [guidelines](https://console.firebase.google.com/u/2/project/daily-focus-a7423/overview) in the wiki.
+To request access to the firebase console you must first open a Github issue as per the [guidelines](https://github.com/SE701Group2/daily-focus/wiki/Environment-setup#requesting-access-to-the-firebase-console) in the wiki.
 
 
 ## Usage
@@ -43,7 +43,14 @@ https://github.com/SE701Group2/daily-focus/wiki/Back-End#api-endpoints
 
 
 ## Testing
-For unit testing, Jest and Supertest are being used and firebase instances are being mocked.
+
+For unit testing, Jest and Supertest are being used.
+
+
+To run tests: 
+```
+npm test
+```
 
 For more information regarding testing, please see:
 https://github.com/SE701Group2/daily-focus/wiki/Back-End-Testing
