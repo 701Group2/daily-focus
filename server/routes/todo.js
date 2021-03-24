@@ -2,6 +2,7 @@ const { database } = require("../firebase");
 const authorise = require("../auth");
 var express = require('express');
 var router = express.Router();
+
 var uuid = require("uuid");
 
 // Helper method: Used to sort entryArray by GET API.
@@ -80,6 +81,8 @@ router.get("/", async function (req, res, next) {
     }
 });
 
+
+/* POST new todo entry */
 router.post("/", async function(req, res, next) {
 
     let entryArray = [];
@@ -124,6 +127,8 @@ router.post("/", async function(req, res, next) {
     res.status(200).send("Successful addition of entry");
 });
 
+
+/* PUT entry update */
 router.put("/", async function(req, res, next) {
 
     let userId = await authorise(req);
@@ -169,30 +174,49 @@ router.put("/", async function(req, res, next) {
     res.status(200).send("Successful Update");
 });
 
+
 /* DELETE todo list entry*/
-router.delete('/:entryId', function(req, res, next) {
-    let userId = authorise(req);
+router.delete("/", async function (req, res, next) {
+    console.log('xxx');
+    let userId = await authorise(req);
 
     if (userId === "") {
         return res.status(401).send("Unauthorised user.");
     }
 
-    var originData, updatedArray = [];
-    
-    database.ref('/todolist/').get().then(function(snapshot) {
-        if (snapshot.exists()) {
-            originData = snapshot.val();
-            updatedArray = originData.filter(entry => entry.entry_id != req.params.entryId);
-            database.ref('/todolist').set(updatedArray);
+    var originData,
+        updatedArray = [];
 
-            res.status(200).send(updatedArray);
-        }
-        else {
-            res.status(200).send("No data available");
-        }
-    }).catch(function(error) {
-        console.error(error);
-    });
+    // Retrieve array of entries for user from firebase DB
+    await database
+        .ref()
+        .child(userId)
+        .child("todolist")
+        .get()
+        .then((snapshot) => {
+            // Only accept if array exists
+            if (snapshot.exists()) {
+                // Get the current data from the database
+                originData = snapshot.val();
+                // Filter the data from the origin data based on the entry id
+                updatedArray = originData.filter((entry) => entry.entry_id != req.body.entry_id);
+            } else {
+                // No data available
+                res.status(200).send("No data available");
+                return;
+            }
+        })
+        .catch((error) => {
+            res.send(error);
+            return;
+        });
+
+    // Update the firebase with the updated array
+    await database.ref().child(userId).child("todolist").set(updatedArray);
+
+    res.status(200).send("Successful deletion");
+});
+
 
 module.exports = router;
 
