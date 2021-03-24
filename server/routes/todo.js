@@ -1,9 +1,8 @@
 const { database } = require("../firebase");
-const authorise = require("../auth");
+const authorise = require("../utils/auth");
 var express = require('express');
 var router = express.Router();
-
-var uuid = require("uuid");
+const uuid = require("uuid");
 
 // Helper method: Used to sort entryArray by GET API.
 function sortByDateTime(a, b) {
@@ -169,7 +168,7 @@ router.put("/", async function(req, res, next) {
     });
 
     // Write this updated list back to the database.
-    await newFunction(userId).child("todolist").set(entryArray);
+    await database.ref().child(userId).child("todolist").set(entryArray);
 
     res.status(200).send("Successful Update");
 });
@@ -218,7 +217,3 @@ router.delete("/", async function (req, res, next) {
 
 
 module.exports = router;
-
-function newFunction(userId) {
-    return database.ref().child(userId);
-}
