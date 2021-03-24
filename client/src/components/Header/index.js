@@ -1,10 +1,11 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
 import { IconButton, makeStyles } from "@material-ui/core";
 import PersonIcon from "@material-ui/icons/Person";
 import styles from "./style.module.scss";
 import FocusLogo from "../../images/focus-logo.svg";
 import SearchBar from "../SearchBar";
+import DateTime from "../DateTime";
+import SelectWidgetsModal from "../SelectWidgetsModal";
 
 const useStyles = makeStyles({
     root: {
@@ -29,7 +30,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Header() {
+export default function Header({ selectedWidgets, setSelectedWidgets }) {
     const classes = useStyles();
 
     return (
@@ -38,20 +39,19 @@ export default function Header() {
                 <img style={{ width: 175 }} src={FocusLogo} alt="FOCUS" />
             </div>
 
-            <div className={styles.dateTime}>10:09 AM | Monday 8 March</div>
+            <div className={styles.dateTime}>
+                <DateTime />
+            </div>
 
             <div className={styles.searchBar}>
                 <SearchBar />
             </div>
 
             <div className={styles.addWidget}>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    classes={{ root: classes.root, label: classes.label }}
-                >
-                    Add Widget
-                </Button>
+                <SelectWidgetsModal
+                    selectedWidgets={selectedWidgets}
+                    setSelectedWidgets={setSelectedWidgets}
+                />
             </div>
 
             <div className={styles.userIcon}>

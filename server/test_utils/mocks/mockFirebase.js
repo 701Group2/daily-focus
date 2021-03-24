@@ -3,11 +3,18 @@ const mockToken = {
 };
 const mockUid = "mockUid";
 
+const mockVerifiedIdToken = {
+    user_id: mockUid,
+};
+
 const shortPasswordErrorMessage = {
     message: "Password should be at least 6 characters",
 };
 const invalidEmailErrorMessage = {
     message: "The email address is badly formatted.",
+};
+const unauthorizedEmailPasswordMessage = {
+    message: "Either your email or password is incorrect",
 };
 
 const mockCreateUserWithEmailAndPassword = jest.fn((inputEmail, inputPassword) => {
@@ -20,6 +27,22 @@ const mockCreateUserWithEmailAndPassword = jest.fn((inputEmail, inputPassword) =
     }
 });
 
+const mockSignInWithEmailAndPassword = jest.fn((inputEmail, inputPassword) => {
+    const validLogin = {
+        email: "test@gmail.com",
+        password: "123456",
+    };
+    if (inputEmail == validLogin.email && inputPassword == validLogin.password) {
+        return Promise.resolve(mockUserData);
+    } else {
+        return Promise.reject(unauthorizedEmailPasswordMessage);
+    }
+});
+
+const mockVerifyIdToken = jest.fn((idToken) => {
+    return Promise.resolve(mockVerifiedIdToken);
+});
+
 const mockUserData = {
     user: {
         uid: mockUid,
@@ -29,6 +52,8 @@ const mockUserData = {
 
 const mockAuthObject = {
     createUserWithEmailAndPassword: mockCreateUserWithEmailAndPassword,
+    signInWithEmailAndPassword: mockSignInWithEmailAndPassword,
+    verifyIdToken: mockVerifyIdToken,
 };
 
 const mockFirebase = {
@@ -42,4 +67,5 @@ module.exports = {
     mockUid,
     shortPasswordErrorMessage,
     invalidEmailErrorMessage,
+    unauthorizedEmailPasswordMessage,
 };
