@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
+import style from "./style.module.scss";
 
 export default function FactOfTheDay(props) {
     const [fact, setFact] = useState("Press button to generate fact");
@@ -40,14 +41,17 @@ export default function FactOfTheDay(props) {
 
     useEffect(() => {
         fetchTodayFact();
-    },[]);
-    
+    }, []);
+
     return (
-        <div>
-            <div> Fact of the Day </div>
-            <p> {fact} </p>
-            <div>
-                <Button onClick={() => fetchRandomFact()}> Random Fact </Button>
+        <div className={style.fact}>
+            <div className={style.factTitle}>
+                <div className={style.factTitleText}> Fact of the Day </div>
+            </div>
+
+            <p className={style.content}> {fact} </p>
+            <div className={style.buttonContainer}>
+                <Button onClick={() => fetchRandomFact()}>Random Fact </Button>
             </div>
         </div>
     );
