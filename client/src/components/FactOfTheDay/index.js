@@ -9,7 +9,6 @@ export default function FactOfTheDay(props) {
         fetch("https://uselessfacts.jsph.pl/random.json?language=en")
             .then((res) => {
                 res.json().then((jsonRes) => {
-                    console.log(jsonRes);
                     if (jsonRes.text) {
                         setFact(jsonRes.text);
                     } else {
@@ -26,7 +25,6 @@ export default function FactOfTheDay(props) {
         fetch("https://uselessfacts.jsph.pl/today.json?language=en")
             .then((res) => {
                 res.json().then((jsonRes) => {
-                    console.log(jsonRes);
                     if (jsonRes.text) {
                         setFact(jsonRes.text);
                     } else {
@@ -49,9 +47,19 @@ export default function FactOfTheDay(props) {
                 <div className={style.factTitleText}> Fact of the Day </div>
             </div>
 
-            <p className={style.content}> {fact} </p>
+            <div className={style.contentContainer}>
+                <p className={style.content}> {fact} </p>
+            </div>
+
             <div className={style.buttonContainer}>
-                <Button onClick={() => fetchRandomFact()}>Random Fact </Button>
+                <Button
+                    onClick={() => fetchRandomFact()}
+                    variant="contained"
+                    color="primary"
+                    classes={{ root: style.root, label: style.label }}
+                >
+                    Random Fact
+                </Button>
             </div>
         </div>
     );

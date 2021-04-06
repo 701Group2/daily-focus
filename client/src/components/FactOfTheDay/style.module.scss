@@ -14,10 +14,18 @@
     margin-bottom: 25px;
 }
 
-.primaryButton {
+.root {
     background-color: #30a0f5;
+    padding: 4px 25px;
+    margin: 0px 10px;
+    border-radius: 50px;
+}
+.label {
     color: white;
-    border-radius: 25px;
+    text-transform: none;
+    font-family: "Ropa Sans", sans-serif;
+    text-transform: capitalize;
+    font-size: 24px;
 }
 
 .factTitle {
@@ -34,7 +42,7 @@
 .factTitleText {
     color: white;
     font-size: 24px;
-    font-family: "Ropa Sans";
+    font-family: "Ropa sans";
 }
 
 .content {
@@ -43,4 +51,10 @@
     align-items: center;
     padding: 10px;
     text-align: center;
+}
+
+.contentContainer {
+    display: flex;
+    text-align: center;
+    height: 128px;
 }
