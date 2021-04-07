@@ -12,15 +12,22 @@ const usePlantProgressState = createPersistedState("plantProgress");
 function PlantTreesModal({ waterCoins, onSpendPoint }) {
     const [plantProgress, setPlantProgress] = usePlantProgressState(0);
 
-    const [config, setConfig] = useState({
-        plantSize: 0, //This var shows different trees pictures
-        feedback: stateUtils.feedback.start,
-    });
     const POINTS = {
         SEEDLING: 2, //small trees
         SMALL: 5, //medium trees
         FULL_GROWN: 10, // big trees
     };
+
+    const getPlantSize = () => {
+        if (plantProgress >= POINTS.FULL_GROWN) return 3;
+        if (plantProgress >= POINTS.SMALL) return 2;
+        if (plantProgress >= POINTS.SEEDLING) return 1;
+    };
+
+    const [config, setConfig] = useState({
+        plantSize: getPlantSize(), //This var shows different trees pictures
+        feedback: stateUtils.feedback.start,
+    });
 
     const handlePlantGrowth = () => {
         if (waterCoins > 0) {
@@ -28,13 +35,8 @@ function PlantTreesModal({ waterCoins, onSpendPoint }) {
             if (newProgress >= POINTS.FULL_GROWN) {
                 setConfig({
                     ...config,
-                    plantSize: 3,
                     feedback: stateUtils.feedback.win,
                 }); //Change to the big trees pictures
-            } else if (newProgress >= POINTS.SMALL) {
-                setConfig({ ...config, plantSize: 2 }); //Change to the medium trees pictures
-            } else if (newProgress >= POINTS.SEEDLING) {
-                setConfig({ ...config, plantSize: 1 }); //Change to the small trees pictures
             }
             onSpendPoint();
             setPlantProgress(newProgress);
