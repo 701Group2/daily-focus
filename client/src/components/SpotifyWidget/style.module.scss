@@ -1,0 +1,41 @@
+.spotify {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 340px;
+    height: fit-content;
+    background-color: #ffffff;
+    border-radius: 25px;
+    box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.1);
+}
+
+.spotifyTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #30a0f5;
+    height: 48px;
+    width: 100%;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+.spotifyTitleText {
+    color: white;
+    font-size: 24px;
+    font-family: "Ropa Sans";
+}
+
+.spotifyBody {
+    width: calc(100% - 40px);
+    padding: 30px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.songImage {
+    width: 90px;
+    height: 90px;
+    background-color: #30a0f5;
+}
