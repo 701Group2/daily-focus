@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders correctly 1`] = `
+<div
+  className="spotify"
+>
+  <div
+    className="spotifyTitle"
+  >
+    <div
+      className="spotifyTitleText"
+    >
+      Spotify
+    </div>
+  </div>
+  <WithStyles(ForwardRef(Button))
+    classes={
+      Object {
+        "label": "makeStyles-label-2",
+        "root": "makeStyles-root-1",
+      }
+    }
+    color="primary"
+    href="https://accounts.spotify.com/authorize?client_id=da6b920a61844d86b3175378885b743d&redirect_uri=http://localhost:3000/home&scope=user-read-currently-playing%20user-read-recently-played%20user-read-playback-state%20user-top-read%20user-modify-playback-state&response_type=token&show_dialog=true"
+    variant="contained"
+  >
+    Login with Spotify
+  </WithStyles(ForwardRef(Button))>
+</div>
+`;
