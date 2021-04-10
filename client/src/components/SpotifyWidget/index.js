@@ -50,6 +50,14 @@ export default function SpotifyWidget() {
                 setPlay(track.is_playing);
             });
         }
+
+        const interval = setInterval(() => {
+            spotify.getMyCurrentPlaybackState().then((track) => {
+                setPlay(track.is_playing);
+                setItem(track.item);
+            });
+        }, 1000);
+        return () => clearInterval(interval);
     }, []);
 
     const handlePlay = () => {
