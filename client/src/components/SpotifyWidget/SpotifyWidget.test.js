@@ -27,10 +27,6 @@ test("it contains spotify container", () => {
     expect(component.find(".spotify")).toHaveLength(1);
 });
 
-test("it contains spotify container", () => {
-    expect(component.find(".spotify")).toHaveLength(1);
-});
-
 test("it contains spotify title", () => {
     expect(component.find(".spotifyTitle")).toHaveLength(1);
     expect(component.find(".spotifyTitleText")).toHaveLength(1);
