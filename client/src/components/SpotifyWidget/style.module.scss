@@ -31,11 +31,32 @@
     padding: 30px 20px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .songImage {
     width: 90px;
     height: 90px;
     background-color: #30a0f5;
+}
+
+.spotifyTrackInfo {
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.spotifyTrackTitle {
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.spotifyArtistName {
+    font-size: 0.8rem;
+    color: grey;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
