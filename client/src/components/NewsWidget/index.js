@@ -6,15 +6,13 @@ import { MenuItem, Select } from "@material-ui/core";
 import ArticleItem from "./ArticleItem";
 
 function NewsWidget() {
-    const [selectedTopic, setSelectedTopic] = useState("sports");
+    const [selectedTopic, setSelectedTopic] = useState("general");
     const [selectedCountry, setsSelectedCountry] = useState("nz");
 
     const [articles, setArticles] = useState([]);
     const [apiError, setApiError] = useState("");
 
     async function apiCall() {
-        // console.log("heyyyyy")
-
         try {
             const response = await getArticles(selectedTopic, selectedCountry);
             setArticles(response);
@@ -27,7 +25,9 @@ function NewsWidget() {
         apiCall();
     }, [selectedCountry, selectedTopic]);
 
-    if (articles.length > 0) {
+    if (apiError !== "") {
+        return apiError;
+    } else {
         return (
             <div className={styles.container}>
                 <div className={styles.title}>
@@ -35,17 +35,21 @@ function NewsWidget() {
                 </div>
 
                 <div className={styles.articleList}>
-                    {articles.map((article, index) => (
-                        <a href={article.url} target="_blank">
-                            <ArticleItem key={article.title + index} props={article} />
-                        </a>
-                    ))}
-                    News articles go here hyayyyyyyyyyyyyyyyyyyy
+                    {articles.length > 0 ? (
+                        articles.map((article, index) => (
+                            <a href={article.url} target="_blank">
+                                <ArticleItem key={article.title + index} props={article} />
+                            </a>
+                        ))
+                    ) : (
+                        <div className={styles.loading}> Loading... </div>
+                    )}
                 </div>
 
                 <div className={styles.dropdownsContainer}>
                     <Select
-                        defaultValue="sports"
+                        className={styles.dropdown}
+                        defaultValue="general"
                         disableUnderline
                         onChange={(e) => setSelectedTopic(e.target.value)}
                     >
@@ -59,6 +63,7 @@ function NewsWidget() {
                     </Select>
 
                     <Select
+                        className={styles.dropdown}
                         defaultValue="nz"
                         disableUnderline
                         onChange={(e) => setsSelectedCountry(e.target.value)}
@@ -70,8 +75,6 @@ function NewsWidget() {
                 </div>
             </div>
         );
-    } else {
-        return "loading..";
     }
 }
 

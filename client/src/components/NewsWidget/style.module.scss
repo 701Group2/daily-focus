@@ -4,16 +4,9 @@
     flex-direction: column;
     width: 340px;
     height: fit-content;
-    // height: 680px;
-    overflow: scroll;
     background-color: #ffffff;
     border-radius: 25px;
     box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.1);
-}
-
-.dropdownsContainer {
-    display: inline-flex;
-    margin-bottom: 25px;
 }
 
 .title {
@@ -33,39 +26,89 @@
     font-family: "Ropa Sans";
 }
 
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
 .articleList {
     height: 400px;
-    overflow: scroll;
+    overflow-y: scroll;
+    margin: 5px;
+    width: 95%;
 }
 
 .articleItem {
-    width: 100%;
-    height: 80px;
+    padding: 10px;
+    height: 60px;
+    display: flex;
+    transition: 0.15s;
 }
 
 .articleItem:hover {
-    width: 100%;
-    height: 80px;
     background-color: rgb(219, 219, 219);
 }
 
 .articleText {
+    text-decoration: none;
+    color: black;
     vertical-align: top;
-
-    display: inline-flex;
-    width: 60%;
+    width: 65%;
+    padding-right: 5px;
 }
 
 .articleImage {
-    display: inline-flex;
-
-    width: 40%;
+    text-decoration: none;
+    width: 35%;
+    image-rendering: smooth;
 }
 
-img {
+.img {
     width: 100%;
     height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
 }
 
-.countrySelect {
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #a5a5a5;
+    border-radius: 10px;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+.dropdownsContainer {
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    transition: 0.3s;
+}
+
+.dropdown {
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 140px;
+    font-family: "Ropa Sans" !important;
+    font-weight: bold !important;
+    border: #a5a5a5 5px;
+    transition: 0.3s;
+}
+
+.dropdown:hover {
+    box-shadow: 0px 2px 6px #707070;
 }
