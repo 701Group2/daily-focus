@@ -10,6 +10,7 @@ import calendar from "../../images/calendar.svg";
 import timer from "../../images/timer.svg";
 import styles from "./style.module.scss";
 import WidgetIcon from "./WidgetIcon";
+import newsWidget from "../../images/news-widget.svg";
 
 const useStyles = makeStyles({
     button: {

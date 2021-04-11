@@ -4,6 +4,7 @@ import styles from "./style.module.scss";
 import CalendarWidget from "../CalendarWidget";
 import Timer from "../Timer";
 import ToDoList from "../ToDoList";
+import NewsWidget from "../NewsWidget";
 
 function Body({ selectedWidgets, setSelectedWidgets }) {
     return (
