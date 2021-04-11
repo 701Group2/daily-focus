@@ -25,6 +25,11 @@ function Body({ selectedWidgets, setSelectedWidgets }) {
                             <Timer />
                         </div>
                     )}
+                    {selectedWidgets.includes("News Widget") && (
+                        <div className={styles.widget}>
+                            <NewsWidget />
+                        </div>
+                    )}
                 </div>
             ) : (
                 <div className={styles.noWidgetContainer}>
