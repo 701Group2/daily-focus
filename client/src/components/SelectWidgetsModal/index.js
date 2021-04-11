@@ -67,6 +67,12 @@ function SelectWidgetsModal({ selectedWidgets, setSelectedWidgets }) {
                             selectedWidgets={selectedWidgets}
                             setSelectedWidgets={setSelectedWidgets}
                         />
+                        <WidgetIcon
+                            image={newsWidget}
+                            label="News Widget"
+                            selectedWidgets={selectedWidgets}
+                            setSelectedWidgets={setSelectedWidgets}
+                        />
                     </Grid>
                 </DialogContent>
             </Dialog>
