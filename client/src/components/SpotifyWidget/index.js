@@ -50,9 +50,18 @@ export default function SpotifyWidget() {
                 setPlay(track.is_playing);
             });
         }
+
+        const interval = setInterval(() => {
+            spotify.getMyCurrentPlaybackState().then((track) => {
+                setPlay(track.is_playing);
+                setItem(track.item);
+            });
+        }, 1000);
+        return () => clearInterval(interval);
     }, []);
 
     const handlePlay = () => {
+        console.log(item);
         spotify.getMyDevices().then((devices) => {
             if (play) {
                 spotify.pause();
@@ -111,25 +120,35 @@ export default function SpotifyWidget() {
                         alt={item?.album?.name}
                     />
                     <div>
-                        <IconButton aria-label="rewind" onClick={skipPrevious}>
-                            <FastRewindIcon fontSize="large" />
-                        </IconButton>
-                        <IconButton
-                            aria-label="play"
-                            onClick={() => {
-                                setPlay(!play);
-                                handlePlay();
-                            }}
-                        >
-                            {play ? (
-                                <PauseIcon fontSize="large" />
-                            ) : (
-                                <PlayArrowIcon fontSize="large" />
-                            )}
-                        </IconButton>
-                        <IconButton aria-label="fastforward" onClick={skipNext}>
-                            <FastForwardIcon fontSize="large" />
-                        </IconButton>
+                        {item && (
+                            <div className={style.spotifyTrackInfo}>
+                                <span className={style.spotifyTrackTitle}>{item?.name}</span>
+                                <span className={style.spotifyArtistName}>
+                                    {item?.artists?.map((a) => a.name).join(", ")}
+                                </span>
+                            </div>
+                        )}
+                        <div>
+                            <IconButton aria-label="rewind" onClick={skipPrevious}>
+                                <FastRewindIcon fontSize="large" />
+                            </IconButton>
+                            <IconButton
+                                aria-label="play"
+                                onClick={() => {
+                                    setPlay(!play);
+                                    handlePlay();
+                                }}
+                            >
+                                {play ? (
+                                    <PauseIcon fontSize="large" />
+                                ) : (
+                                    <PlayArrowIcon fontSize="large" />
+                                )}
+                            </IconButton>
+                            <IconButton aria-label="fastforward" onClick={skipNext}>
+                                <FastForwardIcon fontSize="large" />
+                            </IconButton>
+                        </div>
                     </div>
                 </div>
             )}
