@@ -7,7 +7,7 @@ import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import FastForwardIcon from "@material-ui/icons/FastForward";
 import FastRewindIcon from "@material-ui/icons/FastRewind";
 import PauseIcon from "@material-ui/icons/Pause";
-import { accessUrl, getTokenFromResponse } from "./spotify";
+import { accessUrl, getAuthToken, getRefreshedToken, setExpiryTime } from "./spotify";
 import SpotifyWebApi from "spotify-web-api-js";
 
 const spotify = new SpotifyWebApi();
@@ -33,24 +33,69 @@ export default function SpotifyWidget() {
     const [item, setItem] = useState(false);
 
     useEffect(() => {
-        const hash = getTokenFromResponse();
-        window.location.hash = "";
-        const _token = hash.access_token;
+        var _token = localStorage.getItem("spotify-token");
+
+        if (!_token) {
+            setIsLoggedIn(false);
+
+            // the authorisation code comes from the query of page's url after the user logs in to spotify
+            // check to see if the code is there. If it is, then use it get the access token
+            if (window.location.search !== "") {
+                getAuthToken().then((tokenData) => {
+                    // store the tokens and expiry time in local storage
+                    _token = tokenData.access_token;
+                    const refreshToken = tokenData.refresh_token;
+
+                    localStorage.setItem("spotify-token", _token);
+                    localStorage.setItem("spotify-refresh-token", refreshToken);
+                    setExpiryTime(tokenData.expires_in);
+
+                    // the authorisation code is no longer needed, remove it from the URl
+                    window.location.search = "";
+                });
+            }
+        }
 
         if (_token) {
-            spotify.setAccessToken(_token);
-            setIsLoggedIn(true);
+            var token_expiration = localStorage.getItem("spotify-token-expiration");
+            localStorage.setItem("spotify-token-expiration", Date.now());
 
-            //not needed but just logging to show user info
-            spotify.getMe().then((user) => {
-                console.log(user);
-            });
-
-            spotify.getMyCurrentPlaybackState().then((track) => {
-                setPlay(track.is_playing);
-            });
+            // if the token is expired, try to refresh the access token
+            if (token_expiration && token_expiration <= Date.now()) {
+                getRefreshedToken().then((refreshData) => {
+                    if (refreshData) {
+                        // set the new access token
+                        _token = refreshData.access_token;
+                        onSuccessfulToken(_token);
+                    } else {
+                        // if the token could not be refreshed, the user needs to log in again
+                        _token = null;
+                        setIsLoggedIn(false);
+                    }
+                });
+            } else {
+                onSuccessfulToken(_token);
+            }
         }
     }, []);
+
+    /**
+     * Run after the spotify access token is confirmed to be valid
+     * @param {*} token the access token
+     */
+    const onSuccessfulToken = (token) => {
+        spotify.setAccessToken(token);
+        setIsLoggedIn(true);
+
+        //not needed but just logging to show user info
+        spotify.getMe().then((user) => {
+            console.log(user);
+        });
+
+        spotify.getMyCurrentPlaybackState().then((track) => {
+            setPlay(track.is_playing);
+        });
+    };
 
     const handlePlay = () => {
         spotify.getMyDevices().then((devices) => {
