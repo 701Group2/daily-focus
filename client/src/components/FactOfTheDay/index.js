@@ -1,9 +1,24 @@
 import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core";
 import style from "./style.module.scss";
 
 export default function FactOfTheDay(props) {
+    const useStyles = makeStyles({
+        root: {
+            margin: "0px 10px 0px 10px",
+            background: "#30A0F5",
+            borderRadius: 50,
+            padding: "4px 25px",
+        },
+        label: {
+            textTransform: "capitalize",
+            fontSize: "24px",
+        },
+    });
+
     const [fact, setFact] = useState("Press button to generate fact");
+    const classes = useStyles();
 
     async function fetchRandomFact() {
         fetch("https://uselessfacts.jsph.pl/random.json?language=en")
@@ -56,7 +71,7 @@ export default function FactOfTheDay(props) {
                     onClick={() => fetchRandomFact()}
                     variant="contained"
                     color="primary"
-                    classes={{ root: style.root, label: style.label }}
+                    classes={{ root: classes.root, label: classes.label }}
                 >
                     Random Fact
                 </Button>

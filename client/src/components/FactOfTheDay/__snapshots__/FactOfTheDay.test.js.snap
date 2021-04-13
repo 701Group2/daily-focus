@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Fact of the day renders correctly 1`] = `
+<div
+  className="fact"
+>
+  <div
+    className="factTitle"
+  >
+    <div
+      className="factTitleText"
+    >
+       Fact of the Day 
+    </div>
+  </div>
+  <div
+    className="contentContainer"
+  >
+    <p
+      className="content"
+    >
+       
+      Press button to generate fact
+       
+    </p>
+  </div>
+  <div
+    className="buttonContainer"
+  >
+    <WithStyles(ForwardRef(Button))
+      classes={
+        Object {
+          "label": "makeStyles-label-4",
+          "root": "makeStyles-root-3",
+        }
+      }
+      color="primary"
+      onClick={[Function]}
+      variant="contained"
+    >
+      Random Fact
+    </WithStyles(ForwardRef(Button))>
+  </div>
+</div>
+`;
