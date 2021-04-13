@@ -95,18 +95,12 @@ export default function SpotifyWidget() {
         spotify.setAccessToken(token);
         setIsLoggedIn(true);
 
-        //not needed but just logging to show user info
-        spotify.getMe().then((user) => {
-            console.log(user);
-        });
-
         spotify.getMyCurrentPlaybackState().then((track) => {
             setPlay(track.is_playing);
         });
     };
 
     const handlePlay = () => {
-        console.log(item);
         spotify.getMyDevices().then((devices) => {
             if (play) {
                 spotify.pause();
