@@ -26,6 +26,11 @@ const useStyles = makeStyles({
     },
 });
 
+const CONTEXT_URI = "spotify:playlist:0vvXsWCC9xrXsKd4FyS8kM";
+const SPOTIFY_TOKEN = "spotify-token";
+const SPOTIFY_REFRESH_TOKEN = "spotify-refresh-token";
+const SPOTIFY_TOKEN_EXPIRATION = "spotify-token-expiration";
+
 export default function SpotifyWidget() {
     const classes = useStyles();
     const [play, setPlay] = useState(false);
@@ -33,7 +38,7 @@ export default function SpotifyWidget() {
     const [item, setItem] = useState(false);
 
     useEffect(() => {
-        var _token = localStorage.getItem("spotify-token");
+        var _token = localStorage.getItem(SPOTIFY_TOKEN);
 
         if (!_token) {
             setIsLoggedIn(false);
@@ -46,8 +51,8 @@ export default function SpotifyWidget() {
                     _token = tokenData.access_token;
                     const refreshToken = tokenData.refresh_token;
 
-                    localStorage.setItem("spotify-token", _token);
-                    localStorage.setItem("spotify-refresh-token", refreshToken);
+                    localStorage.setItem(SPOTIFY_TOKEN, _token);
+                    localStorage.setItem(SPOTIFY_REFRESH_TOKEN, refreshToken);
                     setExpiryTime(tokenData.expires_in);
 
                     // the authorisation code is no longer needed, remove it from the URl
@@ -57,8 +62,8 @@ export default function SpotifyWidget() {
         }
 
         if (_token) {
-            var token_expiration = localStorage.getItem("spotify-token-expiration");
-            localStorage.setItem("spotify-token-expiration", Date.now());
+            var token_expiration = localStorage.getItem(SPOTIFY_TOKEN_EXPIRATION);
+            localStorage.setItem(SPOTIFY_TOKEN_EXPIRATION, Date.now());
 
             // if the token is expired, try to refresh the access token
             if (token_expiration && token_expiration <= Date.now()) {
@@ -108,7 +113,7 @@ export default function SpotifyWidget() {
                 spotify
                     .play({
                         device_id: devices.devices[0]?.id,
-                        context_uri: "spotify:playlist:0vvXsWCC9xrXsKd4FyS8kM",
+                        context_uri: CONTEXT_URI,
                     })
                     .then(() => {
                         spotify.getMyCurrentPlayingTrack().then((r) => {
