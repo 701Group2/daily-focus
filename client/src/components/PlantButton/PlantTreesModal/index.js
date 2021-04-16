@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Plant from "./Plant";
 import ControlButton from "./ControlButton";
+import ResetButton from "./ResetButton";
 import UserFeedback from "./UserFeedback";
 import stateUtils from "../stateUtils";
 
@@ -27,9 +28,14 @@ function PlantTreesModal({ waterCoins, onSpendPoint }) {
     };
 
     const [config, setConfig] = useState({
-        plantSize: getPlantSize(),
+        plantSize: getPlantSize(), //This var shows different trees pictures
         feedback: stateUtils.feedback.start,
     });
+
+    const resetPlant = () => {
+        setPlantProgress(0);
+        setConfig({ ...config, feedback: stateUtils.feedback.start, plantSize: 0 });
+    };
 
     const handlePlantGrowth = () => {
         if (waterCoins > 0) {
@@ -69,6 +75,11 @@ function PlantTreesModal({ waterCoins, onSpendPoint }) {
                     image={stateUtils.buttonImageUrls.water}
                 />
                 <UserFeedback feedbackText={config.feedback} progress={getProgress()} />
+                <ResetButton
+                    control={stateUtils.controls.reset}
+                    resetPlant={resetPlant}
+                    image={stateUtils.buttonImageUrls.reset}
+                />
                 <div></div>
             </div>
         </div>
