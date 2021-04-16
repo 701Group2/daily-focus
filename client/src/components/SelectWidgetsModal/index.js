@@ -8,9 +8,9 @@ import { makeStyles } from "@material-ui/core";
 import toDoList from "../../images/toDoList.svg";
 import calendar from "../../images/calendar.svg";
 import timer from "../../images/timer.svg";
-import FactOfTheDay from "../../images/factOfTheDay.svg";
 import styles from "./style.module.scss";
 import WidgetIcon from "./WidgetIcon";
+import FactOfTheDay from "../../images/factOfTheDay.svg";
 
 const useStyles = makeStyles({
     button: {

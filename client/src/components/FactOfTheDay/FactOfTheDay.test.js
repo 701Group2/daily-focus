@@ -24,11 +24,11 @@ test("Fact of the Day button renders correctly", () => {
 });
 
 test("Initial content of paragraph rendered correctly", () => {
-    const paragraph = '<p class="content"> Press button to generate fact </p>';
+    const paragraph = '<p class="content">Press button to generate fact</p>';
     expect(wrapper.find("p").html()).toBe(paragraph);
 });
 
 test("Component contains Fact Of the Day title", () => {
     expect(wrapper.find(".factTitleText")).toHaveLength(1);
-    expect(wrapper.find(".factTitleText").prop("children")).toEqual(" Fact of the Day ");
+    expect(wrapper.find(".factTitleText").prop("children")).toEqual("Fact of the Day");
 });

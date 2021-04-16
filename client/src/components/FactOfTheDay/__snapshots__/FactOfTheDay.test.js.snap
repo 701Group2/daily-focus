@@ -10,7 +10,7 @@ exports[`Fact of the day renders correctly 1`] = `
     <div
       className="factTitleText"
     >
-       Fact of the Day 
+      Fact of the Day
     </div>
   </div>
   <div
@@ -19,9 +19,7 @@ exports[`Fact of the day renders correctly 1`] = `
     <p
       className="content"
     >
-       
       Press button to generate fact
-       
     </p>
   </div>
   <div

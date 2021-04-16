@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core";
 import style from "./style.module.scss";
+import { fetchRandomFact, fetchTodayFact } from "./FactOfTheDayService";
 
 export default function FactOfTheDay(props) {
     const useStyles = makeStyles({
@@ -20,55 +21,21 @@ export default function FactOfTheDay(props) {
     const [fact, setFact] = useState("Press button to generate fact");
     const classes = useStyles();
 
-    async function fetchRandomFact() {
-        fetch("https://uselessfacts.jsph.pl/random.json?language=en")
-            .then((res) => {
-                res.json().then((jsonRes) => {
-                    if (jsonRes.text) {
-                        setFact(jsonRes.text);
-                    } else {
-                        setFact("Sorry, could not get quote");
-                    }
-                });
-            })
-            .catch((err) => {
-                setFact("Sorry, could not get quote");
-            });
-    }
-
-    async function fetchTodayFact() {
-        fetch("https://uselessfacts.jsph.pl/today.json?language=en")
-            .then((res) => {
-                res.json().then((jsonRes) => {
-                    if (jsonRes.text) {
-                        setFact(jsonRes.text);
-                    } else {
-                        setFact("Sorry, could not get quote");
-                    }
-                });
-            })
-            .catch((err) => {
-                setFact("Sorry, could not get quote");
-            });
-    }
-
     useEffect(() => {
-        fetchTodayFact();
+        fetchTodayFact(setFact);
     }, []);
 
     return (
         <div className={style.fact}>
             <div className={style.factTitle}>
-                <div className={style.factTitleText}> Fact of the Day </div>
+                <div className={style.factTitleText}>Fact of the Day</div>
             </div>
-
             <div className={style.contentContainer}>
-                <p className={style.content}> {fact} </p>
+                <p className={style.content}>{fact}</p>
             </div>
-
             <div className={style.buttonContainer}>
                 <Button
-                    onClick={() => fetchRandomFact()}
+                    onClick={() => fetchRandomFact(setFact)}
                     variant="contained"
                     color="primary"
                     classes={{ root: classes.root, label: classes.label }}
