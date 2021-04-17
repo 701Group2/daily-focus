@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { getArticles } from "./newsAPI";
 import styles from "./style.module.scss";
-import Button from "@material-ui/core/Button";
 import { MenuItem, Select } from "@material-ui/core";
 import ArticleItem from "./ArticleItem";
 
