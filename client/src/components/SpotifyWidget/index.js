@@ -63,7 +63,6 @@ export default function SpotifyWidget() {
 
         if (_token) {
             var token_expiration = localStorage.getItem(SPOTIFY_TOKEN_EXPIRATION);
-            localStorage.setItem(SPOTIFY_TOKEN_EXPIRATION, Date.now());
 
             // if the token is expired, try to refresh the access token
             if (token_expiration && token_expiration <= Date.now()) {
@@ -71,6 +70,9 @@ export default function SpotifyWidget() {
                     if (refreshData) {
                         // set the new access token
                         _token = refreshData.access_token;
+                        localStorage.setItem(SPOTIFY_TOKEN, _token);
+                        setExpiryTime(refreshData.expires_in);
+
                         onSuccessfulToken(_token);
                     } else {
                         // if the token could not be refreshed, the user needs to log in again
