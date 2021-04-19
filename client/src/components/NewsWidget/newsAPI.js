@@ -5,8 +5,6 @@ export const getArticles = async (topic, country) => {
         `https://newsapi.org/v2/top-headlines?category=${topic}&country=${country}&sortBy=publishedAt&apiKey=${NEWS_API_KEY}`
     );
     const json = await response.json();
-    console.log("api json articles");
-    console.log(json.articles);
 
     return json.articles;
 };

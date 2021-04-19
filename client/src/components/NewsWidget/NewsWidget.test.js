@@ -3,6 +3,7 @@ import ShallowRenderer from "react-test-renderer/shallow";
 import { MenuItem, Select } from "@material-ui/core";
 import NewsWidget from "./";
 import { shallow } from "enzyme";
+import { getArticles } from "./newsAPI";
 
 let component;
 
@@ -24,4 +25,10 @@ test("it contains Material UI Select, MenuItem components", () => {
 test("dropdown default values load in", () => {
     expect(component.find(Select).at(0).props().defaultValue).toEqual("general");
     expect(component.find(Select).at(1).props().defaultValue).toEqual("nz");
+});
+
+test("the data is returned from the getArticles function (API endpoint works)", () => {
+    return getArticles("general", "nz").then((data) => {
+        expect(data.length).toBeGreaterThan(1);
+    });
 });

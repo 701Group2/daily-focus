@@ -12,8 +12,6 @@ export default function ArticleItem(props) {
     };
 
     if (article) {
-        console.log(article.props.title);
-        console.log(article);
         return (
             <div className={styles.articleItem}>
                 <div className={styles.articleText}>
