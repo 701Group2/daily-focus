@@ -26,9 +26,10 @@ export const AuthProvider = ({ children }) => {
             .then(() => setIsLoading(false));
 
     useEffect(() => {
+        setIsLoading(true);
         checkAuth();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [token]);
 
     return (
         <AuthContext.Provider
