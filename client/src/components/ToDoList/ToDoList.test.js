@@ -24,39 +24,60 @@ test("Add a todo item", () => {
     // In add screen
     const addToDoWrapper = shallow(<AddToDo {...wrapper.find(AddToDo).props()} />);
     const textFieldsWrapper = addToDoWrapper.find("WithStyles(ForwardRef(TextField))");
-    expect(textFieldsWrapper.length).toBe(4);
+    expect(textFieldsWrapper.length).toBe(6);
 
-    // first text field should be for date
-    expect(textFieldsWrapper.at(0).props().label).toBe("Date");
+    // first text field should be for start date and should be of type date
+    expect(textFieldsWrapper.at(0).props().label).toBe("Start Date");
     expect(textFieldsWrapper.at(0).props().type).toBe("date");
 
-    // second text field should be for time
-    expect(textFieldsWrapper.at(1).props().label).toBe("Time");
+    // second text field should be for start time and should be of type time
+    expect(textFieldsWrapper.at(1).props().label).toBe("Start Time");
     expect(textFieldsWrapper.at(1).props().type).toBe("time");
 
-    // third text field should be for title
-    expect(textFieldsWrapper.at(2).props().label).toBe("Title");
+    // third text field should be for end date and should be of type date
+    expect(textFieldsWrapper.at(2).props().label).toBe("End Date");
+    expect(textFieldsWrapper.at(2).props().type).toBe("date");
 
-    // first text field should be for details
-    expect(textFieldsWrapper.at(3).props().label).toBe("Details");
-    expect(textFieldsWrapper.at(3).props().multiline).toBe(true);
+    // fourth text field should be for end time and should be of type time
+    expect(textFieldsWrapper.at(3).props().label).toBe("End Time");
+    expect(textFieldsWrapper.at(3).props().type).toBe("time");
+
+    // fifth text field should be for title
+    expect(textFieldsWrapper.at(4).props().label).toBe("Title");
+
+    // sixth text field should be for details and should be multiline
+    expect(textFieldsWrapper.at(5).props().label).toBe("Details");
+    expect(textFieldsWrapper.at(5).props().multiline).toBe(true);
 });
 
 test("Interaction on todo item", () => {
     const wrapper = shallow(<ToDoList />);
     wrapper.find(TodaysToDo).props().switchToAdd();
-    wrapper.find(AddToDo).props().addClicked(moment().format("YYYY-MM-D"), "00:00", "Testing", "Hello world from test");
+    wrapper
+        .find(AddToDo)
+        .props()
+        .addClicked(moment().format("YYYY-MM-D"), "00:00", "Testing", "Hello world from test");
     let todaysTodoWrapper = wrapper.find(TodaysToDo).shallow();
 
     // Checked
-    todaysTodoWrapper.find(ToDoItem).shallow().find("WithStyles(ForwardRef(Checkbox))").props().onChange();
+    todaysTodoWrapper
+        .find(ToDoItem)
+        .shallow()
+        .find("WithStyles(ForwardRef(Checkbox))")
+        .props()
+        .onChange();
     todaysTodoWrapper = wrapper.find(TodaysToDo).shallow();
     expect(todaysTodoWrapper.find(ToDoItem).at(0).props().checked).toBe(true);
 
-    // edit time
-    todaysTodoWrapper.find(ToDoItem).props().onEdit("time", "23:59");
+    // edit start time
+    todaysTodoWrapper.find(ToDoItem).props().onEdit("startTime", "23:59");
     todaysTodoWrapper = wrapper.find(TodaysToDo).shallow();
-    expect(todaysTodoWrapper.find(ToDoItem).at(0).props().time).toBe("23:59");
+    expect(todaysTodoWrapper.find(ToDoItem).at(0).props().startTime).toBe("23:59");
+
+    // edit end time
+    todaysTodoWrapper.find(ToDoItem).props().onEdit("endTime", "06:47");
+    todaysTodoWrapper = wrapper.find(TodaysToDo).shallow();
+    expect(todaysTodoWrapper.find(ToDoItem).at(0).props().endTime).toBe("06:47");
 
     // edit details
     todaysTodoWrapper.find(ToDoItem).props().onEdit("details", "new details");
