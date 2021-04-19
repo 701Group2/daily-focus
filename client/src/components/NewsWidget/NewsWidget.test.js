@@ -27,8 +27,18 @@ test("dropdown default values load in", () => {
     expect(component.find(Select).at(1).props().defaultValue).toEqual("nz");
 });
 
-test("the data is returned from the getArticles function (API endpoint works)", () => {
+// checks arbitrary element of array to check it is defined
+test("the data is returned from the getArticles function (API endpoint works)", async () => {
     return getArticles("general", "nz").then((data) => {
-        expect(data.length).toBeGreaterThan(1);
+        expect(data.length).toBeGreaterThan(0);
+        expect(typeof data[4].author).toBe("object");
+        expect(typeof data[4].content).toBe("string");
+        expect(typeof data[4].description).toBe("string");
+        expect(typeof data[4].publishedAt).toBe("string");
+        expect(typeof data[4].source).toBe("object");
+        expect(typeof data[4].source.name).toBe("string");
+        expect(typeof data[4].title).toBe("string");
+        expect(typeof data[4].url).toBe("string");
+        expect(typeof data[4].urlToImage).toBe("string");
     });
 });
