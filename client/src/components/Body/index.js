@@ -4,7 +4,11 @@ import styles from "./style.module.scss";
 import CalendarWidget from "../CalendarWidget";
 import Timer from "../Timer";
 import ToDoList from "../ToDoList";
+
 import NewsWidget from "../NewsWidget";
+import FactOfTheDay from "../FactOfTheDay";
+import SpotifyWidget from "../SpotifyWidget";
+
 
 function Body({ selectedWidgets, setSelectedWidgets }) {
     return (
@@ -29,6 +33,16 @@ function Body({ selectedWidgets, setSelectedWidgets }) {
                     {selectedWidgets.includes("News Widget") && (
                         <div className={styles.widget}>
                             <NewsWidget />
+                        </div>
+                    )}
+                    {selectedWidgets.includes("Fact Of The Day") && (
+                        <div className={styles.widget}>
+                            <FactOfTheDay />
+                        </div>
+                    )}
+                    {selectedWidgets.includes("Spotify") && (
+                        <div className={styles.widget}>
+                            <SpotifyWidget />
                         </div>
                     )}
                 </div>

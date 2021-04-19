@@ -8,9 +8,12 @@ import { makeStyles } from "@material-ui/core";
 import toDoList from "../../images/toDoList.svg";
 import calendar from "../../images/calendar.svg";
 import timer from "../../images/timer.svg";
+import spotify from "../../images/spotify.svg";
 import styles from "./style.module.scss";
 import WidgetIcon from "./WidgetIcon";
 import newsWidget from "../../images/news-widget.svg";
+import FactOfTheDay from "../../images/factOfTheDay.svg";
+
 
 const useStyles = makeStyles({
     button: {
@@ -71,6 +74,18 @@ function SelectWidgetsModal({ selectedWidgets, setSelectedWidgets }) {
                         <WidgetIcon
                             image={newsWidget}
                             label="News Widget"
+                            selectedWidgets={selectedWidgets}
+                            setSelectedWidgets={setSelectedWidgets}
+                        />
+                         <WidgetIcon
+                            image={FactOfTheDay}
+                            label="Fact Of The Day"
+                            selectedWidgets={selectedWidgets}
+                            setSelectedWidgets={setSelectedWidgets}
+                        />
+                        <WidgetIcon
+                            image={spotify}
+                            label="Spotify"
                             selectedWidgets={selectedWidgets}
                             setSelectedWidgets={setSelectedWidgets}
                         />
