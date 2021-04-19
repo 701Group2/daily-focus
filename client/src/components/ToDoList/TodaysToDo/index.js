@@ -26,7 +26,6 @@ function TodaysToDo({
     onSpendPoint,
 }) {
     const classes = useStyles();
-
     return (
         <div>
             <List disablePadding>
@@ -35,7 +34,10 @@ function TodaysToDo({
                         key={index}
                         checked={object.checked}
                         title={object.title}
-                        time={object.time}
+                        startTime={object.startTime}
+                        endTime={object.endTime}
+                        startDate={object.startDate}
+                        endDate={object.endDate}
                         details={object.details}
                         onCheckboxClicked={() => toggleCheck(index, todaysDate)}
                         onDelete={() => deleteItem(index, todaysDate)}

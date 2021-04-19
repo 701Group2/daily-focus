@@ -40,8 +40,10 @@ function AddToDo({ cancelClicked, addClicked }) {
     const currentDate = moment().format("YYYY-MM-D");
     const currentTime = moment().format("HH:mm");
 
-    const [selectedDate, setSelectedDate] = useState(currentDate);
-    const [selectedTime, setSelectedTime] = useState(currentTime);
+    const [startDate, setStartDate] = useState(currentDate);
+    const [startTime, setStartTime] = useState(currentTime);
+    const [endDate, setEndDate] = useState(currentDate);
+    const [endTime, setEndTime] = useState(currentTime);
     const [currentTitle, setCurrentTitle] = useState("");
     const [currentDetails, setCurrentDetails] = useState("");
 
@@ -57,9 +59,9 @@ function AddToDo({ cancelClicked, addClicked }) {
                         fullWidth
                         variant="outlined"
                         type="date"
-                        label="Date"
+                        label="Start Date"
                         defaultValue={currentDate}
-                        onChange={(e) => setSelectedDate(e.target.value)}
+                        onChange={(e) => setStartDate(e.target.value)}
                     />
                 </div>
                 <div className={styles.todoAddField}>
@@ -68,9 +70,31 @@ function AddToDo({ cancelClicked, addClicked }) {
                         className={classes.todoInputTextField}
                         variant="outlined"
                         type="time"
-                        label="Time"
+                        label="Start Time"
                         defaultValue={currentTime}
-                        onChange={(e) => setSelectedTime(e.target.value)}
+                        onChange={(e) => setStartTime(e.target.value)}
+                    />
+                </div>
+                <div className={styles.todoAddField}>
+                    <TextField
+                        className={classes.todoInputTextField}
+                        fullWidth
+                        variant="outlined"
+                        type="date"
+                        label="End Date"
+                        defaultValue={currentDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                    />
+                </div>
+                <div className={styles.todoAddField}>
+                    <TextField
+                        fullWidth
+                        className={classes.todoInputTextField}
+                        variant="outlined"
+                        type="time"
+                        label="End Time"
+                        defaultValue={currentTime}
+                        onChange={(e) => setEndTime(e.target.value)}
                     />
                 </div>
                 <div className={styles.todoAddField}>
@@ -99,7 +123,14 @@ function AddToDo({ cancelClicked, addClicked }) {
                     color="primary"
                     variant="contained"
                     onClick={() =>
-                        addClicked(selectedDate, selectedTime, currentTitle, currentDetails)
+                        addClicked(
+                            startDate,
+                            startTime,
+                            endDate,
+                            endTime,
+                            currentTitle,
+                            currentDetails
+                        )
                     }
                 >
                     Add Task

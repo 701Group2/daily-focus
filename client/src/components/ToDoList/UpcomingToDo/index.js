@@ -44,7 +44,10 @@ function UpcomingToDo({
                             key={index}
                             checked={object.checked}
                             title={object.title}
-                            time={object.time}
+                            startTime={object.startTime}
+                            endTime={object.endTime}
+                            startDate={object.startDate}
+                            endDate={object.endDate}
                             details={object.details}
                             onCheckboxClicked={() => toggleCheck(index, date)}
                             onDelete={() => deleteItem(index, date)}
