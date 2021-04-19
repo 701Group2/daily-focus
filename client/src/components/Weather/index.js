@@ -28,63 +28,37 @@ function Weather() {
         return hourArray;
     };
 
+    const getData = (lat, lon) => {
+        getWeatherData(
+            lat,
+            lon,
+            setIcon,
+            setMain,
+            setTemp,
+            setMaxTemp,
+            setMinTemp,
+            setDailyData,
+            setHourlyData,
+            setIsError
+        );
+        getLocationData(lat, lon, setCity, setCountry, setIsError);
+    };
+
     useEffect(() => {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(
                 function (position) {
                     const lat = position.coords.latitude;
                     const lon = position.coords.longitude;
-                    getWeatherData(
-                        lat,
-                        lon,
-                        setIcon,
-                        setMain,
-                        setTemp,
-                        setMaxTemp,
-                        setMinTemp,
-                        setDailyData,
-                        setHourlyData,
-                        setIsError
-                    );
-                    getLocationData(lat, lon, setCity, setCountry, setIsError);
+                    getData(lat, lon);
                 },
                 // Permission not given to access location, so default to Auckland coordinates
                 function onError() {
-                    getWeatherData(
-                        AUCKLAND_COORDS.lat,
-                        AUCKLAND_COORDS.lon,
-                        setIcon,
-                        setMain,
-                        setTemp,
-                        setMaxTemp,
-                        setMinTemp,
-                        setDailyData,
-                        setHourlyData,
-                        setIsError
-                    );
-                    getLocationData(
-                        AUCKLAND_COORDS.lat,
-                        AUCKLAND_COORDS.lon,
-                        setCity,
-                        setCountry,
-                        setIsError
-                    );
+                    getData(AUCKLAND_COORDS.lat, AUCKLAND_COORDS.lon);
                 }
             );
         } else {
-            getWeatherData(
-                AUCKLAND_COORDS.lat,
-                AUCKLAND_COORDS.lon,
-                setIcon,
-                setMain,
-                setTemp,
-                setMaxTemp,
-                setMinTemp,
-                setDailyData,
-                setHourlyData,
-                setIsError
-            );
-            getLocationData(AUCKLAND_COORDS.lat, AUCKLAND_COORDS.lon, setCity, setCountry, isError);
+            getData(AUCKLAND_COORDS.lat, AUCKLAND_COORDS.lon);
         }
     }, []);
 
