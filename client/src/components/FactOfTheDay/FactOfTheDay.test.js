@@ -3,6 +3,7 @@ import FactOfTheDay from ".";
 import { shallow } from "enzyme";
 import ShallowRenderer from "react-test-renderer/shallow";
 import Button from "@material-ui/core/Button";
+import { fetchRandomFact, fetchTodayFact } from "./FactOfTheDayService";
 
 let wrapper;
 
@@ -31,4 +32,24 @@ test("Initial content of paragraph rendered correctly", () => {
 test("Component contains Fact Of the Day title", () => {
     expect(wrapper.find(".factTitleText")).toHaveLength(1);
     expect(wrapper.find(".factTitleText").prop("children")).toEqual("Fact of the Day");
+});
+
+test("Testing fetch Random Fact of the Day endpoint", (done) => {
+    function setFact(fact) {
+        expect(fact).not.toBe("");
+        expect(typeof fact).toBe("string");
+        done();
+    }
+
+    fetchRandomFact(setFact);
+});
+
+test("Testing fetch Today's fact of the day endpoint", (done) => {
+    function setFact(fact) {
+        expect(fact).not.toBe("");
+        expect(typeof fact).toBe("string");
+        done();
+    }
+
+    fetchTodayFact(setFact);
 });
