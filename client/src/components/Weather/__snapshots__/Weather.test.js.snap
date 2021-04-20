@@ -60,5 +60,10 @@ exports[`it renders correctly 1`] = `
       />
     </div>
   </div>
+  <div
+    className="loading"
+  >
+    <WithStyles(ForwardRef(CircularProgress)) />
+  </div>
 </div>
 `;

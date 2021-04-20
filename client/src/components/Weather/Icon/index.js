@@ -5,7 +5,7 @@ import {
     faCloudMoonRain,
     faCloudSun,
     faCloudSunRain,
-    faCloudRain,
+    faCloudShowersHeavy,
     faBolt,
     faSnowflake,
     faSun,
@@ -23,8 +23,8 @@ const weatherIcon = {
     "11n": <FontAwesomeIcon icon={faBolt} className={styles.faColor} />,
 
     // Rain
-    "10d": <FontAwesomeIcon icon={faCloudRain} className={styles.faColor} />,
-    "10n": <FontAwesomeIcon icon={faCloudRain} className={styles.faColor} />,
+    "10d": <FontAwesomeIcon icon={faCloudShowersHeavy} className={styles.faColor} />,
+    "10n": <FontAwesomeIcon icon={faCloudShowersHeavy} className={styles.faColor} />,
 
     // Light Rain/Showers
     "09d": <FontAwesomeIcon icon={faCloudSunRain} className={styles.faColor} />,

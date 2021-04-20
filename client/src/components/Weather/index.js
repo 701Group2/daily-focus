@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { CircularProgress } from "@material-ui/core";
 import DayCard from "./DayCard";
 import HourCard from "./HourCard";
 import Icon from "./Icon";
@@ -91,6 +92,11 @@ function Weather() {
                     <div className={styles.errorContainer}>Can not retrieve weather</div>
                 )}
             </div>
+            {dailyData.length === 0 ? (
+                <div className={styles.loading}>
+                    <CircularProgress />
+                </div>
+            ) : null}
         </div>
     );
 }
