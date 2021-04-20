@@ -37,11 +37,7 @@ const invalidEmailInput = {
     password: "123456",
 };
 
-mockToken = {
-    "message": "The email address is already in use by another account."
-};
-
-shortPasswordErrorMessage = {
+shortPasswordErrorResponse = {
     "errors": [
         {
             "value": "12345",
@@ -52,7 +48,7 @@ shortPasswordErrorMessage = {
     ]
 };
 
-invalidEmailErrorMessage = {
+invalidEmailErrorResponse = {
     "errors": [
         {
             "value": "",
@@ -94,7 +90,7 @@ describe("signup user endpoint  ", () => {
         });
     });
 
-    it("when a invalid password less than 6 chars is given, it returns 400 and does not add user to database", async () => {
+    it("when a invalid password less than 6 chars is given, express validator rejects request", async () => {
         const response = await request(app)
             .post("/signup")
             .set("Accept", "application/json")
@@ -102,20 +98,17 @@ describe("signup user endpoint  ", () => {
 
         // Tests validation
         expect(response.status).toEqual(400);
-        expect(response.body).toEqual(shortPasswordErrorMessage);
+        expect(response.body).toEqual(shortPasswordErrorResponse);
 
+        // If firebase auth is called, express validator failed
         //tests firebase method calls for creating a user
-        expect(firebase.auth).toHaveBeenCalled();
-        expect(firebase.auth().createUserWithEmailAndPassword).toHaveBeenCalledWith(
-            invalidPasswordInput.email,
-            invalidPasswordInput.password
-        );
+        expect(firebase.auth().createUserWithEmailAndPassword).toHaveBeenCalledTimes(0);
 
         //tests no database calls have been made
         expect(database.ref).toHaveBeenCalledTimes(0);
     });
 
-    it("when a invalid email is given, it returns 400 and does not add user to database", async () => {
+    it("when a invalid email is given, express validator rejects request", async () => {
         const response = await request(app)
             .post("/signup")
             .set("Accept", "application/json")
@@ -123,14 +116,11 @@ describe("signup user endpoint  ", () => {
 
         // Tests express validation
         expect(response.status).toEqual(400);
-        expect(response.body).toEqual(invalidEmailErrorMessage);
+        expect(response.body).toEqual(invalidEmailErrorResponse);
 
+        // If firebase auth is called, express validator failed
         //tests firebase method calls for creating a user
-        expect(firebase.auth).toHaveBeenCalled();
-        expect(firebase.auth().createUserWithEmailAndPassword).toHaveBeenCalledWith(
-            invalidEmailInput.email,
-            invalidEmailInput.password
-        );
+        expect(firebase.auth().createUserWithEmailAndPassword).toHaveBeenCalledTimes(0);
 
         //tests no database calls have been made
         expect(database.ref).toHaveBeenCalledTimes(0);

@@ -33,10 +33,6 @@ const unauthorizedAccountInput = {
     password: "1234567",
 };
 
-unauthorizedEmailPasswordMessage = {
-    "message": "Either your email or password is incorrect"
-}
-
 describe("login user endpoint  ", () => {
     afterEach(() => {
         jest.clearAllMocks();
@@ -50,7 +46,7 @@ describe("login user endpoint  ", () => {
 
         // Tests validation
         expect(response.status).toEqual(200);
-        expect(response.body).toEqual(token);
+        expect(response.body).toEqual(mockToken);
 
         //tests firebase method calls for creating a user
         expect(firebase.auth).toHaveBeenCalled();
