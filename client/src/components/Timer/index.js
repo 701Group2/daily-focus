@@ -9,6 +9,7 @@ const useStyles = makeStyles({
         background: "#30A0F5",
         borderRadius: 50,
         padding: "4px 25px",
+        width: "120px",
     },
     label: {
         textTransform: "capitalize",
@@ -21,7 +22,7 @@ export default function Timer() {
     const [seconds, setSeconds] = useState(0);
     const [minute, setMinutes] = useState(0);
 
-    const [isActive, setActive] = useState(false);
+    const [isActive, setIsActive] = useState(false);
     const classes = useStyles();
 
     useEffect(() => {
@@ -36,6 +37,13 @@ export default function Timer() {
         return () => clearTimeout(interval);
     }, [miliSeconds, seconds, minute, isActive]);
 
+    const reset = () => {
+        setMiliSeconds(0);
+        setSeconds(0);
+        setMinutes(0);
+        setIsActive(false);
+    };
+
     return (
         <div className={style.timer}>
             <div className={style.timerTitle}>
@@ -49,23 +57,20 @@ export default function Timer() {
 
             <div className={style.buttonContainer}>
                 <Button
-                    disabled={isActive}
-                    onClick={() => setActive(true)}
+                    onClick={() => setIsActive(!isActive)}
                     variant="contained"
                     color="primary"
                     classes={{ root: classes.root, label: classes.label }}
                 >
-                    Start
+                    {isActive ? "Stop" : "Start"}
                 </Button>
-
                 <Button
-                    disabled={!isActive}
-                    onClick={() => setActive(false)}
+                    onClick={() => reset()}
                     variant="contained"
                     color="primary"
                     classes={{ root: classes.root, label: classes.label }}
                 >
-                    Stop
+                    Reset
                 </Button>
             </div>
         </div>

@@ -24,6 +24,11 @@ exports[`it renders correctly 1`] = `
       feedbackText="When you finish a task, you will get water so you can water your tree! Try to click the watering can."
       progress={0}
     />
+    <ResetButton
+      control="reset"
+      image="reload.png"
+      resetPlant={[Function]}
+    />
     <div />
   </div>
 </div>

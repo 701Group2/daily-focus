@@ -1,12 +1,12 @@
 .selectWidgetDialog {
-    height:500px;
+    height: 500px;
     width: 500px;
 }
 
-.media{
+.media {
     display: block;
-    max-width:250px;
-    max-height:250px;
+    max-width: 250px;
+    max-height: 250px;
     width: auto;
     height: auto;
 }
@@ -16,10 +16,10 @@
     flex-direction: column;
     justify-content: center;
     height: 300px;
-    border-radius: 15px;    
+    border-radius: 15px;
 }
 
 .title {
     text-align: center;
-    font-family:"Ropa Sans";
+    font-family: "Ropa Sans";
 }
