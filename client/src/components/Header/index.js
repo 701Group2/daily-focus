@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { IconButton, makeStyles } from "@material-ui/core";
 import PersonIcon from "@material-ui/icons/Person";
 import styles from "./style.module.scss";
@@ -32,32 +32,42 @@ const useStyles = makeStyles({
 
 export default function Header({ selectedWidgets, setSelectedWidgets }) {
     const classes = useStyles();
+    const [expand, setExpand] = useState(false);
 
     return (
         <header className={styles.header}>
             <div className={styles.focusLogo}>
                 <img style={{ width: 175 }} src={FocusLogo} alt="FOCUS" />
             </div>
-
-            <div className={styles.dateTime}>
-                <DateTime />
+            <div
+                className={expand ? styles.collapseIcon : styles.collapseIconExpanded}
+                onClick={() => setExpand(!expand)}
+            >
+                <div className={styles.collapseBar}></div>
+                <div className={styles.collapseBar}></div>
+                <div className={styles.collapseBar}></div>
             </div>
+            <div className={expand ? styles.headerContainer : styles.headerContainerExpanded}>
+                <div className={styles.dateTime}>
+                    <DateTime />
+                </div>
 
-            <div className={styles.searchBar}>
-                <SearchBar />
-            </div>
+                <div className={styles.searchBar}>
+                    <SearchBar />
+                </div>
 
-            <div className={styles.addWidget}>
-                <SelectWidgetsModal
-                    selectedWidgets={selectedWidgets}
-                    setSelectedWidgets={setSelectedWidgets}
-                />
-            </div>
+                <div className={styles.addWidget}>
+                    <SelectWidgetsModal
+                        selectedWidgets={selectedWidgets}
+                        setSelectedWidgets={setSelectedWidgets}
+                    />
+                </div>
 
-            <div className={styles.userIcon}>
-                <IconButton aria-label="user menu" classes={{ root: classes.icon }}>
-                    <PersonIcon classes={{ root: classes.iconLabel }} />
-                </IconButton>
+                <div className={styles.userIcon}>
+                    <IconButton aria-label="user menu" classes={{ root: classes.icon }}>
+                        <PersonIcon classes={{ root: classes.iconLabel }} />
+                    </IconButton>
+                </div>
             </div>
         </header>
     );

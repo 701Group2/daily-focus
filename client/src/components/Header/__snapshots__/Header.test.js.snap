@@ -18,39 +18,57 @@ exports[`it renders correctly 1`] = `
     />
   </div>
   <div
-    className="dateTime"
+    className="collapseIconExpanded"
+    onClick={[Function]}
   >
-    <DateTime />
+    <div
+      className="collapseBar"
+    />
+    <div
+      className="collapseBar"
+    />
+    <div
+      className="collapseBar"
+    />
   </div>
   <div
-    className="searchBar"
+    className="headerContainerExpanded"
   >
-    <SearchBar />
-  </div>
-  <div
-    className="addWidget"
-  >
-    <SelectWidgetsModal />
-  </div>
-  <div
-    className="userIcon"
-  >
-    <WithStyles(ForwardRef(IconButton))
-      aria-label="user menu"
-      classes={
-        Object {
-          "root": "makeStyles-icon-3",
-        }
-      }
+    <div
+      className="dateTime"
     >
-      <Memo
+      <DateTime />
+    </div>
+    <div
+      className="searchBar"
+    >
+      <SearchBar />
+    </div>
+    <div
+      className="addWidget"
+    >
+      <SelectWidgetsModal />
+    </div>
+    <div
+      className="userIcon"
+    >
+      <WithStyles(ForwardRef(IconButton))
+        aria-label="user menu"
         classes={
           Object {
-            "root": "makeStyles-iconLabel-4",
+            "root": "makeStyles-icon-3",
           }
         }
-      />
-    </WithStyles(ForwardRef(IconButton))>
+      >
+        <Memo
+          classes={
+            Object {
+              "root": "makeStyles-iconLabel-4",
+            }
+          }
+        />
+      </WithStyles(ForwardRef(IconButton))>
+    </div>
   </div>
 </header>
 `;
