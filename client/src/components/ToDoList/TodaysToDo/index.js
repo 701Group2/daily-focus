@@ -26,6 +26,7 @@ function TodaysToDo({
     onSpendPoint,
 }) {
     const classes = useStyles();
+
     return (
         <div>
             <List disablePadding>

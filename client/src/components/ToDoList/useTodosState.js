@@ -88,7 +88,6 @@ function useTodosState(initialTodos, setIsAddingItem) {
             if (field === "startTime") {
                 sortSpecificTodoListByTime(newListOnThatDay);
             }
-
             const newList = { ...todoList };
             newList[date] = newListOnThatDay;
             setTodoList(newList);
