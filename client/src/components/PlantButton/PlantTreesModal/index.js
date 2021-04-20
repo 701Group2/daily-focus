@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Plant from "./Plant";
 import ControlButton from "./ControlButton";
+import ResetButton from "./ResetButton";
 import UserFeedback from "./UserFeedback";
 import stateUtils from "../stateUtils";
 
@@ -12,14 +13,28 @@ const usePlantProgressState = createPersistedState("plantProgress");
 function PlantTreesModal({ waterCoins, onSpendPoint }) {
     const [plantProgress, setPlantProgress] = usePlantProgressState(0);
 
-    const [config, setConfig] = useState({
-        plantSize: 0, //This var shows different trees pictures
-        feedback: stateUtils.feedback.start,
-    });
     const POINTS = {
         SEEDLING: 2, //small trees
         SMALL: 5, //medium trees
         FULL_GROWN: 10, // big trees
+    };
+
+    //This var shows different trees pictures
+    const getPlantSize = () => {
+        if (plantProgress >= POINTS.FULL_GROWN) return 3;
+        if (plantProgress >= POINTS.SMALL) return 2;
+        if (plantProgress >= POINTS.SEEDLING) return 1;
+        return 0;
+    };
+
+    const [config, setConfig] = useState({
+        plantSize: getPlantSize(), //This var shows different trees pictures
+        feedback: stateUtils.feedback.start,
+    });
+
+    const resetPlant = () => {
+        setPlantProgress(0);
+        setConfig({ ...config, feedback: stateUtils.feedback.start, plantSize: 0 });
     };
 
     const handlePlantGrowth = () => {
@@ -28,16 +43,12 @@ function PlantTreesModal({ waterCoins, onSpendPoint }) {
             if (newProgress >= POINTS.FULL_GROWN) {
                 setConfig({
                     ...config,
-                    plantSize: 3,
                     feedback: stateUtils.feedback.win,
                 }); //Change to the big trees pictures
-            } else if (newProgress >= POINTS.SMALL) {
-                setConfig({ ...config, plantSize: 2 }); //Change to the medium trees pictures
-            } else if (newProgress >= POINTS.SEEDLING) {
-                setConfig({ ...config, plantSize: 1 }); //Change to the small trees pictures
             }
             onSpendPoint();
             setPlantProgress(newProgress);
+            setConfig({ ...config, plantSize: getPlantSize() });
         } else {
             setConfig({ ...config, buttonState: false, feedback: stateUtils.feedback.noCoin });
         }
@@ -55,7 +66,7 @@ function PlantTreesModal({ waterCoins, onSpendPoint }) {
             <div>
                 {`Tasks Completed: ${waterCoins}`}
                 {/* plant display */}
-                <Plant plantImage={stateUtils.plantImageUrls[config.plantSize]}></Plant>
+                <Plant plantImage={stateUtils.plantImageUrls[getPlantSize()]}></Plant>
                 {/* control buttons */}
                 <ControlButton
                     control={stateUtils.controls.water}
@@ -64,6 +75,11 @@ function PlantTreesModal({ waterCoins, onSpendPoint }) {
                     image={stateUtils.buttonImageUrls.water}
                 />
                 <UserFeedback feedbackText={config.feedback} progress={getProgress()} />
+                <ResetButton
+                    control={stateUtils.controls.reset}
+                    resetPlant={resetPlant}
+                    image={stateUtils.buttonImageUrls.reset}
+                />
                 <div></div>
             </div>
         </div>
