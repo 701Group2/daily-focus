@@ -17,34 +17,9 @@ function Body({ selectedWidgets, setSelectedWidgets }) {
         <div className={styles.container}>
             {selectedWidgets && selectedWidgets.length ? (
                 <div className={styles.grid}>
-                    {selectedWidgets.includes("To Do List") && (
-                        <div className={styles.widget}>
-                            <ToDoList />
-                        </div>
-                    )}
-                    {selectedWidgets.includes("Calendar") && (
-                        <div className={styles.widget}>
-                            <CalendarWidget />
-                        </div>
-                    )}
-                    {selectedWidgets.includes("Timer") && (
-                        <div className={styles.widget}>
-                            <Timer />
-                        </div>
-                    )}
-                    {selectedWidgets.includes("Weather") && (
-                        <div className={styles.widget}>
-                            <Weather />
-                        </div>
-                    )}
                     {selectedWidgets.includes("Quote Of The Day") && (
                         <div className={styles.widget}>
                             <QuoteOfTheDay />
-                        </div>
-                    )}
-                    {selectedWidgets.includes("News Widget") && (
-                        <div className={styles.widget}>
-                            <NewsWidget />
                         </div>
                     )}
                     {selectedWidgets.includes("Fact Of The Day") && (
@@ -55,6 +30,31 @@ function Body({ selectedWidgets, setSelectedWidgets }) {
                     {selectedWidgets.includes("Spotify") && (
                         <div className={styles.widget}>
                             <SpotifyWidget />
+                        </div>
+                    )}
+                    {selectedWidgets.includes("Calendar") && (
+                        <div className={styles.widget}>
+                            <CalendarWidget />
+                        </div>
+                    )}
+                    {selectedWidgets.includes("News Widget") && (
+                        <div className={styles.widget}>
+                            <NewsWidget />
+                        </div>
+                    )}
+                    {selectedWidgets.includes("Weather") && (
+                        <div className={styles.widget}>
+                            <Weather />
+                        </div>
+                    )}
+                    {selectedWidgets.includes("To Do List") && (
+                        <div className={styles.widget}>
+                            <ToDoList />
+                        </div>
+                    )}
+                    {selectedWidgets.includes("Timer") && (
+                        <div className={styles.widget}>
+                            <Timer />
                         </div>
                     )}
                 </div>
