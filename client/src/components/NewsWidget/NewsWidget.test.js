@@ -31,14 +31,17 @@ test("dropdown default values load in", () => {
 test("the data is returned from the getArticles function (API endpoint works)", async () => {
     return getArticles("general", "nz").then((data) => {
         expect(data.length).toBeGreaterThan(0);
-        expect(typeof data[4].author).toBe("object");
-        expect(typeof data[4].content).toBe("string");
-        expect(typeof data[4].description).toBe("string");
-        expect(typeof data[4].publishedAt).toBe("string");
-        expect(typeof data[4].source).toBe("object");
-        expect(typeof data[4].source.name).toBe("string");
-        expect(typeof data[4].title).toBe("string");
-        expect(typeof data[4].url).toBe("string");
-        expect(typeof data[4].urlToImage).toBe("string");
+
+        // Check fields of the first article
+        expect(["string", "object"]).toContain(typeof data[0].author);
+        expect(["string", "object"]).toContain(typeof data[0].publishedAt);
+        expect(["string", "object"]).toContain(typeof data[0].urlToImage);
+        expect(["string", "object"]).toContain(typeof data[0].source.name);
+        expect(["string", "object"]).toContain(typeof data[0].content);
+        expect(["string", "object"]).toContain(typeof data[0].content);
+        expect(typeof data[0].description).toBe("string");
+        expect(typeof data[0].source).toBe("object");
+        expect(typeof data[0].title).toBe("string");
+        expect(typeof data[0].url).toBe("string");
     });
 });
