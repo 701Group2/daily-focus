@@ -38,8 +38,6 @@ export default function LandingPage() {
     const [password, setPassword] = useState("");
 
     const fetchSignup = (username, password) => {
-        console.log(username);
-        console.log(password);
         let signupSuccess = true;
         fetch("http://localhost:9000/signup", {
             method: "POST",
