@@ -1,0 +1,25 @@
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    text-align: center;
+}
+
+.author {
+    font-size: 16px;
+    font-style: italic;
+    text-align: center;
+}
+
+.settingButtonDiv {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 5px;
+}
+.settingButton {
+    background-color: #30a0f5;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}

@@ -4,6 +4,13 @@ import styles from "./style.module.scss";
 import CalendarWidget from "../CalendarWidget";
 import Timer from "../Timer";
 import ToDoList from "../ToDoList";
+import Weather from "../Weather";
+
+import QuoteOfTheDay from "../QuoteOfTheDay";
+
+import NewsWidget from "../NewsWidget";
+import FactOfTheDay from "../FactOfTheDay";
+import SpotifyWidget from "../SpotifyWidget";
 
 function Body({ selectedWidgets, setSelectedWidgets }) {
     return (
@@ -23,6 +30,31 @@ function Body({ selectedWidgets, setSelectedWidgets }) {
                     {selectedWidgets.includes("Timer") && (
                         <div className={styles.widget}>
                             <Timer />
+                        </div>
+                    )}
+                    {selectedWidgets.includes("Weather") && (
+                        <div className={styles.widget}>
+                            <Weather />
+                        </div>
+                    )}
+                    {selectedWidgets.includes("Quote Of The Day") && (
+                        <div className={styles.widget}>
+                            <QuoteOfTheDay />
+                        </div>
+                    )}
+                    {selectedWidgets.includes("News Widget") && (
+                        <div className={styles.widget}>
+                            <NewsWidget />
+                        </div>
+                    )}
+                    {selectedWidgets.includes("Fact Of The Day") && (
+                        <div className={styles.widget}>
+                            <FactOfTheDay />
+                        </div>
+                    )}
+                    {selectedWidgets.includes("Spotify") && (
+                        <div className={styles.widget}>
+                            <SpotifyWidget />
                         </div>
                     )}
                 </div>

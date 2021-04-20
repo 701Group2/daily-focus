@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders correctly 1`] = `
+<div>
+  <p
+    className="content"
+  >
+    Loren Ipsum
+  </p>
+  <p
+    className="author"
+  >
+    - Dolor
+  </p>
+  <div
+    className="settingButtonDiv"
+  >
+    <WithStyles(ForwardRef(Fab))
+      className="settingButton"
+      classes={
+        Object {
+          "root": "makeStyles-btn-1",
+        }
+      }
+      color="primary"
+      onClick={[Function]}
+      size="medium"
+    >
+      <Memo />
+    </WithStyles(ForwardRef(Fab))>
+  </div>
+</div>
+`;
