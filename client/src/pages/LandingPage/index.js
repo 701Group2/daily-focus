@@ -58,7 +58,6 @@ export default function LandingPage() {
             })
             .then((data) => {
                 // Signup unsuccessful
-                console.log(data);
                 if (!signupSuccess) {
                     if (data.message) {
                         setSignupMsg(data.message);
@@ -70,7 +69,6 @@ export default function LandingPage() {
                 }
 
                 // Signup successful
-                console.log(data);
                 setSignupMsg("Sign up succesful");
                 setSignupMsgboxOpen(true);
                 history.push("/login");
