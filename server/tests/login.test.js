@@ -44,7 +44,8 @@ describe("login user endpoint  ", () => {
             .set("Accept", "application/json")
             .send(authorizedPasswordAndEmailInput);
 
-        expect(response.status).toBe(200);
+        // Tests validation
+        expect(response.status).toEqual(200);
         expect(response.body).toEqual(mockToken);
 
         //tests firebase method calls for creating a user
@@ -60,7 +61,8 @@ describe("login user endpoint  ", () => {
             .set("Accept", "application/json")
             .send(unauthorizedAccountInput);
 
-        expect(response.status).toBe(401);
+        // Tests validation
+        expect(response.status).toEqual(401);
         expect(response.body).toEqual(unauthorizedEmailPasswordMessage);
 
         //tests firebase method calls for creating a user
