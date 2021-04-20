@@ -21,7 +21,7 @@ const sortOverallTodosByDate = (overallTodos) => {
 };
 
 const sortSpecificTodoListByTime = (todos) =>
-    todos.sort((thisTodo, otherTodo) => thisTodo.time.localeCompare(otherTodo.time));
+    todos.sort((thisTodo, otherTodo) => thisTodo.startTime.localeCompare(otherTodo.startTime));
 
 const newTodaysDate = moment().format("YYYY-MM-D");
 
@@ -52,19 +52,22 @@ function useTodosState(initialTodos, setIsAddingItem) {
 
     return {
         todoList,
-        addTodoItem: (date, time, title, details) => {
+        addTodoItem: (startDate, startTime, endDate, endTime, title, details) => {
             const newTaskObject = {
                 checked: false,
-                time,
+                startTime,
+                endTime,
+                startDate,
+                endDate,
                 title,
                 details,
             };
-            const currentListOnThatDate = todoList[date] || [];
+            const currentListOnThatDate = todoList[startDate] || [];
             const newList = [...currentListOnThatDate, newTaskObject];
             sortSpecificTodoListByTime(newList);
 
             let todoListCopy = { ...todoList };
-            todoListCopy[date] = newList;
+            todoListCopy[startDate] = newList;
             todoListCopy = sortOverallTodosByDate(todoListCopy);
 
             setTodoList(todoListCopy);
@@ -82,7 +85,7 @@ function useTodosState(initialTodos, setIsAddingItem) {
         editTodoItem: (index, date, field, updatedValue) => {
             const newListOnThatDay = [...todoList[date]];
             newListOnThatDay[index][field] = updatedValue;
-            if (field === "time") {
+            if (field === "startTime") {
                 sortSpecificTodoListByTime(newListOnThatDay);
             }
             const newList = { ...todoList };

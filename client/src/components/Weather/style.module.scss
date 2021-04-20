@@ -1,0 +1,138 @@
+.weatherWidget {
+    width: 340px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.container {
+    width: 340px;
+    height: 400px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 16px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+    position: absolute;
+}
+
+.headerRectangle {
+    width: 340px;
+    height: 47.88px;
+    background: #30a0f5;
+    border-radius: 25px 25px 0px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.weatherTextBox {
+    width: 251px;
+    height: 47.88px;
+    font-family: Ropa Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+}
+
+.currentWeatherBox {
+    width: 300px;
+    height: 80.8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.temp {
+    font-family: Ropa Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}
+
+.tempBounds {
+    width: 82px;
+    height: 20.95px;
+    font-family: Ropa Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 15px;
+    display: flex;
+    align-items: center;
+    text-align: right;
+
+    color: #000000;
+}
+
+.weatherNZ {
+    width: 179px;
+    height: 19.95px;
+    font-family: Ropa Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 15px;
+    display: flex;
+    align-items: center;
+    text-align: right;
+    color: #000000;
+}
+
+.iconContainer {
+    font-size: 70px;
+    width: 100px;
+    height: 80.8px;
+    float: left;
+}
+
+.hourlyForecast {
+    width: 300px;
+    height: 67.83px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.dailyForecast {
+    width: 291px;
+    height: 123.69px;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    display: flex;
+    height: 330px;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.errorContainer {
+    height: 330px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading {
+    width: 100%;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+
+    svg {
+        color: #30a0f5;
+    }
+}

@@ -34,9 +34,12 @@ function TodaysToDo({
                     <ToDoItem
                         key={index}
                         checked={object.checked}
-                        title={object.title}
-                        time={object.time}
-                        details={object.details}
+                        title={object.title !== undefined ? object.title : ""}
+                        startTime={object.startTime}
+                        endTime={object.endTime}
+                        startDate={object.startDate}
+                        endDate={object.endDate}
+                        details={object.details !== undefined ? object.details : ""}
                         onCheckboxClicked={() => toggleCheck(index, todaysDate)}
                         onDelete={() => deleteItem(index, todaysDate)}
                         onEdit={(field, newValue) => editItem(index, todaysDate, field, newValue)}

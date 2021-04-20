@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders correctly 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="listHolder"
+  >
+    <CategoryItem
+      clickHandler={[Function]}
+      selected={true}
+      text="Chuck Norris"
+      value="chuck-norris"
+    />
+    <CategoryItem
+      clickHandler={[Function]}
+      selected={false}
+      text="Taylor Swift"
+      value="taylor-swift"
+    />
+    <CategoryItem
+      clickHandler={[Function]}
+      selected={false}
+      text="Kanye West"
+      value="kanye-west"
+    />
+    <CategoryItem
+      clickHandler={[Function]}
+      selected={false}
+      text="Programming"
+      value="programming"
+    />
+    <CategoryItem
+      clickHandler={[Function]}
+      selected={false}
+      text="Anime ( ͡° ͜ʖ ͡°)"
+      value="anime"
+    />
+  </div>
+  <div
+    className="settingButtonDiv"
+  >
+    <WithStyles(ForwardRef(Fab))
+      className="settingButton"
+      classes={
+        Object {
+          "root": "makeStyles-btn-1",
+        }
+      }
+      color="primary"
+      onClick={[Function]}
+      size="medium"
+    >
+      <Memo />
+    </WithStyles(ForwardRef(Fab))>
+  </div>
+</div>
+`;

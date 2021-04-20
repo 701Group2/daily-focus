@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Selected item renders correctly 1`] = `
+<div
+  className="selectedCategoryOption"
+  id="quoteCategoryValue-undefined"
+  onClick={[Function]}
+>
+  Text
+  <Memo />
+</div>
+`;
+
+exports[`Unselected item renders correctly 1`] = `
+<div
+  className="categoryOption"
+  id="quoteCategoryValue-undefined"
+  onClick={[Function]}
+>
+  Text
+  <Memo />
+</div>
+`;
