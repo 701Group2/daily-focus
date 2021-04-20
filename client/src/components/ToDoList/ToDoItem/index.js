@@ -24,6 +24,12 @@ const useStyles = makeStyles({
     subItem: {
         paddingTop: 0,
         paddingBottom: 0,
+        display: "flex",
+        flexWrap: "wrap",
+    },
+    todoInputTextField: {
+        width: "100%",
+        margin: "10px 0",
     },
 });
 
